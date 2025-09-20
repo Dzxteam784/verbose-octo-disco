@@ -32,7 +32,7 @@ function LoginUI:Create()
     frame.Parent = screenGui
     
     local stroke = Instance.new("UIStroke")
-    stroke.Thickness = 1 --ความหนา
+    stroke.Thickness = 2 --ความหนา
     stroke.Color = Color3.fromRGB(0, 0, 255)
     stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     stroke.Parent = frame 
