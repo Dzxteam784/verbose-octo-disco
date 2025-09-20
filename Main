@@ -30,6 +30,14 @@ function LoginUI:Create()
     frame.BorderColor3 = Color3.fromRGB(0,0,255)
     frame.BorderSizePixel = 4
     frame.Parent = screenGui
+    
+    local stroke = Instance.new("UIStroke")
+    stroke.Thickness = 4
+    stroke.Color = Color3.fromRGB(0, 0, 255)
+    stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+    stroke.Parent = frame 
+    
+    
 
     -- Rounded Corners
     local corner = Instance.new("UICorner")
