@@ -47,7 +47,7 @@ function LoginUI:Create()
     -- Title
     local title = Instance.new("TextLabel")
     title.Size = UDim2.new(1,0,0,50)
-    title.Position = UDim2.new(0,0,0,15)
+    title.Position = UDim2.new(0,0,0,2)
     title.Text = "DZHUB"
     title.Font = Enum.Font.Gotham  -- ✅ ใช้ Gotham
     title.TextSize = 28
