@@ -22,12 +22,12 @@ function LoginUI:Create()
 
     -- Main Frame (โปร่งใส + กว้างขึ้น + ขอบน้ำเงิน)
     local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(0, 450, 0, 230) -- ✅ กว้างขึ้น
+    frame.Size = UDim2.new(0, 450, 0, 230)
     frame.Position = UDim2.new(0.5, 0, 0.5, 0)
     frame.AnchorPoint = Vector2.new(0.5,0.5)
     frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
-    frame.BackgroundTransparency = 0.6 -- ✅ โปร่งใส
-    frame.BorderColor3 = Color3.fromRGB(0,0,255) -- ✅ ขอบสีน้ำเงิน
+    frame.BackgroundTransparency = 0.6
+    frame.BorderColor3 = Color3.fromRGB(0,0,255)
     frame.BorderSizePixel = 4
     frame.Parent = screenGui
 
@@ -41,15 +41,15 @@ function LoginUI:Create()
     title.Size = UDim2.new(1,0,0,50)
     title.Position = UDim2.new(0,0,0,10)
     title.Text = "DZHUB"
-    title.Font = Enum.Font.GothamBold
+    title.Font = Enum.Font.Gotham  -- ✅ ใช้ Gotham
     title.TextSize = 28
-    title.TextColor3 = Color3.fromRGB(0,0,255) -- ✅ น้ำเงิน
+    title.TextColor3 = Color3.fromRGB(0,0,255)
     title.BackgroundTransparency = 1
     title.Parent = frame
 
     -- Key Input
     local keyBox = Instance.new("TextBox")
-    keyBox.Size = UDim2.new(0, 300, 0, 45) -- ✅ กว้างขึ้น
+    keyBox.Size = UDim2.new(0, 300, 0, 45)
     keyBox.Position = UDim2.new(0.5,0,0.5,-20)
     keyBox.AnchorPoint = Vector2.new(0.5,0.5)
     keyBox.PlaceholderText = "Enter Key"
@@ -59,8 +59,8 @@ function LoginUI:Create()
     keyBox.BackgroundTransparency = 0.3
     keyBox.TextColor3 = Color3.fromRGB(255,255,255)
     keyBox.BorderSizePixel = 2
-    keyBox.BorderColor3 = Color3.fromRGB(0,0,255) -- ✅ ขอบน้ำเงิน
-    keyBox.Font = Enum.Font.Gotham
+    keyBox.BorderColor3 = Color3.fromRGB(0,0,255)
+    keyBox.Font = Enum.Font.Gotham  -- ✅ ใช้ Gotham
     keyBox.TextSize = 20
     keyBox.Parent = frame
 
@@ -74,10 +74,10 @@ function LoginUI:Create()
     enterButton.Position = UDim2.new(0.5,0,0.8,0)
     enterButton.AnchorPoint = Vector2.new(0.5,0.5)
     enterButton.Text = "Enter"
-    enterButton.Font = Enum.Font.GothamBold
+    enterButton.Font = Enum.Font.Gotham  -- ✅ ใช้ Gotham
     enterButton.TextSize = 22
     enterButton.TextColor3 = Color3.fromRGB(255,255,255)
-    enterButton.BackgroundColor3 = Color3.fromRGB(0,0,255) -- ✅ น้ำเงิน
+    enterButton.BackgroundColor3 = Color3.fromRGB(0,0,255)
     enterButton.Parent = frame
 
     local buttonCorner = Instance.new("UICorner")
