@@ -1,0 +1,83 @@
+-- File: LoginUI.lua
+local LoginUI = {}
+
+function LoginUI:Create()
+    local Players = game:GetService("Players")
+    local player = Players.LocalPlayer
+    local playerGui = player:WaitForChild("PlayerGui")
+
+    -- ScreenGui
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "DZHUBLogin"
+    screenGui.ResetOnSpawn = false
+    screenGui.Parent = playerGui
+
+    -- Blur Background
+    local blur = Instance.new("BlurEffect")
+    blur.Size = 15
+    blur.Parent = game.Lighting
+
+    -- Main Frame
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0, 350, 0, 200)
+    frame.Position = UDim2.new(0.5, -175, 0.5, -100)
+    frame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+    frame.BorderColor3 = Color3.fromRGB(255,0,0)
+    frame.BorderSizePixel = 3
+    frame.AnchorPoint = Vector2.new(0.5,0.5)
+    frame.Parent = screenGui
+    frame.ClipsDescendants = true
+
+    -- Rounded Corners
+    local corner = Instance.new("UICorner")
+    corner.CornerRadius = UDim.new(0,15)
+    corner.Parent = frame
+
+    -- Title Label
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(1,0,0,50)
+    title.Position = UDim2.new(0,0,0,10)
+    title.Text = "DZHUB"
+    title.Font = Enum.Font.GothamBold
+    title.TextSize = 28
+    title.TextColor3 = Color3.fromRGB(255,0,0)
+    title.BackgroundTransparency = 1
+    title.Parent = frame
+
+    -- Key Input
+    local keyBox = Instance.new("TextBox")
+    keyBox.Size = UDim2.new(0, 250, 0, 40)
+    keyBox.Position = UDim2.new(0.5, -125, 0.5, -20)
+    keyBox.PlaceholderText = "Key"
+    keyBox.Text = ""
+    keyBox.ClearTextOnFocus = false
+    keyBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
+    keyBox.TextColor3 = Color3.fromRGB(255,255,255)
+    keyBox.BorderSizePixel = 2
+    keyBox.BorderColor3 = Color3.fromRGB(255,0,0)
+    keyBox.Font = Enum.Font.Gotham
+    keyBox.TextSize = 20
+    keyBox.AnchorPoint = Vector2.new(0.5,0.5)
+    keyBox.Parent = frame
+
+    -- Input Rounded Corners
+    local inputCorner = Instance.new("UICorner")
+    inputCorner.CornerRadius = UDim.new(0,10)
+    inputCorner.Parent = keyBox
+
+    local ui = {}
+    ui.Frame = frame
+    ui.KeyBox = keyBox
+    ui.ScreenGui = screenGui
+    ui.Blur = blur
+
+    -- Destroy UI
+    function ui:Destroy()
+        blur:Destroy()
+        screenGui:Destroy()
+    end
+
+    return ui
+end
+
+return LoginUI
