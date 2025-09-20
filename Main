@@ -44,16 +44,16 @@ function LoginUI:Create()
     corner.CornerRadius = UDim.new(0,15)
     corner.Parent = frame
 
-    -- Title
-    local title = Instance.new("TextLabel")
-    title.Size = UDim2.new(1,0,0,50)
-    title.Position = UDim2.new(0,0,0,-10)
-    title.Text = "DZHUB"
-    title.Font = Enum.Font.Gotham  -- ✅ ใช้ Gotham
-    title.TextSize = 28
-    title.TextColor3 = Color3.fromRGB(0,0,255)
-    title.BackgroundTransparency = 1
-    title.Parent = frame
+    -- Title Image (ใช้ Asset ID ที่คุณได้)
+    local titleImage = Instance.new("ImageLabel")
+    titleImage.Size = UDim2.new(0, 120, 0, 120) -- ขนาดรูป
+    titleImage.Position = UDim2.new(0.5, 0, 0, 10) -- อยู่ด้านบนกลาง
+    titleImage.AnchorPoint = Vector2.new(0.5, 0)
+    titleImage.BackgroundTransparency = 1
+    titleImage.Image = "rbxassetid://85472171136502" -- ใส่ Asset ID ของคุณ
+    titleImage.Parent = frame
+
+
 
     -- Key Input
     local keyBox = Instance.new("TextBox")
