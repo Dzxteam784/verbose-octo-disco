@@ -46,7 +46,7 @@ function LoginUI:Create()
 
     -- Title Image (ใช้ Asset ID ที่คุณได้)
     local titleImage = Instance.new("ImageLabel")
-    titleImage.Size = UDim2.new(0, 100, 0, 100) -- ขนาดรูป
+    titleImage.Size = UDim2.new(0, 10, 0, 10) -- ขนาดรูป
     titleImage.Position = UDim2.new(0, 0, 0, 10) -- อยู่ด้านบนกลาง
     titleImage.AnchorPoint = Vector2.new(0.5, 0)
     titleImage.BackgroundTransparency = 1
