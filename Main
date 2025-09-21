@@ -46,11 +46,11 @@ function LoginUI:Create()
 
     -- Title Image (ใช้ Asset ID ที่คุณได้)
     local titleImage = Instance.new("ImageLabel")
-    titleImage.Size = UDim2.new(0, 10, 0, 10) -- ขนาดรูป
-    titleImage.Position = UDim2.new(0, 0, 0, 10) -- อยู่ด้านบนกลาง
-    titleImage.AnchorPoint = Vector2.new(0.5, 0)
+    titleImage.Size = UDim2.new(0, 300, 0, 100) -- ขนาดใหญ่พอเห็น
+    titleImage.Position = UDim2.new(0.5, 0, 0, 10) -- ด้านบนกลาง
+    titleImage.AnchorPoint = Vector2.new(0.5,0)
     titleImage.BackgroundTransparency = 1
-    titleImage.Image = "rbxassetid://5971536625" -- ใส่ Asset ID ของคุณ
+    titleImage.Image = "rbxassetid://85472171136502" -- ใช้ DZHUB LOGO ของคุณ
     titleImage.Parent = frame
 
 
