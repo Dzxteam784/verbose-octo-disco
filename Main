@@ -4637,8 +4637,8 @@ function Library:Window(p)
 			})
 		end)
 
-			do
-			local CloseUI = p.CloseUIButton
+do
+local CloseUI = p.CloseUIButton
 local CloseUIShadow = Instance.new("ImageLabel")
 local BackgroundCloseUI_1 = Instance.new("Frame")
 local UICornerCloseUI_1 = Instance.new("UICorner")
@@ -4706,5 +4706,6 @@ end)
 
 	return Tabs
 end
+
 
 return Library
