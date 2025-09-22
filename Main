@@ -32,7 +32,7 @@ function LoginUI:Create()
     frame.Parent = screenGui
     
     local stroke = Instance.new("UIStroke")
-    stroke.Thickness = 2 --ความหนา
+    stroke.Thickness = 1 --ความหนา
     stroke.Color = Color3.fromRGB(0, 0, 255)
     stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
     stroke.Parent = frame 
@@ -44,16 +44,20 @@ function LoginUI:Create()
     corner.CornerRadius = UDim.new(0,15)
     corner.Parent = frame
 
-    -- Title Image (ใช้ Asset ID ที่คุณได้)
-    local titleImage = Instance.new("ImageLabel")
-    titleImage.Size = UDim2.new(0, 300, 0, 100) -- ขนาดใหญ่พอเห็น
-    titleImage.Position = UDim2.new(0.5, 0, 0, 10) -- ด้านบนกลาง
-    titleImage.AnchorPoint = Vector2.new(0.5,0)
-    titleImage.BackgroundTransparency = 1
-    titleImage.Image = "rbxassetid://5971536625" -- ใช้ DZHUB LOGO ของคุณ
-    titleImage.Parent = frame
+    -- Title
+    local title = Instance.new("TextLabel")
+    title.Size = UDim2.new(1,0,0,50)
+    title.Position = UDim2.new(0,0,0,5)
+    title.Text = "DZHUB"
+    title.TextSize = 28
+    title.TextColor3 = Color3.fromRGB(0,0,255)
+    title.BackgroundTransparency = 1
 
+-- ใช้ Custom Font
+    title.FontFace = Font.new(12187367901)  -- ✅ ใส่ AssetID ของฟ้อนท์ที่อัปโหลด
+-- title.FontFace = Font.new("rbxassetid://12187367901") ก็ได้เหมือนกัน
 
+    title.Parent = frame
 
     -- Key Input
     local keyBox = Instance.new("TextBox")
