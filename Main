@@ -54,7 +54,7 @@ function LoginUI:Create()
     title.BackgroundTransparency = 1
 
 
-    title.FontFace = Font.new("rbxassetid://12187367901") ก็ได้เหมือนกัน
+    title.FontFace = Font.new("rbxassetid://12187367901")
 
     title.Parent = frame
 
