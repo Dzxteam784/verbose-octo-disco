@@ -290,7 +290,7 @@ local function getPredictedPosition(target)
     if not root then return target.Position end
 
     local velocity = root.Velocity or Vector3.new(0,0,0)
-    local ping = 0.2 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
+    local ping = 0.23 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
     
     -- ตำแหน่งที่คาดการณ์อนาคต
     local predictedPos = target.Position + velocity * ping
@@ -308,7 +308,7 @@ oldSendFire = hookfunction(SendRemote.FireServer, function(self, ...)
             local predictedPos = getPredictedPosition(targetHead)
 
             -- ยิงไปตำแหน่งที่คาดการณ์
-            args[4] = CFrame.new(LocalPlayer.Character.Head.Position, predictedPos)
+            args[4] = CFrame.new(math.huge, math.huge, math.huge) 
             args[5] = {
                 {
                     {
