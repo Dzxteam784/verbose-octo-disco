@@ -563,14 +563,13 @@ end)
 
 
 
-
-local plr = pls
+local plr = game:GetService("Players").LocalPlayer
 
 local DROP_Y = -100
 local HEALTH_MIN = 20
 local HEALTH_RECOVER = 30
 
-local isDropping = true 
+local isDropping = false 
 local antiKillEnabled = true -- เพิ่มตัวแปรเชื่อมกับ Toggle
 
 -- ฟังก์ชันตั้งค่า character
@@ -592,7 +591,7 @@ local function setupCharacter(char)
                 break
             end  
             rootPart.CFrame = CFrame.new(fixedPos)  
-            task.wait(0.0001)
+            task.wait(0.001)
         end
     end
 
@@ -610,6 +609,8 @@ end
 
 -- เรียกใหม่ทุกครั้งที่ respawn
 plr.CharacterAdded:Connect(setupCharacter)
+
+
 
 
 
