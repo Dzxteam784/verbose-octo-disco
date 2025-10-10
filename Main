@@ -338,7 +338,7 @@ local function getPredictedPosition(target)
     if not root then return target.Position end
 
     local velocity = root.Velocity or Vector3.new(0,0,0)
-    local ping = 0.25 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
+    local ping = 0.19 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
     
     -- ตำแหน่งที่คาดการณ์อนาคต
     local predictedPos = target.Position + velocity * ping
