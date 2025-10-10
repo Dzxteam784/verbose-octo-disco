@@ -254,7 +254,7 @@ local function createTracer(startPos, endPos, hitPlayer)
     tracer.Size = Vector3.new(0.1, 0.1, (startPos - endPos).Magnitude)
     tracer.CFrame = CFrame.new((startPos + endPos)/2, endPos)
     tracer.Parent = workspace
-    game:GetService("Debris"):AddItem(tracer, 1)
+    game:GetService("Debris"):AddItem(tracer, 1.5)
 end
 
 -- Update FOV + ESP
@@ -290,7 +290,7 @@ local function getPredictedPosition(target)
     if not root then return target.Position end
 
     local velocity = root.Velocity or Vector3.new(0,0,0)
-    local ping = 0.23 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
+    local ping = 0.25 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
     
     -- ตำแหน่งที่คาดการณ์อนาคต
     local predictedPos = target.Position + velocity * ping
@@ -719,7 +719,7 @@ do
     
 
 local highJumpEnabled = false
-local jumpHeight = 50 -- ความสูงของกระโดด
+local jumpHeight = 30 -- ความสูงของกระโดด
 
 
 -- ฟังก์ชันตั้งค่า High Jump ให้ตัวละคร
@@ -779,7 +779,7 @@ local function setupLongStride(character)
         -- เชื่อมฟังก์ชันก้าวยาว
         RunService.RenderStepped:Connect(function()
             if longStrideEnabled and humanoid.MoveDirection.Magnitude > 0 then
-                root.CFrame = root.CFrame + humanoid.MoveDirection * strideLength * 0.04
+                root.CFrame = root.CFrame + humanoid.MoveDirection * strideLength * 0.05
             end
         end)
     end
@@ -813,72 +813,6 @@ local longStrideToggle = Character:Toggle({
     
     
 Character:Space()
-
-    
-local player = pls
-local longStrideEnabled = false
-local randomTask -- เก็บ task loop เอาไว้หยุดทีหลัง
-
--- ฟังก์ชันสุ่มเลข 10 หลัก
-local function random10Digit()
-    local number = ""
-    for i = 1, 12 do
-        number = number .. tostring(math.random(0, 9))
-    end
-    return number
-end
-
--- ฟังก์ชันเริ่มสุ่มเลข
-local function startRandom(character)
-    local hrp = character:WaitForChild("HumanoidRootPart")
-    local billboard = hrp:WaitForChild("CharacterBillboardGui")
-    local nameLabel = billboard:WaitForChild("PlayerName")
-
-    randomTask = task.spawn(function()
-        while longStrideEnabled and character.Parent do
-            nameLabel.Text = random10Digit()
-            task.wait(0.001)
-        end
-    end)
-end
-
--- ฟังก์ชันหยุดสุ่ม
-local function stopRandom()
-    longStrideEnabled = false
-end
-
--- ปุ่ม Toggle UI
-local longStrideToggle = Character:Toggle({
-    Title = "Random Name",
-    Value = false,
-    Callback = function(state)
-        longStrideEnabled = state
-
-        WindUI:Notify({
-            Title = "Random Number",
-            Content = state and "Enabled" or "Disabled",
-            Icon = state and "check" or "x",
-            Duration = 2
-        })
-
-        -- ตรวจว่ามี Character แล้วค่อยเริ่มสุ่ม
-        if state then
-            local char = player.Character or player.CharacterAdded:Wait()
-            startRandom(char)
-        else
-            stopRandom()
-        end
-    end
-})
-
--- รองรับตอนผู้เล่นเกิดใหม่
-player.CharacterAdded:Connect(function(newChar)
-    if longStrideEnabled then
-        startRandom(newChar)
-    end
-end)
-    
-    
     
     
     
