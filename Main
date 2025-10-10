@@ -1,240 +1,189 @@
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-
-Rayfield:LoadConfiguration()
-
-
-local Window = Rayfield:CreateWindow({
-   Name = "DzHub 1.0.0",
-   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
-   LoadingTitle = "DzHub Interface Suite",
-   LoadingSubtitle = "by dan",
-   ShowText = "DzHub", -- for mobile users to unhide rayfield, change if you'd like
-   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
-
-   ToggleUIKeybind = "K", -- The keybind to  the UI visibility (string like "K" or Enum.KeyCode)
-
-   DisableRayfieldPrompts = false,
-   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
-
-   ConfigurationSaving = {
-      Enabled = true,
-      FolderName = nil, -- Create a custom folder for your hub/game
-      FileName = "Big Hub"
-   },
-
-   Discord = {
-      Enabled = false, -- Prompt the user to join your Discord server if their executor supports it
-      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
-      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-   },
-
-   KeySystem = true, -- Set this to true to use our key system
-   KeySettings = {
-      Title = "DzHub",
-      Subtitle = "Key System",
-      Note = "No method of obtaining the key is provided", -- Use this to tell the user how to get a key
-      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-      Key = {"1234"} --กำหนดแบบหลายคีได้เช่น1234,test
-   }
-})
-
-local Tab = Window:CreateTab("Main", 10723407389) -- Title, Image
-
-
--- สมมติว่า Tab = Window:CreateTab("Main", 10723407389) 
-local moneyLabel = Tab:CreateLabel("Bank: Loading...") -- สร้าง Label ผ่าน Rayfield
-
--- เชื่อมกับ Data Module
+local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Data = require(ReplicatedStorage.Modules.Core.Data)
-
--- ฟังก์ชันอัปเดตเงิน
-local function updateMoney(newMoney)
-    if newMoney and newMoney.bank then
-        moneyLabel:Set("🏛 Bank: $" .. tostring(newMoney.bank))
-    else
-        moneyLabel:Set("Bank: 0")
-    end
-end
-
--- อัปเดตทันทีตอนเปิด GUI
-updateMoney(Data.money)
-
--- อัปเดตอัตโนมัติเมื่อค่าเงินเปลี่ยน
-Data.hook("money", function(newMoney)
-    updateMoney(newMoney)
-end)
+local pls = game.Players.LocalPlayer
+local highJumpEnabled = false -- ค่าเริ่มต้นปิด
 
 
 
 
-
-
-
-
-
-
-local plr = game:GetService("Players").LocalPlayer
-
-local DROP_Y = -100
-local HEALTH_MIN = 20
-local HEALTH_RECOVER = 30
-
-local isDropping = false 
-local antiKillEnabled = true -- เพิ่มตัวแปรเชื่อมกับ Toggle
-
--- ฟังก์ชันตั้งค่า character
-local function setupCharacter(char)
-    local humanoid = char:WaitForChild("Humanoid")
-    local rootPart = char:WaitForChild("HumanoidRootPart")
-
-    local function startDrop()
-        if not antiKillEnabled then return end
-        if isDropping then return end
-        isDropping = true
-
-        local fixedPos = rootPart.Position  
-        fixedPos = Vector3.new(fixedPos.X, fixedPos.Y + DROP_Y, fixedPos.Z)  
-
-        while isDropping do  
-            if humanoid.Health >= HEALTH_RECOVER or humanoid.Health <= 0 then
-                isDropping = false
-                break
-            end  
-            rootPart.CFrame = CFrame.new(fixedPos)  
-            task.wait(0.0001)
-        end
-    end
-
-    humanoid.HealthChanged:Connect(function(hp)
-        if hp < HEALTH_MIN and hp > 0 then
-            startDrop()
-        end
-    end)
-end
-
--- เรียกตอนเริ่มเกม
-if plr.Character then
-    setupCharacter(plr.Character)
-end
-
--- เรียกใหม่ทุกครั้งที่ respawn
-plr.CharacterAdded:Connect(setupCharacter)
-
-
-
-
-local AntiKillToggle = Tab:CreateToggle({
-    Name = "AntiKill",
-    CurrentValue = false,
-    Flag = "AntiKillToggle",
-    Callback = function(Value)
-        antiKillEnabled = Value
-    end
+-- */  Window  /* --
+local Window = WindUI:CreateWindow({
+    Title = "DZHUB  | v-1.0 Test",
+    Author = "by danzaza ",
+    NewElements = true,
+    
+    HideSearchBar = false,
+    
+    OpenButton = {
+        Title = "Open DZHUB UI", -- can be changed
+        CornerRadius = UDim.new(1,0), -- fully rounded
+        StrokeThickness = 3, -- removing outline
+        Enabled = true, -- enable or disable openbutton
+        Draggable = true,
+        OnlyMobile = false,
+        
+        Color = ColorSequence.new( -- gradient
+            Color3.fromHex("#30FF6A"), 
+            Color3.fromHex("#e7ff2f")
+        )
+    }
 })
 
+--Window:SetTitle(Window.Title .. " | " .. WindUI.Version)
 
 
-
-
-local SprintModule = require(game:GetService("ReplicatedStorage").Modules.Game.Sprint)
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
--- สร้างตัวแปรสำหรับเปิด/ปิดระบบ
-local SprintInfinitiEnabled = false 
-
--- อัพเดต WalkSpeed ทุกเฟรม
-game:GetService("RunService").RenderStepped:Connect(function()
-    if SprintInfinitiEnabled then
-        local char = LocalPlayer.Character
-        if char and char:FindFirstChild("Humanoid") then
-            local hum = char.Humanoid
-            -- คำนวณ WalkSpeed ตาม sprinting
-            local speedMultiplier = LocalPlayer:GetAttribute("SpeedMultiplier") or 1
-            local baseSpeed = game.StarterPlayer.CharacterWalkSpeed
-            hum.WalkSpeed = baseSpeed * speedMultiplier * 2.2 -- Sprint 2.2x
-            hum:SetAttribute("TargetWalkSpeed", hum.WalkSpeed)
-        end
-    end
-end)
-
--- ป้องกัน module ปิด sprinting
-SprintModule.sprinting.hook(function(newValue)
-    if SprintInfinitiEnabled and newValue == false then
-        SprintModule.sprinting.set(true)
-    end
-end)
-
--- เพิ่มปุ่ม Toggle
-local SpringInfiniti = Tab:CreateToggle({
-    Name = "Sprint Infiniti",
-    CurrentValue = false,
-    Flag = "SprintInfiniti",
-    Callback = function(Value)
-        SprintInfinitiEnabled = Value
-    end
+-- */  Configuring OpenButton  /* --
+--[[ moved to :CreateWindow(...)
+Window:EditOpenButton({
+    Title = "Open DZHUB UI", -- can be changed
+    CornerRadius = UDim.new(1,0), -- fully rounded
+    StrokeThickness = 3, -- removing outline
+    Enabled = true, -- enable or disable openbutton
+    Draggable = true,
+    OnlyMobile = false,
+    
+    Color = ColorSequence.new( -- gradient
+        Color3.fromHex("#30FF6A"), 
+        Color3.fromHex("#e7ff2f")
+    )
+    
+    -- Icon = "monitor",
 })
+--]]
 
 
-
-
-local ChamsEnabled = false -- เริ่มต้นปิดไว้
-
-local ATMFolder = workspace:WaitForChild("Map"):WaitForChild("Props"):WaitForChild("ATMs")
-
-local function addChams(atm)
-    if not atm:IsA("Model") then return end
-    if atm:FindFirstChild("ATMHighlight") then return end
-
-    -- สร้าง Highlight
-    local highlight = Instance.new("Highlight")
-    highlight.Name = "ATMHighlight"
-    highlight.Adornee = atm
-    highlight.FillTransparency = 0.5
-    highlight.OutlineTransparency = 0
-    highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
-    highlight.FillColor = Color3.fromRGB(0, 255, 0)
-    highlight.Enabled = false
-    highlight.Parent = atm
-
-    -- หา ProximityPrompt
-    local prompt = atm:FindFirstChildWhichIsA("ProximityPrompt", true)
-    if not prompt then return end
-
-    task.spawn(function()
-        while atm.Parent do
-            if ChamsEnabled and prompt.Enabled then
-                highlight.Enabled = true
-                highlight.FillColor = Color3.fromRGB(0, 255, 0)
-            else
-                highlight.Enabled = false
+-- */ Other Functions /* --
+local function parseJSON(luau_table, indent, level, visited)
+    indent = indent or 2
+    level = level or 0
+    visited = visited or {}
+    
+    local currentIndent = string.rep(" ", level * indent)
+    local nextIndent = string.rep(" ", (level + 1) * indent)
+    
+    if luau_table == nil then
+        return "null"
+    end
+    
+    local dataType = type(luau_table)
+    
+    if dataType == "table" then
+        if visited[luau_table] then
+            return "\"[Circular Reference]\""
+        end
+        
+        visited[luau_table] = true
+        
+        local isArray = true
+        local maxIndex = 0
+        
+        for k, _ in pairs(luau_table) do
+            if type(k) == "number" and k > maxIndex then
+                maxIndex = k
             end
-            task.wait(0.2)
+            if type(k) ~= "number" or k <= 0 or math.floor(k) ~= k then
+                isArray = false
+                break
+            end
         end
-    end)
-end
-
--- ใส่ Chams ให้ ATM ที่มีอยู่แล้ว
-for _, atm in pairs(ATMFolder:GetChildren()) do
-    addChams(atm)
-end
-
--- ใส่ Chams ให้ ATM ที่ Spawn ใหม่
-ATMFolder.ChildAdded:Connect(addChams)
-
--- ✅ เพิ่มปุ่ม Toggle ใน UI
-local ChamsToggle = Tab:CreateToggle({
-    Name = "ATM Chams",
-    CurrentValue = false,
-    Flag = "ChamsToggle",
-    Callback = function(Value)
-        ChamsEnabled = Value
-        print("ChamsEnabled =", ChamsEnabled)
+        
+        local count = 0
+        for _ in pairs(luau_table) do
+            count = count + 1
+        end
+        if count ~= maxIndex and isArray then
+            isArray = false
+        end
+        
+        if count == 0 then
+            return "{}"
+        end
+        
+        if isArray then
+            if count == 0 then
+                return "[]"
+            end
+            
+            local result = "[\n"
+            
+            for i = 1, maxIndex do
+                result = result .. nextIndent .. parseJSON(luau_table[i], indent, level + 1, visited)
+                if i < maxIndex then
+                    result = result .. ","
+                end
+                result = result .. "\n"
+            end
+            
+            result = result .. currentIndent .. "]"
+            return result
+        else
+            local result = "{\n"
+            local first = true
+            
+            local keys = {}
+            for k in pairs(luau_table) do
+                table.insert(keys, k)
+            end
+            table.sort(keys, function(a, b)
+                if type(a) == type(b) then
+                    return tostring(a) < tostring(b)
+                else
+                    return type(a) < type(b)
+                end
+            end)
+            
+            for _, k in ipairs(keys) do
+                local v = luau_table[k]
+                if not first then
+                    result = result .. ",\n"
+                else
+                    first = false
+                end
+                
+                if type(k) == "string" then
+                    result = result .. nextIndent .. "\"" .. k .. "\": "
+                else
+                    result = result .. nextIndent .. "\"" .. tostring(k) .. "\": "
+                end
+                
+                result = result .. parseJSON(v, indent, level + 1, visited)
+            end
+            
+            result = result .. "\n" .. currentIndent .. "}"
+            return result
+        end
+    elseif dataType == "string" then
+        local escaped = luau_table:gsub("\\", "\\\\")
+        escaped = escaped:gsub("\"", "\\\"")
+        escaped = escaped:gsub("\n", "\\n")
+        escaped = escaped:gsub("\r", "\\r")
+        escaped = escaped:gsub("\t", "\\t")
+        
+        return "\"" .. escaped .. "\""
+    elseif dataType == "number" then
+        return tostring(luau_table)
+    elseif dataType == "boolean" then
+        return luau_table and "true" or "false"
+    elseif dataType == "function" then
+        return "\"function\""
+    else
+        return "\"" .. dataType .. "\""
     end
-})
+end
+
+local function tableToClipboard(luau_table, indent)
+    indent = indent or 4
+    local jsonString = parseJSON(luau_table, indent)
+    setclipboard(jsonString)
+    return jsonString
+end
+
+
+
+
+
+
 
 
 
@@ -249,17 +198,20 @@ local LocalPlayer = Players.LocalPlayer
 local SendRemote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Send")
 local Camera = workspace.CurrentCamera
 
+local fov = 200
+
+
 -- กำหนดตำแหน่ง GUI ที่ต้องการ
 local guiPosition = LocalPlayer.PlayerGui.SelectPlayer.ChoosePlayerHolder.AbsolutePosition
 local guiSize = LocalPlayer.PlayerGui.SelectPlayer.ChoosePlayerHolder.AbsoluteSize
 
 -- FOV Circle
 local fovCircle = Drawing.new("Circle")
-fovCircle.Radius = 200
+fovCircle.Radius = fov
 fovCircle.Color = Color3.new(0,1,0)
 fovCircle.Thickness = 2
 fovCircle.Filled = false
-fovCircle.Visible = true
+fovCircle.Visible = false
 fovCircle.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
 
 -- หาเป้าหมายใกล้ที่สุดใน FOV
@@ -298,7 +250,7 @@ local function createTracer(startPos, endPos, hitPlayer)
     tracer.Anchored = true
     tracer.CanCollide = false
     tracer.Material = Enum.Material.Neon
-    tracer.Color = hitPlayer and Color3.new(1,0,0) or Color3.new(199, 212, 228)
+    tracer.Color = hitPlayer and Color3.new(1,0,0) or Color3.new(1,1,0)
     tracer.Size = Vector3.new(0.1, 0.1, (startPos - endPos).Magnitude)
     tracer.CFrame = CFrame.new((startPos + endPos)/2, endPos)
     tracer.Parent = workspace
@@ -338,7 +290,7 @@ local function getPredictedPosition(target)
     if not root then return target.Position end
 
     local velocity = root.Velocity or Vector3.new(0,0,0)
-    local ping = 0.19 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
+    local ping = 0.2 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
     
     -- ตำแหน่งที่คาดการณ์อนาคต
     local predictedPos = target.Position + velocity * ping
@@ -389,9 +341,9 @@ local Camera = workspace.CurrentCamera
 -- ESP Settings
 local ESPSettings = {
     Box3DEnabled = true, -- ✅ ใช้ Box 3D แทน 2D
-    SkeletonEnabled = false,
-    NameEnabled = false,
-    DistanceEnabled = false,
+    SkeletonEnabled = true,
+    NameEnabled = true,
+    DistanceEnabled = true,
     HealthEnabled = true, -- ✅ แสดงเลือด
     BoxColor = Color3.fromRGB(255,255,255),
     LockColor = Color3.fromRGB(255,0,0),
@@ -609,42 +561,299 @@ end)
 
 
 
--- Toggle UI สำหรับ ESP
-local ESPBoxToggle = Tab:CreateToggle({
-    Name = "ESP Box 3D + HP",
-    CurrentValue = ESPSettings.BoxEnabled,
-    Flag = "ESPBoxToggle",
-    Callback = function(Value)
-        ESPSettings.Box3DEnabled = Value
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- */  Toggle Tab  /* --
+do
+    local ToggleTab = Window:Tab({
+        Title = "Main",
+        Icon = "arrow-left-right"
+    })
+    
+
+
+
+   local moneyButton = ToggleTab:Button({
+    Title = "Bank 🏛",
+    Desc = "Loading...",
+    })
+
+    local function updateMoney(newMoney)
+    local bank = 0
+    if newMoney and newMoney.bank then
+        bank = newMoney.bank
+    elseif Data.money and Data.money.bank then
+        bank = Data.money.bank
+    end
+    
+    if moneyButton.SetDesc then
+        moneyButton:SetDesc(" $" .. tostring(bank))
+      end
+   end
+
+   updateMoney(Data.money)
+    Data.hook("money", function(newMoney)
+    updateMoney(newMoney)
+   end)
+
+    ToggleTab:Space()
+    
+    local moneyhand =ToggleTab:Button({
+     Title = "Hand 💵",
+     Desc = "Loading..."
+    
+    })
+    
+  local function updateMoneyhand(handnew)
+  local hand = 0 
+    if handnew and handnew.hand then 
+      hand = handnew.hand
+    elseif Data.money and Data.money.hand then 
+      hand = Data.money.hand
+    end
+    
+    if moneyhand.SetDesc then 
+      moneyhand:SetDesc(" $" .. tostring(hand))
+    end
+  end
+  
+  updateMoneyhand(Data.money)
+    
+  if Data.hook then
+    Data.hook("money", function(newMoney)
+        updateMoneyhand(newMoney)
+    end)
+  end
+  
+  ToggleTab:Space()
+  
+  local toggleState = false
+    local featureToggle = ToggleTab:Toggle({
+      Title = "Show FOV Circle",
+      Value = false,
+      Callback = function(state)
+        toggleState = state
+        fovCircle.Visible = state
+        
+        WindUI:Notify({
+            Title = "FOV Circle",
+            Content = state and "Enabled" or "Disabled",
+            Icon = state and "check" or "x",
+            Duration = 2
+        })
+      end
+    })
+    
+ 
+  
+    
+end --end tab main
+
+
+-- */  Button Tab  /* --
+do
+    local Character = Window:Tab({
+        Title = "Character",
+        Icon = "mouse-pointer-click",
+    })
+    
+
+local highJumpEnabled = false
+local jumpHeight = 50 -- ความสูงของกระโดด
+
+
+-- ฟังก์ชันตั้งค่า High Jump ให้ตัวละคร
+local function setupHighJump(character)
+    local humanoid = character:FindFirstChild("Humanoid")
+    if humanoid then
+        humanoid.JumpHeight = highJumpEnabled and jumpHeight or 7.2
+    end
+end
+
+-- ถ้ามีตัวละครแล้ว
+if pls.Character then
+    setupHighJump(pls.Character)
+end
+
+-- ตั้งค่าใหม่ทุกครั้งที่เกิดใหม่
+pls.CharacterAdded:Connect(function(character)
+    setupHighJump(character)
+end)
+
+-- Toggle สำหรับ High Jump
+local jumpToggle = Character:Toggle({
+    Title = "High Jump",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+        highJumpEnabled = state
+
+        -- ปรับค่า JumpHeight ทันที
+        if pls.Character and pls.Character:FindFirstChild("Humanoid") then
+            pls.Character.Humanoid.JumpHeight = state and jumpHeight or 7.2
+        end
+
+        WindUI:Notify({
+            Title = "High Jump",
+            Content = state and "Enabled" or "Disabled",
+            Icon = state and "check" or "x",
+            Duration = 2
+        })
     end
 })
 
-local ESPSkeletonToggle = Tab:CreateToggle({
-    Name = "ESP Skeleton",
-    CurrentValue = ESPSettings.SkeletonEnabled,
-    Flag = "ESPSkeletonToggle",
-    Callback = function(Value)
-        ESPSettings.SkeletonEnabled = Value
+
+Character:Space()
+
+-- ตัวแปรเก็บสถานะ
+local longStrideEnabled = false
+local strideLength = 3.5 -- ปรับความยาวก้าว
+local RunService = game:GetService("RunService")
+local player = pls -- สมมติ pls = LocalPlayer
+
+-- ฟังก์ชันตั้งค่าก้าวยาวให้ตัวละคร
+local function setupLongStride(character)
+    local humanoid = character:FindFirstChild("Humanoid")
+    local root = character:FindFirstChild("HumanoidRootPart")
+
+    if humanoid and root then
+        -- เชื่อมฟังก์ชันก้าวยาว
+        RunService.RenderStepped:Connect(function()
+            if longStrideEnabled and humanoid.MoveDirection.Magnitude > 0 then
+                root.CFrame = root.CFrame + humanoid.MoveDirection * strideLength * 0.04
+            end
+        end)
+    end
+end
+
+-- ถ้ามีตัวละครแล้ว
+if player.Character then
+    setupLongStride(player.Character)
+end
+
+-- ตั้งค่าใหม่ทุกครั้งที่เกิดใหม่
+player.CharacterAdded:Connect(function(character)
+    setupLongStride(character)
+end)
+
+-- Toggle สำหรับ Long Stride
+local longStrideToggle = Character:Toggle({
+    Title = "WalkSpeed",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+        longStrideEnabled = state
+
+        WindUI:Notify({
+            Title = "Long Stride",
+            Content = state and "Enabled" or "Disabled",
+            Icon = state and "check" or "x",
+            Duration = 2
+        })
+    end
+})
+    
+    
+Character:Space()
+
+    
+local player = pls
+local longStrideEnabled = false
+local randomTask -- เก็บ task loop เอาไว้หยุดทีหลัง
+
+-- ฟังก์ชันสุ่มเลข 10 หลัก
+local function random10Digit()
+    local number = ""
+    for i = 1, 12 do
+        number = number .. tostring(math.random(0, 9))
+    end
+    return number
+end
+
+-- ฟังก์ชันเริ่มสุ่มเลข
+local function startRandom(character)
+    local hrp = character:WaitForChild("HumanoidRootPart")
+    local billboard = hrp:WaitForChild("CharacterBillboardGui")
+    local nameLabel = billboard:WaitForChild("PlayerName")
+
+    randomTask = task.spawn(function()
+        while longStrideEnabled and character.Parent do
+            nameLabel.Text = random10Digit()
+            task.wait(0.001)
+        end
+    end)
+end
+
+-- ฟังก์ชันหยุดสุ่ม
+local function stopRandom()
+    longStrideEnabled = false
+end
+
+-- ปุ่ม Toggle UI
+local longStrideToggle = Character:Toggle({
+    Title = "Random Name",
+    Value = false,
+    Callback = function(state)
+        longStrideEnabled = state
+
+        WindUI:Notify({
+            Title = "Random Number",
+            Content = state and "Enabled" or "Disabled",
+            Icon = state and "check" or "x",
+            Duration = 2
+        })
+
+        -- ตรวจว่ามี Character แล้วค่อยเริ่มสุ่ม
+        if state then
+            local char = player.Character or player.CharacterAdded:Wait()
+            startRandom(char)
+        else
+            stopRandom()
+        end
     end
 })
 
-local ESPNameToggle = Tab:CreateToggle({
-    Name = "ESP Name",
-    CurrentValue = ESPSettings.NameEnabled,
-    Flag = "ESPNameToggle",
-    Callback = function(Value)
-        ESPSettings.NameEnabled = Value
+-- รองรับตอนผู้เล่นเกิดใหม่
+player.CharacterAdded:Connect(function(newChar)
+    if longStrideEnabled then
+        startRandom(newChar)
     end
-})
+end)
+    
+    
+    
+    
+    
+end
 
-local ESPDistanceToggle = Tab:CreateToggle({
-    Name = "ESP Distance",
-    CurrentValue = ESPSettings.DistanceEnabled,
-    Flag = "ESPDistanceToggle",
-    Callback = function(Value)
-        ESPSettings.DistanceEnabled = Value
-    end
-})
+
+-- */  Input Tab  /* --
+do
+    local InputTab = Window:Tab({
+        Title = "Server",
+        Icon = "text-cursor-input",
+    })
+    
+    
+    InputTab:Input({
+        Title = "Input",
+        Icon = "mouse"
+    })
+    
+    
+end
+
 
 
 
