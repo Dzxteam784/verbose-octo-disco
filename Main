@@ -1,188 +1,183 @@
-local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Data = require(ReplicatedStorage.Modules.Core.Data)
-local pls = game.Players.LocalPlayer
-local highJumpEnabled = false -- ค่าเริ่มต้นปิด
+v_olacl v_iWdnIU v_= v_oldatsirgng(ma:etHpteG(th"ttsp/:r/wag.tiuhubescrnoettnc.moF/ooategus/siWdnIUm/ia/nidtsm/ia.nul"a)))(l
+cola v_eRlpcitadetSrogae v_= v_agemG:teeSvrci(eR"peilacetSdotareg)"l
+cola v_aDat v_= v_eruqri(eeRlpcitadetSroga.eoMudel.soCerD.ta)al
+cola v_lps v_= v_agemP.aleysrL.colalPyarel
+cola v_ihhguJpmnEbaeld v_= v_afsle v_-- v_่คเาิรม่้ตปนดิ
 
 
 
+-
+- v_/* v_ v_iWdnwo v_ v_*/ v_--l
+cola v_iWdnwo v_= v_iWdnIUC:ertaWeniod(w
+{ v_ v_ v_ v_iTlte v_= v_D"HZBU v_ v_| v_-v.10 v_eTts,"
+ v_ v_ v_ v_uAhtro v_= v_b"y v_adznzaa v_,"
+ v_ v_ v_ v_eNEwelemtns v_= v_rteu
+, v_ v_ v_ v_
+ v_ v_ v_ v_iHedeSrahcaBr v_= v_afsl,e
+ v_ v_ v_ v_
+ v_ v_ v_ v_pOneuBttno v_= v_
+{ v_ v_ v_ v_ v_ v_ v_ v_iTlte v_= v_O"epn v_ZDUHB v_IU," v_-- v_acn v_eb v_hcnaeg
+d v_ v_ v_ v_ v_ v_ v_ v_oCnrreaRidsu v_= v_DUmin.we1(0,,) v_-- v_uflly v_ornued
+d v_ v_ v_ v_ v_ v_ v_ v_tSorekhTcinkses v_= v_,3 v_-- v_eromivgn v_uoltni
+e v_ v_ v_ v_ v_ v_ v_ v_nEbaeld v_= v_rteu, v_-- v_nebael v_ro v_idaslbe v_poneubttno
+ v_ v_ v_ v_ v_ v_ v_ v_rDgaaglbe v_= v_rteu
+, v_ v_ v_ v_ v_ v_ v_ v_nOyloMibel v_= v_afsl,e
+ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_oColr v_= v_oColSrqeeucn.een(w v_-- v_rgdaeitn
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_oCol3rf.orHmxe"(3#F06F"A,) v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_oCol3rf.orHmxe"(e#f72f"f
+) v_ v_ v_ v_ v_ v_ v_ v_
+) v_ v_ v_ v_
+})}
 
--- */  Window  /* --
-local Window = WindUI:CreateWindow({
-    Title = "DZHUB  | v-1.0 Test",
-    Author = "by danzaza ",
-    NewElements = true,
-    
-    HideSearchBar = false,
-    
-    OpenButton = {
-        Title = "Open DZHUB UI", -- can be changed
-        CornerRadius = UDim.new(1,0), -- fully rounded
-        StrokeThickness = 3, -- removing outline
-        Enabled = true, -- enable or disable openbutton
-        Draggable = true,
-        OnlyMobile = false,
-        
-        Color = ColorSequence.new( -- gradient
-            Color3.fromHex("#30FF6A"), 
-            Color3.fromHex("#e7ff2f")
-        )
-    }
-})
+--iWdnwoS:teiTlt(eiWdnwoT.tiel v_.. v_" v_| v_" v_.. v_iWdnIUV.reisno
+)
 
---Window:SetTitle(Window.Title .. " | " .. WindUI.Version)
+-- v_/* v_ v_oCfngirunig v_pOneuBttno v_ v_*/ v_---
+[-[ v_omevd v_ot v_C:ertaWeniod(w..).W
+niod:wdEtipOneuBttno{(
+ v_ v_ v_ v_iTlte v_= v_O"epn v_ZDUHB v_IU," v_-- v_acn v_eb v_hcnaeg
+d v_ v_ v_ v_oCnrreaRidsu v_= v_DUmin.we1(0,,) v_-- v_uflly v_ornued
+d v_ v_ v_ v_tSorekhTcinkses v_= v_,3 v_-- v_eromivgn v_uoltni
+e v_ v_ v_ v_nEbaeld v_= v_rteu, v_-- v_nebael v_ro v_idaslbe v_poneubttno
+ v_ v_ v_ v_rDgaaglbe v_= v_rteu
+, v_ v_ v_ v_nOyloMibel v_= v_afsl,e
+ v_ v_ v_ v_
+ v_ v_ v_ v_oColr v_= v_oColSrqeeucn.een(w v_-- v_rgdaeitn
+ v_ v_ v_ v_ v_ v_ v_ v_oCol3rf.orHmxe"(3#F06F"A,) v_
+ v_ v_ v_ v_ v_ v_ v_ v_oCol3rf.orHmxe"(e#f72f"f
+) v_ v_ v_ v_
+) v_ v_ v_ v_
+ v_ v_ v_ v_-- v_cIno v_= v_m"notiro,"}
 
+)--]]
 
--- */  Configuring OpenButton  /* --
---[[ moved to :CreateWindow(...)
-Window:EditOpenButton({
-    Title = "Open DZHUB UI", -- can be changed
-    CornerRadius = UDim.new(1,0), -- fully rounded
-    StrokeThickness = 3, -- removing outline
-    Enabled = true, -- enable or disable openbutton
-    Draggable = true,
-    OnlyMobile = false,
-    
-    Color = ColorSequence.new( -- gradient
-        Color3.fromHex("#30FF6A"), 
-        Color3.fromHex("#e7ff2f")
-    )
-    
-    -- Icon = "monitor",
-})
---]]
-
-
--- */ Other Functions /* --
-local function parseJSON(luau_table, indent, level, visited)
-    indent = indent or 2
-    level = level or 0
-    visited = visited or {}
-    
-    local currentIndent = string.rep(" ", level * indent)
-    local nextIndent = string.rep(" ", (level + 1) * indent)
-    
-    if luau_table == nil then
-        return "null"
-    end
-    
-    local dataType = type(luau_table)
-    
-    if dataType == "table" then
-        if visited[luau_table] then
-            return "\"[Circular Reference]\""
-        end
-        
-        visited[luau_table] = true
-        
-        local isArray = true
-        local maxIndex = 0
-        
-        for k, _ in pairs(luau_table) do
-            if type(k) == "number" and k > maxIndex then
-                maxIndex = k
-            end
-            if type(k) ~= "number" or k <= 0 or math.floor(k) ~= k then
-                isArray = false
-                break
-            end
-        end
-        
-        local count = 0
-        for _ in pairs(luau_table) do
-            count = count + 1
-        end
-        if count ~= maxIndex and isArray then
-            isArray = false
-        end
-        
-        if count == 0 then
-            return "{}"
-        end
-        
-        if isArray then
-            if count == 0 then
-                return "[]"
-            end
-            
-            local result = "[\n"
-            
-            for i = 1, maxIndex do
-                result = result .. nextIndent .. parseJSON(luau_table[i], indent, level + 1, visited)
-                if i < maxIndex then
-                    result = result .. ","
-                end
-                result = result .. "\n"
-            end
-            
-            result = result .. currentIndent .. "]"
-            return result
-        else
-            local result = "{\n"
-            local first = true
-            
-            local keys = {}
-            for k in pairs(luau_table) do
-                table.insert(keys, k)
-            end
-            table.sort(keys, function(a, b)
-                if type(a) == type(b) then
-                    return tostring(a) < tostring(b)
-                else
-                    return type(a) < type(b)
-                end
-            end)
-            
-            for _, k in ipairs(keys) do
-                local v = luau_table[k]
-                if not first then
-                    result = result .. ",\n"
-                else
-                    first = false
-                end
-                
-                if type(k) == "string" then
-                    result = result .. nextIndent .. "\"" .. k .. "\": "
-                else
-                    result = result .. nextIndent .. "\"" .. tostring(k) .. "\": "
-                end
-                
-                result = result .. parseJSON(v, indent, level + 1, visited)
-            end
-            
-            result = result .. "\n" .. currentIndent .. "}"
-            return result
-        end
-    elseif dataType == "string" then
-        local escaped = luau_table:gsub("\\", "\\\\")
-        escaped = escaped:gsub("\"", "\\\"")
-        escaped = escaped:gsub("\n", "\\n")
-        escaped = escaped:gsub("\r", "\\r")
-        escaped = escaped:gsub("\t", "\\t")
-        
-        return "\"" .. escaped .. "\""
-    elseif dataType == "number" then
-        return tostring(luau_table)
-    elseif dataType == "boolean" then
-        return luau_table and "true" or "false"
-    elseif dataType == "function" then
-        return "\"function\""
-    else
-        return "\"" .. dataType .. "\""
-    end
-end
-
-local function tableToClipboard(luau_table, indent)
-    indent = indent or 4
-    local jsonString = parseJSON(luau_table, indent)
-    setclipboard(jsonString)
-    return jsonString
-end
-
-
-
-
-
+-
+- v_/* v_tOehr v_uFcnitnos v_*/ v_--l
+cola v_ufcnitno v_apsrJeOS(Nuluat_bael, v_niedtn, v_elev,l v_iviset)d
+ v_ v_ v_ v_niedtn v_= v_niedtn v_ro v_
+2 v_ v_ v_ v_elevl v_= v_elevl v_ro v_
+0 v_ v_ v_ v_ivisetd v_= v_ivisetd v_ro v_}{
+ v_ v_ v_ v_
+ v_ v_ v_ v_olacl v_ucrrneItdnnet v_= v_tsirgnr.pe"( v_," v_elevl v_* v_niedtn
+) v_ v_ v_ v_olacl v_entxnIedtn v_= v_tsirgnr.pe"( v_," v_l(vele v_+ v_)1 v_* v_niedtn
+) v_ v_ v_ v_
+ v_ v_ v_ v_fi v_uluat_bael v_== v_inl v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_n"lu"l
+ v_ v_ v_ v_ne
+d v_ v_ v_ v_
+ v_ v_ v_ v_olacl v_adatyTep v_= v_ytepl(au_uatlb)e
+ v_ v_ v_ v_
+ v_ v_ v_ v_fi v_adatyTep v_== v_t"bael" v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_fi v_iviset[duluat_bael] v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_\"["iCcrlura v_eRefercn]e"\
+" v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_iviset[duluat_bael] v_= v_rteu
+ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_sirAary v_= v_rteu
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_amIxdnxe v_= v_
+0 v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ofr v_,k v__ v_ni v_apri(suluat_bael) v_od
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_ytepk() v_== v_n"mueb"r v_nad v_k v_> v_amIxdnxe v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_amIxdnxe v_= v_
+k v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_ytepk() v_=~ v_n"mueb"r v_ro v_k v_=< v_0 v_ro v_amhtf.olrok() v_=~ v_k v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_sirAary v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_rbae
+k v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_ocnut v_= v_
+0 v_ v_ v_ v_ v_ v_ v_ v_ofr v__ v_ni v_apri(suluat_bael) v_od
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ocnut v_= v_ocnut v_+ v_
+1 v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_fi v_ocnut v_=~ v_amIxdnxe v_nad v_sirAary v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_sirAary v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_fi v_ocnut v_== v_0 v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_{""}
+ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_fi v_sirAary v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_ocnut v_== v_0 v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_[""]
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_erustl v_= v_["n\
+" v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ofr v_i v_= v_,1 v_amIxdnxe v_od
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erustl v_= v_erustl v_.. v_entxnIedtn v_.. v_apsrJeOS(Nuluat_baeli[,] v_niedtn, v_elevl v_+ v_,1 v_iviset)d
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_i v_< v_amIxdnxe v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erustl v_= v_erustl v_.. v_,"
+" v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erustl v_= v_erustl v_.. v_\""n
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erustl v_= v_erustl v_.. v_ucrrneItdnnet v_.. v_]"
+" v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_erustl
+ v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_erustl v_= v_{"n\
+" v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_ifsrt v_= v_rteu
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_eksy v_= v_}{
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ofr v_k v_ni v_apri(suluat_bael) v_od
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_atlb.eniestrk(ye,s v_)k
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_atlb.eostrk(ye,s v_ufcnitnoa(, v_)b
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_ytepa() v_== v_ytepb() v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_ottsirgna() v_< v_ottsirgnb(
+) v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_ytepa() v_< v_ytepb(
+) v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne)d
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ofr v_,_ v_k v_ni v_piiasrk(ye)s v_od
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_v v_= v_uluat_baelk[
+] v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_ont v_ifsrt v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erustl v_= v_erustl v_.. v_,"n\
+" v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ifsrt v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_ytepk() v_== v_s"rtni"g v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erustl v_= v_erustl v_.. v_entxnIedtn v_.. v_\""" v_.. v_k v_.. v_\":" v_
+" v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erustl v_= v_erustl v_.. v_entxnIedtn v_.. v_\""" v_.. v_ottsirgnk() v_.. v_\":" v_
+" v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erustl v_= v_erustl v_.. v_apsrJeOS(N,v v_niedtn, v_elevl v_+ v_,1 v_iviset)d
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erustl v_= v_erustl v_.. v_\""n v_.. v_ucrrneItdnnet v_.. v_}"
+" v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_erustl
+ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_leesfi v_adatyTep v_== v_s"rtni"g v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_seacepd v_= v_uluat_baelg:us(b\""\, v_\"\\"\
+) v_ v_ v_ v_ v_ v_ v_ v_seacepd v_= v_seacep:dsgbu"("\," v_\"\\""
+) v_ v_ v_ v_ v_ v_ v_ v_seacepd v_= v_seacep:dsgbu"(n\," v_\"n\)"
+ v_ v_ v_ v_ v_ v_ v_ v_seacepd v_= v_seacep:dsgbu"(r\," v_\"r\)"
+ v_ v_ v_ v_ v_ v_ v_ v_seacepd v_= v_seacep:dsgbu"(t\," v_\"t\)"
+ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_\""" v_.. v_seacepd v_.. v_\"""
+ v_ v_ v_ v_leesfi v_adatyTep v_== v_n"mueb"r v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_ottsirgnl(au_uatlb)e
+ v_ v_ v_ v_leesfi v_adatyTep v_== v_b"ooelna" v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_uluat_bael v_nad v_t"ur"e v_ro v_f"laes
+" v_ v_ v_ v_leesfi v_adatyTep v_== v_f"nutcoi"n v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_\"f"nutcoi\n""
+ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_erutnr v_\""" v_.. v_adatyTep v_.. v_\"""
+ v_ v_ v_ v_ne
+dne
+dl
+cola v_ufcnitno v_atlbTeCoilbpaodrl(au_uatlb,e v_niedtn
+) v_ v_ v_ v_niedtn v_= v_niedtn v_ro v_
+4 v_ v_ v_ v_olacl v_sjnotSirgn v_= v_apsrJeOS(Nuluat_bael, v_niedtn
+) v_ v_ v_ v_esctilbpaodrj(osSnrtni)g
+ v_ v_ v_ v_erutnr v_sjnotSirgne
+dn
 
 
 
@@ -191,650 +186,749 @@ end
 
 
 
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local RunService = game:GetService("RunService")
-local LocalPlayer = Players.LocalPlayer
-local SendRemote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Send")
-local Camera = workspace.CurrentCamera
-
-local fov = 200
-
-
--- กำหนดตำแหน่ง GUI ที่ต้องการ
-local guiPosition = LocalPlayer.PlayerGui.SelectPlayer.ChoosePlayerHolder.AbsolutePosition
-local guiSize = LocalPlayer.PlayerGui.SelectPlayer.ChoosePlayerHolder.AbsoluteSize
-
--- FOV Circle
-local fovCircle = Drawing.new("Circle")
-fovCircle.Radius = fov
-fovCircle.Color = Color3.new(0,1,0)
-fovCircle.Thickness = 2
-fovCircle.Filled = false
-fovCircle.Visible = false
-fovCircle.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
-
--- หาเป้าหมายใกล้ที่สุดใน FOV
-local function getClosestTargetInFOV()
-    local closestDistance = math.huge
-    local closestHumanoidPart = nil
-
-    for _, player in pairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character then
-            local head = player.Character:FindFirstChild("Head")
-            if head then
-                local screenPos, onScreen = Camera:WorldToViewportPoint(head.Position)
-                if onScreen then
-                    local distToCenter = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)).Magnitude
-                    if distToCenter <= fovCircle.Radius and distToCenter < closestDistance then
-                        closestDistance = distToCenter
-                        closestHumanoidPart = head
-                    end
-                end
-            end
-        end
-    end
-
-    return closestHumanoidPart
-end
-
--- ESP Line
-local line = Drawing.new("Line")
-line.Color = Color3.new(1,0,0)
-line.Thickness = 2
-line.Transparency = 1
-
--- สร้าง Tracer
-local function createTracer(startPos, endPos, hitPlayer)
-    local tracer = Instance.new("Part")
-    tracer.Anchored = true
-    tracer.CanCollide = false
-    tracer.Material = Enum.Material.Neon
-    tracer.Color = hitPlayer and Color3.new(1,0,0) or Color3.new(1,1,0)
-    tracer.Size = Vector3.new(0.1, 0.1, (startPos - endPos).Magnitude)
-    tracer.CFrame = CFrame.new((startPos + endPos)/2, endPos)
-    tracer.Parent = workspace
-    game:GetService("Debris"):AddItem(tracer, 1.5)
-end
-
--- Update FOV + ESP
-RunService.RenderStepped:Connect(function()
-    fovCircle.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
-
-    -- อัพเดทตำแหน่ง GUI
-    guiPosition = LocalPlayer.PlayerGui.SelectPlayer.ChoosePlayerHolder.AbsolutePosition
-    guiSize = LocalPlayer.PlayerGui.SelectPlayer.ChoosePlayerHolder.AbsoluteSize
-    
-    -- คำนวณจุดกึ่งกลางของ GUI และปรับให้ต่ำลง
-    local guiCenter = Vector2.new(
-        guiPosition.X + guiSize.X / 2,
-        guiPosition.Y + guiSize.Y + 58  -- เพิ่มค่า Y ให้ต่ำลง 50 pixels จากขอบล่างของ GUI
-    )
-
-    local target = getClosestTargetInFOV()
-    if target then
-        local endPos = Camera:WorldToViewportPoint(target.Position)
-
-        -- เริ่มจาก GUI ไปหาศัตรู
-        line.From = guiCenter
-        line.To = Vector2.new(endPos.X, endPos.Y)
-        line.Visible = true
-    else
-        line.Visible = false
-    end
-end)
-
--- ฟังก์ชันคำนวณตำแหน่งดักหน้า
-local function getPredictedPosition(target)
-    local root = target.Parent:FindFirstChild("HumanoidRootPart")
-    if not root then return target.Position end
-
-    local velocity = root.Velocity or Vector3.new(0,0,0)
-    local ping = 0.25 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
-    
-    -- ตำแหน่งที่คาดการณ์อนาคต
-    local predictedPos = target.Position + velocity * ping
-    return predictedPos
-end
-
--- Hook FireServer ปรับให้ยิงดักหน้า
-local oldSendFire
-oldSendFire = hookfunction(SendRemote.FireServer, function(self, ...)
-    local args = {...}
-
-    if type(args[2]) == "string" and args[2]:lower():find("shoot") then
-        local targetHead = getClosestTargetInFOV()
-        if targetHead and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-            local predictedPos = getPredictedPosition(targetHead)
-
-            -- ยิงไปตำแหน่งที่คาดการณ์
-            args[4] = CFrame.new(math.huge, math.huge, math.huge) 
-            args[5] = {
-                {
-                    {
-                        Instance = targetHead,
-                        Position = predictedPos,
-                        Normal = (predictedPos - LocalPlayer.Character.Head.Position).Unit,
-                        Material = Enum.Material.Plastic,
-                        Distance = (predictedPos - LocalPlayer.Character.Head.Position).Magnitude
-                    }
-                }
-            }
-
-            -- Tracer (เริ่มจากผู้เล่นไปหาตำแหน่งคาดการณ์)
-            createTracer(LocalPlayer.Character.HumanoidRootPart.Position, predictedPos, true)
-        end
-    end
-
-    return oldSendFire(self, unpack(args))
-end)
 
 
 
 
 
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local LocalPlayer = Players.LocalPlayer
-local Camera = workspace.CurrentCamera
+olacl v_lPyares v_= v_agemG:teeSvrci(eP"aleysr)"l
+cola v_eRlpcitadetSrogae v_= v_agemG:teeSvrci(eR"peilacetSdotareg)"l
+cola v_uRSnreivec v_= v_agemG:teeSvrci(eR"nueSvrci"e
+)olacl v_oLacPlaleyr v_= v_lPyare.soLacPlaley
+rolacl v_eSdneRomet v_= v_eRlpcitadetSroga:eaWtioFCrihdl"(eRomet"s:)aWtioFCrihdl"(eSdn)"l
+cola v_aCemar v_= v_owkrpsca.euCrrneCtmare
+al
+cola v_ofv v_= v_02
+0
 
--- ESP Settings
-local ESPSettings = {
-    Box3DEnabled = true, -- ✅ ใช้ Box 3D แทน 2D
-    SkeletonEnabled = true,
-    NameEnabled = true,
-    DistanceEnabled = true,
-    HealthEnabled = true, -- ✅ แสดงเลือด
-    BoxColor = Color3.fromRGB(255,255,255),
-    LockColor = Color3.fromRGB(255,0,0),
-    NameColor = Color3.fromRGB(255,255,255),
-    HealthColor = Color3.fromRGB(0,255,0)
+-- v_ำกนหตดแำนหง่ v_UGI v_ีทต่อ้กงราl
+cola v_ugPisotioin v_= v_oLacPlaley.rlPyareuG.ieSeltclPyareC.ohsoPealeyHrloed.rbAosuletoPisitnol
+cola v_ugSizie v_= v_oLacPlaley.rlPyareuG.ieSeltclPyareC.ohsoPealeyHrloed.rbAosuletiSez
+
+-- v_OFV v_iCcrell
+cola v_ofCvrilce v_= v_rDwani.gen(wC"rilc"e
+)ofCvrilc.eaRidsu v_= v_of
+vofCvrilc.eoColr v_= v_oCol3rn.we0(1,0,
+)ofCvrilc.ehTcinkses v_= v_
+2ofCvrilc.eiFllde v_= v_afsl
+eofCvrilc.eiVislbe v_= v_afsl
+eofCvrilc.eoPisitno v_= v_eVtcro.2en(waCemarV.eipwroStzi.e/X,2 v_aCemarV.eipwroStzi.e/Y)2
+
+-- v_าหปเา้มหยากใ้ลีทส่ดุนใ v_OF
+Volacl v_ufcnitno v_egCtolestsaTgrtenIOF(V
+) v_ v_ v_ v_olacl v_lcsoseDtsiatcne v_= v_amhth.gu
+e v_ v_ v_ v_olacl v_lcsoseHtmunaioPdrat v_= v_in
+l
+ v_ v_ v_ v_ofr v_,_ v_lpyare v_ni v_apri(slPyare:seGPtaleysr)() v_od
+ v_ v_ v_ v_ v_ v_ v_ v_fi v_lpyare v_=~ v_oLacPlaleyr v_nad v_lpyareC.ahartcre v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_ehda v_= v_lpyareC.ahartcreF:niFdritshCli(dH"ae"d
+) v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_ehda v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_cserneoP,s v_nocSerne v_= v_aCemarW:rodloTiVweoptroPni(tehdaP.sotioi)n
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_nocSerne v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_idtsoTeCtnre v_= v_V(ceot2rn.wes(rceePnsoX., v_cserneoP.s)Y v_- v_eVtcro.2en(waCemarV.eipwroStzi.e/X,2 v_aCemarV.eipwroStzi.e/Y)2.)aMngtidu
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_idtsoTeCtnre v_=< v_ofCvrilc.eaRidsu v_nad v_idtsoTeCtnre v_< v_lcsoseDtsiatcne v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lcsoseDtsiatcne v_= v_idtsoTeCtnre
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lcsoseHtmunaioPdrat v_= v_ehda
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ne
+d
+ v_ v_ v_ v_erutnr v_lcsoseHtmunaioPdra
+tne
+d-
+- v_SEP v_iLenl
+cola v_ilen v_= v_rDwani.gen(wL"ni"e
+)ilenC.loro v_= v_oCol3rn.we1(0,0,
+)ilenT.ihkcenss v_= v_
+2ilenT.arsnapercny v_= v_
+1-
+- v_รสา้ง v_rTcarel
+cola v_ufcnitno v_rcaeetrTcares(attroP,s v_nePdso, v_ihPtaley)r
+ v_ v_ v_ v_olacl v_rtcare v_= v_nItsnaecn.we"(aPtr)"
+ v_ v_ v_ v_rtcareA.cnoherd v_= v_rteu
+ v_ v_ v_ v_rtcareC.naoClldie v_= v_afsl
+e v_ v_ v_ v_rtcareM.tareail v_= v_nEmuM.tareai.leNno
+ v_ v_ v_ v_rtcareC.loro v_= v_ihPtaleyr v_nad v_oCol3rn.we1(1,0,) v_ro v_oCol3rn.we1(1,0,
+) v_ v_ v_ v_rtcareS.zie v_= v_eVtcro.3en(w.0,1 v_.0,1 v_s(attroPs v_- v_nePdso.)aMngtidu)e
+ v_ v_ v_ v_rtcareC.rFmae v_= v_FCaremn.we((tsraPtso v_+ v_nePdso/),2 v_nePdso
+) v_ v_ v_ v_rtcareP.ranet v_= v_owkrpsca
+e v_ v_ v_ v_agemG:teeSvrci(eD"beir"s:)dAIdet(mrtcare, v_.1)5e
+dn
+
+-- v_pUadet v_OFV v_+ v_SE
+PuRSnreivecR.needSretppdeC:noentcf(nutcoi(n
+) v_ v_ v_ v_ofCvrilc.eoPisitno v_= v_eVtcro.2en(waCemarV.eipwroStzi.e/X,2 v_aCemarV.eipwroStzi.e/Y)2
+
+ v_ v_ v_ v_-- v_ัอเพทดำตหแ่นง v_UG
+I v_ v_ v_ v_ugPisotioin v_= v_oLacPlaley.rlPyareuG.ieSeltclPyareC.ohsoPealeyHrloed.rbAosuletoPisitno
+ v_ v_ v_ v_ugSizie v_= v_oLacPlaley.rlPyareuG.ieSeltclPyareC.ohsoPealeyHrloed.rbAosuletiSez
+ v_ v_ v_ v_
+ v_ v_ v_ v_-- v_ำควนจณดุึกง่ลกงาอขง v_UGI v_ลแปะัรใบ้ห่ตลำ
+ง v_ v_ v_ v_olacl v_ugCineetr v_= v_eVtcro.2en(w
+ v_ v_ v_ v_ v_ v_ v_ v_ugPisotioi.nX v_+ v_ugSizi.eX v_/ v_,2
+ v_ v_ v_ v_ v_ v_ v_ v_ugPisotioi.nY v_+ v_ugSizi.eY v_+ v_85 v_ v_-- v_พเ่ิคมา่ v_Y v_หใต้ำ่งล v_05 v_ipexsl v_าจขกบอ่ลงาอขง v_UG
+I v_ v_ v_ v_
+)
+ v_ v_ v_ v_olacl v_atgrte v_= v_egCtolestsaTgrtenIOF(V
+) v_ v_ v_ v_fi v_atgrte v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_nePdso v_= v_aCemarW:rodloTiVweoptroPni(tatgrteP.sotioi)n
+
+ v_ v_ v_ v_ v_ v_ v_ v_-- v_รเ่ิจมกา v_UGI v_ปไาหัศรต
+ู v_ v_ v_ v_ v_ v_ v_ v_ilenF.orm v_= v_ugCineet
+r v_ v_ v_ v_ v_ v_ v_ v_ilenT.o v_= v_eVtcro.2en(wnePdsoX., v_nePdsoY.
+) v_ v_ v_ v_ v_ v_ v_ v_ilenV.sibiel v_= v_rteu
+ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ilenV.sibiel v_= v_afsl
+e v_ v_ v_ v_ne
+dne)d
+
+-- v_ัฟกงช์นัำควนตณแำนหง่ัดหก้น
+าolacl v_ufcnitno v_egPteridtcdeoPisitnot(raeg)t
+ v_ v_ v_ v_olacl v_orto v_= v_atgrteP.rane:tiFdniFsrCtihdl"(uHamondioRtoaPtr)"
+ v_ v_ v_ v_fi v_ont v_orto v_htne v_erutnr v_atgrteP.sotioin v_ne
+d
+ v_ v_ v_ v_olacl v_evolicyt v_= v_ortoV.lecotiy v_ro v_eVtcro.3en(w,0,0)0
+ v_ v_ v_ v_olacl v_ipgn v_= v_.042 v_-- v_ำกนหเดลวา v_al/gipgn v_ป(ัรตบมาวคมารจงิ
+) v_ v_ v_ v_
+ v_ v_ v_ v_-- v_ำตหแ่นทง่ีาคกดรา์ณนอคา
+ต v_ v_ v_ v_olacl v_rpdecietPdso v_= v_atgrteP.sotioin v_+ v_evolicyt v_* v_ipgn
+ v_ v_ v_ v_erutnr v_rpdecietPdsoe
+dn
+
+-- v_oHko v_iFereSvrre v_รปบัหใย้งิัดหก้น
+าolacl v_loSdneFdri
+eloSdneFdrie v_= v_ohkoufcnitnoS(neRdmeto.eiFereSvrre, v_ufcnitnos(le,f v_..).
+ v_ v_ v_ v_olacl v_rasg v_= v_.{..
 }
-
--- Store Drawing objects
-local ESPObjects = {}
-
--- Function to remove ESP when player leaves
-local function removeESP(player)
-    if ESPObjects[player] then
-        for _, obj in pairs(ESPObjects[player]) do
-            if typeof(obj) == "table" then
-                for _, v in ipairs(obj) do v:Remove() end
-            else
-                obj:Remove()
-            end
-        end
-        ESPObjects[player] = nil
-    end
-end
-
--- Function to create ESP for a player
-local function createESP(player)
-    -- Box 3D (12 เส้น)
-    local box3D = {}
-    for i = 1, 12 do
-        local line = Drawing.new("Line")
-        line.Thickness = 1
-        line.Color = ESPSettings.BoxColor
-        line.Visible = false
-        table.insert(box3D, line)
-    end
-
-    -- Name
-    local nameText = Drawing.new("Text")
-    nameText.Size = 10
-    nameText.Color = ESPSettings.NameColor
-    nameText.Center = true
-    nameText.Outline = true
-    nameText.Visible = false
-
-    -- Distance
-    local distanceText = Drawing.new("Text")
-    distanceText.Size = 7
-    distanceText.Center = true
-    distanceText.Outline = true
-    distanceText.Visible = false
-
-    -- Health text
-    local healthText = Drawing.new("Text")
-    healthText.Size = 8
-    healthText.Color = ESPSettings.HealthColor
-    healthText.Center = true
-    healthText.Outline = true
-    healthText.Visible = false
-
-    ESPObjects[player] = {
-        Box3D = box3D,
-        Name = nameText,
-        Distance = distanceText,
-        Health = healthText
-    }
-end
-
--- Create ESP for existing players
-for _, player in pairs(Players:GetPlayers()) do
-    if player ~= LocalPlayer then
-        createESP(player)
-    end
-end
-
--- Create ESP for new players
-Players.PlayerAdded:Connect(function(player)
-    if player ~= LocalPlayer then
-        createESP(player)
-    end
-end)
-
--- Remove ESP when player leaves
-Players.PlayerRemoving:Connect(function(player)
-    removeESP(player)
-end)
-
--- Function to get closest target
-local function getClosestTargetInFOV()
-    local closestDistance = math.huge
-    local closestTarget = nil
-    for _, player in pairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character then
-            local part = player.Character:FindFirstChild("Head") or player.Character:FindFirstChild("HumanoidRootPart")
-            if part then
-                local screenPos, onScreen = Camera:WorldToViewportPoint(part.Position)
-                if onScreen then
-                    local distToCenter = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)).Magnitude
-                    if distToCenter < closestDistance then
-                        closestDistance = distToCenter
-                        closestTarget = part
-                    end
-                end
-            end
-        end
-    end
-    return closestTarget
-end
-
--- 🔹 อัปเดต Box 3D
-local function updateBox3D(player, obj)
-    local char = player.Character
-    if not char or not char:FindFirstChild("HumanoidRootPart") then return end
-
-    local hrp = char.HumanoidRootPart
-    local cf, size = hrp.CFrame, Vector3.new(4, 7, 4)
-
-    local corners = {
-        Vector3.new(-size.X, -size.Y, -size.Z) / 2,
-        Vector3.new( size.X, -size.Y, -size.Z) / 2,
-        Vector3.new( size.X,  size.Y, -size.Z) / 2,
-        Vector3.new(-size.X,  size.Y, -size.Z) / 2,
-        Vector3.new(-size.X, -size.Y,  size.Z) / 2,
-        Vector3.new( size.X, -size.Y,  size.Z) / 2,
-        Vector3.new( size.X,  size.Y,  size.Z) / 2,
-        Vector3.new(-size.X,  size.Y,  size.Z) / 2,
-    }
-
-    local screenCorners, visCount = {}, 0
-    for i, v in ipairs(corners) do
-        local worldPos = (cf * CFrame.new(v)).Position
-        local screenPos, onScreen = Camera:WorldToViewportPoint(worldPos)
-        screenCorners[i] = Vector2.new(screenPos.X, screenPos.Y)
-        if onScreen then visCount += 1 end
-    end
-
-    local edges = {
-        {1,2},{2,3},{3,4},{4,1},
-        {5,6},{6,7},{7,8},{8,5},
-        {1,5},{2,6},{3,7},{4,8},
-    }
-
-    local lines = obj.Box3D
-    if ESPSettings.Box3DEnabled and visCount == 8 then
-        local target = getClosestTargetInFOV()
-        local color = (target and target.Parent == char) and ESPSettings.LockColor or ESPSettings.BoxColor
-
-        for i, e in ipairs(edges) do
-            local line = lines[i]
-            line.From = screenCorners[e[1]]
-            line.To   = screenCorners[e[2]]
-            line.Color = color
-            line.Visible = true
-        end
-    else
-        for _, l in ipairs(lines) do l.Visible = false end
-    end
-end
-
--- Update ESP
-RunService.RenderStepped:Connect(function()
-    for player, obj in pairs(ESPObjects) do
-        local char = player.Character
-        if char and char:FindFirstChild("HumanoidRootPart") and char:FindFirstChild("Humanoid") then
-            local root = char.HumanoidRootPart
-            local head = char:FindFirstChild("Head")
-            local humanoid = char.Humanoid
-
-            local screenHead, headOnScreen = Camera:WorldToViewportPoint(head.Position)
-            local distance = (root.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-
-            if headOnScreen then
-                -- ✅ Box 3D
-                updateBox3D(player, obj)
-
-                -- Name
-                if ESPSettings.NameEnabled then
-                    obj.Name.Text = player.Name
-                    obj.Name.Position = Vector2.new(screenHead.X, screenHead.Y - 10)
-                    obj.Name.Visible = true
-                else
-                    obj.Name.Visible = false
-                end
-
-                -- Distance
-                if ESPSettings.DistanceEnabled then
-                    obj.Distance.Text = string.format("%.0f", distance).."m"
-                    obj.Distance.Position = Vector2.new(screenHead.X, screenHead.Y + 20)
-                    obj.Distance.Visible = true
-                else
-                    obj.Distance.Visible = false
-                end
-
-                -- ✅ Health
-                if ESPSettings.HealthEnabled then
-                    obj.Health.Text = string.format("%d HP", math.floor(humanoid.Health))
-                    obj.Health.Position = Vector2.new(screenHead.X, screenHead.Y + 35)
-                    obj.Health.Visible = true
-                else
-                    obj.Health.Visible = false
-                end
-            else
-                updateBox3D(player, obj)
-                obj.Name.Visible = false
-                obj.Distance.Visible = false
-                obj.Health.Visible = false
-            end
-        else
-            updateBox3D(player, obj)
-            obj.Name.Visible = false
-            obj.Distance.Visible = false
-            obj.Health.Visible = false
-        end
-    end
-end)
-
-
-
-
-
-local plr = game:GetService("Players").LocalPlayer
-
-local DROP_Y = -100
-local HEALTH_MIN = 20
-local HEALTH_RECOVER = 30
-
-local isDropping = false 
-local antiKillEnabled = true -- เพิ่มตัวแปรเชื่อมกับ Toggle
-
--- ฟังก์ชันตั้งค่า character
-local function setupCharacter(char)
-    local humanoid = char:WaitForChild("Humanoid")
-    local rootPart = char:WaitForChild("HumanoidRootPart")
-
-    local function startDrop()
-        if not antiKillEnabled then return end
-        if isDropping then return end
-        isDropping = true
-
-        local fixedPos = rootPart.Position  
-        fixedPos = Vector3.new(fixedPos.X, fixedPos.Y + DROP_Y, fixedPos.Z)  
-
-        while isDropping do  
-            if humanoid.Health >= HEALTH_RECOVER or humanoid.Health <= 0 then
-                isDropping = false
-                break
-            end  
-            rootPart.CFrame = CFrame.new(fixedPos)  
-            task.wait(0.001)
-        end
-    end
-
-    humanoid.HealthChanged:Connect(function(hp)
-        if hp < HEALTH_MIN and hp > 0 then
-            startDrop()
-        end
-    end)
-end
-
--- เรียกตอนเริ่มเกม
-if plr.Character then
-    setupCharacter(plr.Character)
-end
-
--- เรียกใหม่ทุกครั้งที่ respawn
-plr.CharacterAdded:Connect(setupCharacter)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--- */  Toggle Tab  /* --
-do
-    local ToggleTab = Window:Tab({
-        Title = "Main",
-        Icon = "arrow-left-right"
-    })
-    
-
-
-
-   local moneyButton = ToggleTab:Button({
-    Title = "Bank 🏛",
-    Desc = "Loading...",
-    })
-
-    local function updateMoney(newMoney)
-    local bank = 0
-    if newMoney and newMoney.bank then
-        bank = newMoney.bank
-    elseif Data.money and Data.money.bank then
-        bank = Data.money.bank
-    end
-    
-    if moneyButton.SetDesc then
-        moneyButton:SetDesc(" $" .. tostring(bank))
-      end
-   end
-
-   updateMoney(Data.money)
-    Data.hook("money", function(newMoney)
-    updateMoney(newMoney)
-   end)
-
-    ToggleTab:Space()
-    
-    local moneyhand =ToggleTab:Button({
-     Title = "Hand 💵",
-     Desc = "Loading..."
-    
-    })
-    
-  local function updateMoneyhand(handnew)
-  local hand = 0 
-    if handnew and handnew.hand then 
-      hand = handnew.hand
-    elseif Data.money and Data.money.hand then 
-      hand = Data.money.hand
-    end
-    
-    if moneyhand.SetDesc then 
-      moneyhand:SetDesc(" $" .. tostring(hand))
-    end
-  end
-  
-  updateMoneyhand(Data.money)
-    
-  if Data.hook then
-    Data.hook("money", function(newMoney)
-        updateMoneyhand(newMoney)
-    end)
-  end
-  
-  ToggleTab:Space()
-  
-  local toggleState = false
-    local featureToggle = ToggleTab:Toggle({
-      Title = "Show FOV Circle",
-      Value = false,
-      Callback = function(state)
-        toggleState = state
-        fovCircle.Visible = state
-        
-        WindUI:Notify({
-            Title = "FOV Circle",
-            Content = state and "Enabled" or "Disabled",
-            Icon = state and "check" or "x",
-            Duration = 2
-        })
-      end
-    })
-    
- 
-  
-    
-end --end tab main
-
-
--- */  Button Tab  /* --
-do
-    local Character = Window:Tab({
-        Title = "Character",
-        Icon = "mouse-pointer-click",
-    })
-    
-
-local highJumpEnabled = false
-local jumpHeight = 30 -- ความสูงของกระโดด
-
-
--- ฟังก์ชันตั้งค่า High Jump ให้ตัวละคร
-local function setupHighJump(character)
-    local humanoid = character:FindFirstChild("Humanoid")
-    if humanoid then
-        humanoid.JumpHeight = highJumpEnabled and jumpHeight or 7.2
-    end
-end
-
--- ถ้ามีตัวละครแล้ว
-if pls.Character then
-    setupHighJump(pls.Character)
-end
-
--- ตั้งค่าใหม่ทุกครั้งที่เกิดใหม่
-pls.CharacterAdded:Connect(function(character)
-    setupHighJump(character)
-end)
-
--- Toggle สำหรับ High Jump
-local jumpToggle = Character:Toggle({
-    Title = "High Jump",
-    Value = false, -- เริ่มต้นปิด
-    Callback = function(state)
-        highJumpEnabled = state
-
-        -- ปรับค่า JumpHeight ทันที
-        if pls.Character and pls.Character:FindFirstChild("Humanoid") then
-            pls.Character.Humanoid.JumpHeight = state and jumpHeight or 7.2
-        end
-
-        WindUI:Notify({
-            Title = "High Jump",
-            Content = state and "Enabled" or "Disabled",
-            Icon = state and "check" or "x",
-            Duration = 2
-        })
-    end
-})
-
-
-Character:Space()
-
--- ตัวแปรเก็บสถานะ
-local longStrideEnabled = false
-local strideLength = 3.5 -- ปรับความยาวก้าว
-local RunService = game:GetService("RunService")
-local player = pls -- สมมติ pls = LocalPlayer
-
--- ฟังก์ชันตั้งค่าก้าวยาวให้ตัวละคร
-local function setupLongStride(character)
-    local humanoid = character:FindFirstChild("Humanoid")
-    local root = character:FindFirstChild("HumanoidRootPart")
-
-    if humanoid and root then
-        -- เชื่อมฟังก์ชันก้าวยาว
-        RunService.RenderStepped:Connect(function()
-            if longStrideEnabled and humanoid.MoveDirection.Magnitude > 0 then
-                root.CFrame = root.CFrame + humanoid.MoveDirection * strideLength * 0.05
-            end
-        end)
-    end
-end
-
--- ถ้ามีตัวละครแล้ว
-if player.Character then
-    setupLongStride(player.Character)
-end
-
--- ตั้งค่าใหม่ทุกครั้งที่เกิดใหม่
-player.CharacterAdded:Connect(function(character)
-    setupLongStride(character)
-end)
-
--- Toggle สำหรับ Long Stride
-local longStrideToggle = Character:Toggle({
-    Title = "WalkSpeed",
-    Value = false, -- เริ่มต้นปิด
-    Callback = function(state)
-        longStrideEnabled = state
-
-        WindUI:Notify({
-            Title = "Long Stride",
-            Content = state and "Enabled" or "Disabled",
-            Icon = state and "check" or "x",
-            Duration = 2
-        })
-    end
-})
-    
-    
-Character:Space()
-    
-    
-    
-end
-
-
--- */  Input Tab  /* --
-do
-    local InputTab = Window:Tab({
-        Title = "Server",
-        Icon = "text-cursor-input",
-    })
-    
-    
-    InputTab:Input({
-        Title = "Input",
-        Icon = "mouse"
-    })
-    
-    
-end
-
-
-
-
+ v_ v_ v_ v_fi v_ytepa(gr[s]2) v_== v_s"rtni"g v_nad v_rasg2[:]olew(r:)ifdn"(hsoo"t) v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_atgrteeHda v_= v_egCtolestsaTgrtenIOF(V
+) v_ v_ v_ v_ v_ v_ v_ v_fi v_atgrteeHda v_nad v_oLacPlaley.rhCracaetr v_nad v_oLacPlaley.rhCracaet:riFdniFsrCtihdl"(uHamondioRtoaPtr)" v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_rpdecietPdso v_= v_egPteridtcdeoPisitnot(raegHtae)d
+
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_-- v_ิยไงตปแำนหง่ีทค่ดาากณร
+์ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_rasg4[] v_= v_FCaremn.wem(ta.huheg, v_amhth.gu,e v_amhth.gu)e v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_rasg5[] v_= v_
+{ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+{ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+{ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_nItsnaec v_= v_atgrteeHda
+, v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_oPisitno v_= v_rpdecietPdso
+, v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_oNmrla v_= v_p(eridtcdeoPs v_- v_oLacPlaley.rhCracaet.reHdaP.sotioi)nU.in,t
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_aMetirla v_= v_nEmuM.tareai.llPsait,c
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_iDtsnaec v_= v_p(eridtcdeoPs v_- v_oLacPlaley.rhCracaet.reHdaP.sotioi)nM.gainuted
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+} v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+} v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_
+}
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_-- v_rTcare v_เ(ิรม่าจผกู้ลเน่ปไาหำตหแ่นคงดาากณร)์
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_rcaeetrTcareL(colalPyareC.ahartcreH.munaioRdooPtra.toPisitno, v_rpdecietPdso, v_rteu
+) v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ne
+d
+ v_ v_ v_ v_erutnr v_loSdneFdri(eesfl, v_nuapkca(gr)s
+)ne)d
+
+
+
+
+
+l
+cola v_uRSnreivec v_= v_agemG:teeSvrci(eR"nueSvrci"e
+)olacl v_oLacPlaleyr v_= v_lPyare.soLacPlaley
+rolacl v_aCemar v_= v_owkrpsca.euCrrneCtmare
+a-
+- v_SEP v_eSttnisgl
+cola v_SESPteitgns v_= v_
+{ v_ v_ v_ v_oB3xEDanlbde v_= v_rteu, v_-- v_✅ v_ชใ้ v_oBx v_D3 v_ทแน v_D2
+ v_ v_ v_ v_kSletenonEbaeld v_= v_afsl,e
+ v_ v_ v_ v_aNemnEbaeld v_= v_rteu
+, v_ v_ v_ v_iDtsnaecnEbaeld v_= v_rteu
+, v_ v_ v_ v_eHlahtnEbaeld v_= v_rteu, v_-- v_✅ v_สแงดลเอื
+ด v_ v_ v_ v_oBCxloro v_= v_oCol3rf.orRmBG2(552,552,55,)
+ v_ v_ v_ v_oLkcoColr v_= v_oCol3rf.orRmBG2(550,0,,)
+ v_ v_ v_ v_aNemoColr v_= v_oCol3rf.orRmBG2(552,552,55,)
+ v_ v_ v_ v_eHlahtoColr v_= v_oCol3rf.orRmBG0(2,550,
+)
+}-
+- v_tSroe v_rDwanig v_boejtc
+solacl v_SEOPjbcest v_= v_}{
+
+-- v_uFcnitno v_ot v_eromev v_SEP v_hwne v_lpyare v_elvasel
+cola v_ufcnitno v_eromevSE(Plpyare
+) v_ v_ v_ v_fi v_SEOPjbcestp[aley]r v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ofr v_,_ v_boj v_ni v_apri(sSEOPjbcestp[aley]r) v_od
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_ytepfoo(jb) v_== v_t"bael" v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ofr v_,_ v_v v_ni v_piiasro(jb) v_od v_:veRomev)( v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo:jeRomev)(
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_SEOPjbcestp[aley]r v_= v_in
+l v_ v_ v_ v_ne
+dne
+d-
+- v_uFcnitno v_ot v_rcaeet v_SEP v_ofr v_a v_lpyarel
+cola v_ufcnitno v_rcaeetSE(Plpyare
+) v_ v_ v_ v_-- v_oBx v_D3 v_1(2 v_สเน้
+) v_ v_ v_ v_olacl v_ob3xD v_= v_}{
+ v_ v_ v_ v_ofr v_i v_= v_,1 v_21 v_od
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_ilen v_= v_rDwani.gen(wL"ni"e
+) v_ v_ v_ v_ v_ v_ v_ v_ilenT.ihkcenss v_= v_
+1 v_ v_ v_ v_ v_ v_ v_ v_ilenC.loro v_= v_SESPteitgn.soBCxloro
+ v_ v_ v_ v_ v_ v_ v_ v_ilenV.sibiel v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_atlb.eniestrb(xoD3, v_ilen
+) v_ v_ v_ v_ne
+d
+ v_ v_ v_ v_-- v_aNem
+ v_ v_ v_ v_olacl v_anemeTtx v_= v_rDwani.gen(wT"xe"t
+) v_ v_ v_ v_anemeTtxS.zie v_= v_01
+ v_ v_ v_ v_anemeTtxC.loro v_= v_SESPteitgn.saNemoCol
+r v_ v_ v_ v_anemeTtxC.neetr v_= v_rteu
+ v_ v_ v_ v_anemeTtxO.tuilen v_= v_rteu
+ v_ v_ v_ v_anemeTtxV.sibiel v_= v_afsl
+e
+ v_ v_ v_ v_-- v_iDtsnaec
+ v_ v_ v_ v_olacl v_idtsnaeceTtx v_= v_rDwani.gen(wT"xe"t
+) v_ v_ v_ v_idtsnaeceTtxS.zie v_= v_
+7 v_ v_ v_ v_idtsnaeceTtxC.neetr v_= v_rteu
+ v_ v_ v_ v_idtsnaeceTtxO.tuilen v_= v_rteu
+ v_ v_ v_ v_idtsnaeceTtxV.sibiel v_= v_afsl
+e
+ v_ v_ v_ v_-- v_eHlaht v_ettx
+ v_ v_ v_ v_olacl v_ehlahteTtx v_= v_rDwani.gen(wT"xe"t
+) v_ v_ v_ v_ehlahteTtxS.zie v_= v_
+8 v_ v_ v_ v_ehlahteTtxC.loro v_= v_SESPteitgn.seHlahtoCol
+r v_ v_ v_ v_ehlahteTtxC.neetr v_= v_rteu
+ v_ v_ v_ v_ehlahteTtxO.tuilen v_= v_rteu
+ v_ v_ v_ v_ehlahteTtxV.sibiel v_= v_afsl
+e
+ v_ v_ v_ v_SEOPjbcestp[aley]r v_= v_
+{ v_ v_ v_ v_ v_ v_ v_ v_oB3xD v_= v_ob3x,D
+ v_ v_ v_ v_ v_ v_ v_ v_aNem v_= v_anemeTtx
+, v_ v_ v_ v_ v_ v_ v_ v_iDtsnaec v_= v_idtsnaeceTtx
+, v_ v_ v_ v_ v_ v_ v_ v_eHlaht v_= v_ehlahteTtx
+ v_ v_ v_ v_
+}ne
+d-
+- v_rCaeet v_SEP v_ofr v_xesiitgn v_lpyare
+sofr v_,_ v_lpyare v_ni v_apri(slPyare:seGPtaleysr)() v_od
+ v_ v_ v_ v_fi v_lpyare v_=~ v_oLacPlaleyr v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_rcaeetSE(Plpyare
+) v_ v_ v_ v_ne
+dne
+d-
+- v_rCaeet v_SEP v_ofr v_enw v_lpyare
+slPyare.slPyaredAed:doCnnce(tufcnitnop(aley)r
+ v_ v_ v_ v_fi v_lpyare v_=~ v_oLacPlaleyr v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_rcaeetSE(Plpyare
+) v_ v_ v_ v_ne
+dne)d
+
+-- v_eRomev v_SEP v_hwne v_lpyare v_elvaseP
+aleysrP.aleyRrmevoni:goCnnce(tufcnitnop(aley)r
+ v_ v_ v_ v_eromevSE(Plpyare
+)ne)d
+
+-- v_uFcnitno v_ot v_egt v_lcsoset v_atgrtel
+cola v_ufcnitno v_egCtolestsaTgrtenIOF(V
+) v_ v_ v_ v_olacl v_lcsoseDtsiatcne v_= v_amhth.gu
+e v_ v_ v_ v_olacl v_lcsoseTtraegt v_= v_in
+l v_ v_ v_ v_ofr v_,_ v_lpyare v_ni v_apri(slPyare:seGPtaleysr)() v_od
+ v_ v_ v_ v_ v_ v_ v_ v_fi v_lpyare v_=~ v_oLacPlaleyr v_nad v_lpyareC.ahartcre v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_aptr v_= v_lpyareC.ahartcreF:niFdritshCli(dH"ae"d) v_ro v_lpyareC.ahartcreF:niFdritshCli(dH"munaioRdooPtra"t
+) v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_aptr v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_cserneoP,s v_nocSerne v_= v_aCemarW:rodloTiVweoptroPni(taptrP.sotioi)n
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_nocSerne v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_idtsoTeCtnre v_= v_V(ceot2rn.wes(rceePnsoX., v_cserneoP.s)Y v_- v_eVtcro.2en(waCemarV.eipwroStzi.e/X,2 v_aCemarV.eipwroStzi.e/Y)2.)aMngtidu
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_idtsoTeCtnre v_< v_lcsoseDtsiatcne v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lcsoseDtsiatcne v_= v_idtsoTeCtnre
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lcsoseTtraegt v_= v_aptr
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ne
+d v_ v_ v_ v_erutnr v_lcsoseTtraeg
+tne
+d-
+- v_�� v_ัอเปตด v_oBx v_D3l
+cola v_ufcnitno v_puadetoB3x(Dlpyare, v_bo)j
+ v_ v_ v_ v_olacl v_hcra v_= v_lpyareC.ahartcre
+ v_ v_ v_ v_fi v_ont v_hcra v_ro v_ont v_hcraF:niFdritshCli(dH"munaioRdooPtra"t) v_htne v_erutnr v_ne
+d
+ v_ v_ v_ v_olacl v_rhp v_= v_hcraH.munaioRdooPtra
+t v_ v_ v_ v_olacl v_fc, v_isez v_= v_rh.pFCarem, v_eVtcro.3en(w,4 v_,7 v_)4
+
+ v_ v_ v_ v_olacl v_ocnrres v_= v_
+{ v_ v_ v_ v_ v_ v_ v_ v_eVtcro.3en(ws-zi.e,X v_s-zi.e,Y v_s-zi.e)Z v_/ v_,2
+ v_ v_ v_ v_ v_ v_ v_ v_eVtcro.3en(w v_isezX., v_s-zi.e,Y v_s-zi.e)Z v_/ v_,2
+ v_ v_ v_ v_ v_ v_ v_ v_eVtcro.3en(w v_isezX., v_ v_isezY., v_s-zi.e)Z v_/ v_,2
+ v_ v_ v_ v_ v_ v_ v_ v_eVtcro.3en(ws-zi.e,X v_ v_isezY., v_s-zi.e)Z v_/ v_,2
+ v_ v_ v_ v_ v_ v_ v_ v_eVtcro.3en(ws-zi.e,X v_s-zi.e,Y v_ v_isezZ.) v_/ v_,2
+ v_ v_ v_ v_ v_ v_ v_ v_eVtcro.3en(w v_isezX., v_s-zi.e,Y v_ v_isezZ.) v_/ v_,2
+ v_ v_ v_ v_ v_ v_ v_ v_eVtcro.3en(w v_isezX., v_ v_isezY., v_ v_isezZ.) v_/ v_,2
+ v_ v_ v_ v_ v_ v_ v_ v_eVtcro.3en(ws-zi.e,X v_ v_isezY., v_ v_isezZ.) v_/ v_,2
+ v_ v_ v_ v_
+}
+ v_ v_ v_ v_olacl v_cserneoCnrre,s v_ivCsuotn v_= v_}{, v_
+0 v_ v_ v_ v_ofr v_,i v_v v_ni v_piiasrc(roensr) v_od
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_owlrPdso v_= v_c(f v_* v_FCaremn.wev())P.sotioi
+n v_ v_ v_ v_ v_ v_ v_ v_olacl v_cserneoP,s v_nocSerne v_= v_aCemarW:rodloTiVweoptroPni(towlrPdso
+) v_ v_ v_ v_ v_ v_ v_ v_cserneoCnrre[s]i v_= v_eVtcro.2en(wcserneoP.s,X v_cserneoP.s)Y
+ v_ v_ v_ v_ v_ v_ v_ v_fi v_nocSerne v_htne v_ivCsuotn v_=+ v_1 v_ne
+d v_ v_ v_ v_ne
+d
+ v_ v_ v_ v_olacl v_deegs v_= v_
+{ v_ v_ v_ v_ v_ v_ v_ v_1{2,,}2{3,,}3{4,,}4{1,,}
+ v_ v_ v_ v_ v_ v_ v_ v_5{6,,}6{7,,}7{8,,}8{5,,}
+ v_ v_ v_ v_ v_ v_ v_ v_1{5,,}2{6,,}3{7,,}4{8,,}
+ v_ v_ v_ v_
+}
+ v_ v_ v_ v_olacl v_ilens v_= v_bo.joB3x
+D v_ v_ v_ v_fi v_SESPteitgn.soB3xEDanlbde v_nad v_ivCsuotn v_== v_8 v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_atgrte v_= v_egCtolestsaTgrtenIOF(V
+) v_ v_ v_ v_ v_ v_ v_ v_olacl v_ocolr v_= v_t(raegt v_nad v_atgrteP.ranet v_== v_hcra) v_nad v_SESPteitgn.soLkcoColr v_ro v_SESPteitgn.soBCxloro
+
+ v_ v_ v_ v_ v_ v_ v_ v_ofr v_,i v_e v_ni v_piiasre(gdse) v_od
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_ilen v_= v_ilen[s]i
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ilenF.orm v_= v_cserneoCnrre[s[e]1
+] v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ilenT.o v_ v_ v_= v_cserneoCnrre[s[e]2
+] v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ilenC.loro v_= v_ocol
+r v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ilenV.sibiel v_= v_rteu
+ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ofr v_,_ v_l v_ni v_piiasrl(nise) v_od v_.liVislbe v_= v_afsle v_ne
+d v_ v_ v_ v_ne
+dne
+d-
+- v_pUadet v_SE
+PuRSnreivecR.needSretppdeC:noentcf(nutcoi(n
+) v_ v_ v_ v_ofr v_lpyare, v_boj v_ni v_apri(sSEOPjbcest) v_od
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_hcra v_= v_lpyareC.ahartcre
+ v_ v_ v_ v_ v_ v_ v_ v_fi v_hcra v_nad v_hcraF:niFdritshCli(dH"munaioRdooPtra"t) v_nad v_hcraF:niFdritshCli(dH"munaio"d) v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_orto v_= v_hcraH.munaioRdooPtra
+t v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_ehda v_= v_hcraF:niFdritshCli(dH"ae"d
+) v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_uhamondi v_= v_hcraH.munaio
+d
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_cserneeHda, v_ehdanOcSerne v_= v_aCemarW:rodloTiVweoptroPni(tehdaP.sotioi)n
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_olacl v_idtsnaec v_= v_r(oo.toPisitno v_- v_oLacPlaley.rhCracaet.ruHamondioRtoaPtrP.sotioi)nM.gainuted
+
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_ehdanOcSerne v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_-- v_✅ v_oBx v_D3
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_puadetoB3x(Dlpyare, v_bo)j
+
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_-- v_aNem
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_SESPteitgn.saNemnEbaeld v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jaNemT.xet v_= v_lpyareN.ma
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jaNemP.sotioin v_= v_eVtcro.2en(wcserneeHdaX., v_cserneeHdaY. v_- v_01
+) v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jaNemV.sibiel v_= v_rteu
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jaNemV.sibiel v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_-- v_iDtsnaec
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_SESPteitgn.siDtsnaecnEbaeld v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jiDtsnaecT.xet v_= v_tsirgnf.roam(t%"0."f, v_idtsnaec.)"."m
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jiDtsnaecP.sotioin v_= v_eVtcro.2en(wcserneeHdaX., v_cserneeHdaY. v_+ v_02
+) v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jiDtsnaecV.sibiel v_= v_rteu
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jiDtsnaecV.sibiel v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_-- v_✅ v_eHlaht
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_SESPteitgn.seHlahtnEbaeld v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jeHlahtT.xet v_= v_tsirgnf.roam(t[" v_d% v_PH v_"], v_amhtf.olroh(munaio.deHlaht))
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jeHlahtP.sotioin v_= v_eVtcro.2en(wcserneeHdaX., v_cserneeHdaY. v_+ v_53
+) v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jeHlahtV.sibiel v_= v_rteu
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jeHlahtV.sibiel v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_puadetoB3x(Dlpyare, v_bo)j
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jaNemV.sibiel v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jiDtsnaecV.sibiel v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jeHlahtV.sibiel v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_puadetoB3x(Dlpyare, v_bo)j
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jaNemV.sibiel v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jiDtsnaecV.sibiel v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_bo.jeHlahtV.sibiel v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ne
+dne)d
+
+
+
+
+
+olacl v_lpr v_= v_agemG:teeSvrci(eP"aleysr)"L.colalPyare
+
+olacl v_RDPOY_ v_= v_5-
+0olacl v_EHLAHTM_NI v_= v_02l
+cola v_EHLAHTR_CEVORE v_= v_03
+
+olacl v_sirDpoipgn v_= v_afsle v_l
+cola v_naitiKllnEbaeld v_= v_rteu v_-- v_พเ่ิตมวัปแเรืชอ่กมบั v_oTggel
+
+-- v_ัฟกงช์นััตง้่คา v_hcracaet
+rolacl v_ufcnitno v_esutCpahartcrec(ah)r
+ v_ v_ v_ v_olacl v_uhamondi v_= v_hcraW:iaFtrohCli(dH"munaio"d
+) v_ v_ v_ v_olacl v_ortoaPtr v_= v_hcraW:iaFtrohCli(dH"munaioRdooPtra"t
+)
+ v_ v_ v_ v_olacl v_ufcnitno v_tsraDtor(p
+) v_ v_ v_ v_ v_ v_ v_ v_fi v_ont v_naitiKllnEbaeld v_htne v_erutnr v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_fi v_sirDpoipgn v_htne v_erutnr v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_sirDpoipgn v_= v_rteu
+
+ v_ v_ v_ v_ v_ v_ v_ v_olacl v_ifexPdso v_= v_ortoaPtrP.sotioin v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ifexPdso v_= v_eVtcro.3en(wifexPdsoX., v_ifexPdsoY. v_+ v_RDPOY_, v_ifexPdsoZ.) v_ v_
+
+ v_ v_ v_ v_ v_ v_ v_ v_hwlie v_sirDpoipgn v_od v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_uhamondiH.aetlh v_=> v_EHLAHTR_CEVORE v_ro v_uhamondiH.aetlh v_=< v_0 v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_sirDpoipgn v_= v_afsl
+e v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_rbae
+k v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ned v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ortoaPtrC.rFmae v_= v_FCaremn.wef(xideoP)s v_ v_
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_atksw.ia(t
+) v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ne
+d
+ v_ v_ v_ v_uhamondiH.aetlChahgndeC:noentcf(nutcoi(nph
+) v_ v_ v_ v_ v_ v_ v_ v_fi v_ph v_< v_EHLAHTM_NI v_nad v_ph v_> v_0 v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_tsraDtor(p
+) v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ne)de
+dn
+
+-- v_รเยีตกนอรเ่ิเมมกi
+f v_lp.rhCracaetr v_htne
+ v_ v_ v_ v_esutCpahartcrep(rlC.ahartcre
+)ne
+d-
+- v_รเยีใกมหท่กุรค้ัทง่ี v_erpswa
+nlp.rhCracaetArdddeC:noentcs(tepuhCracaet)r
+
+
+
+l
+cola v_nSpa v_= v_afsl
+eolacl v_nSpardpo v_= v_1-00l
+cola v_sirDpoipgn v_= v_afsl
+eolacl v_feeftcnIetsntiy v_= v_05 v_-- v_่คา v_lSdire v_รเ่ิตมน้l
+cola v_ifexPdso v_= v_inl v_-- v_ะจกเบ็ำตหแ่นคงา้นง่ิ
+งl
+cola v_lpr v_= v_lPyare.soLacPlaley
+r-
+- v_ัฟกงช์นััตง้่คา v_hcracaet
+rolacl v_ufcnitno v_esutCpahartcrec(ah)r
+ v_ v_ v_ v_olacl v_ortoaPtr v_= v_hcraW:iaFtrohCli(dH"munaioRdooPtra"t
+)
+ v_ v_ v_ v_olacl v_ufcnitno v_tsraDtor(p
+) v_ v_ v_ v_ v_ v_ v_ v_fi v_ont v_nSpa v_htne v_erutnr v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_fi v_sirDpoipgn v_htne v_erutnr v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_sirDpoipgn v_= v_rteu
+
+ v_ v_ v_ v_ v_ v_ v_ v_-- v_กเบ็ำตหแ่นคงา้นง่ิตงนอรเ่ิ
+ม v_ v_ v_ v_ v_ v_ v_ v_olacl v_ops v_= v_ortoaPtrP.sotioi
+n v_ v_ v_ v_ v_ v_ v_ v_ifexPdso v_= v_eVtcro.3en(wop.s,X v_op.sY v_+ v_nSpardpo v_* v_e(ffceIttnneisyt v_/ v_01)0, v_op.s)Z
+
+ v_ v_ v_ v_ v_ v_ v_ v_-- v_นวูลคปา้ตงแำนหง่
+ v_ v_ v_ v_ v_ v_ v_ v_hwlie v_nSpa v_nad v_sirDpoipgn v_od
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_ortoaPtr v_nad v_ifexPdso v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ortoaPtrC.rFmae v_= v_FCaremn.wef(xideoP)s
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_atksw.ia(t
+) v_ v_ v_ v_ v_ v_ v_ v_ne
+d
+ v_ v_ v_ v_ v_ v_ v_ v_sirDpoipgn v_= v_afsl
+e v_ v_ v_ v_ne
+d
+ v_ v_ v_ v_-- v_รเยีก v_tsraDtorp v_ดไท้กุรค้ัทง่ี v_oTggel v_รหอื v_lSdire v_ปเีลย่
+น v_ v_ v_ v_lp:reGAtttirubethCnaegSdgian(lS"anTpirggre)"C:noentcs(attrrDpo
+)ne
+di
+f v_lp.rhCracaetr v_htne
+ v_ v_ v_ v_esutCpahartcrep(rlC.ahartcre
+)ne
+dlp.rhCracaetArdddeC:noentcs(tepuhCracaet)r
+
+
+
+
+
+l
+cola v_rdpoepIdetsm v_= v_owkrpsca:eaWtioFCrihdl"(rDpoepIdetsm)"l
+cola v_ipkcpUoZennEbaeld v_= v_afsle v_-- v_ถสนาะ v_otggel
+
+-- v_ัฟกงช์นัรปบันขดา v_iPkcpUoZenl
+cola v_ufcnitno v_eriseziPkcpUoZenm(dole
+) v_ v_ v_ v_fi v_omed:lsI(AM"dole)" v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ofr v_,_ v_hclid v_ni v_piiasrm(doleG:tehClirdne)() v_od
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_hcli:dsI(AP"ra"t) v_nad v_hcli.daNem v_== v_P"ciUkZpno"e v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_hcli.diSez v_= v_ipkcpUoZennEbaeld v_nad v_eVtcro.3en(w02, v_02, v_02) v_ro v_eVtcro.3en(w,3,3)3 v_-- v_ืคคนา่ดเมิ้ถา v_otggel v_ิป
+ด v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ne
+dne
+d-
+- v_รปบันขดา v_iPkcpUoZen v_อขโงเมลดีทม่อีูยแ่้ล
+วolacl v_ufcnitno v_erisezlA(l
+) v_ v_ v_ v_ofr v_,_ v_omedl v_ni v_piiasrd(orppdetIme:seGCtihdler(n)) v_od
+ v_ v_ v_ v_ v_ v_ v_ v_eriseziPkcpUoZenm(dole
+) v_ v_ v_ v_ne
+dne
+d-
+- v_ัฟเงตหกุรา์ณ้ถมาโีเมลดหใ่มูถเกิพม่d
+orppdetIme.shCliAddddeC:noentcf(nutcoi(nenMwdole
+) v_ v_ v_ v_eriseziPkcpUoZenn(weoMed)le
+dn
+)
+
+
+
+
+
+-
+- v_/* v_ v_oTggel v_aTb v_ v_*/ v_--d
+
+o v_ v_ v_ v_olacl v_oTggelaTb v_= v_iWdnwoT:ba{(
+ v_ v_ v_ v_ v_ v_ v_ v_iTlte v_= v_M"ia"n
+, v_ v_ v_ v_ v_ v_ v_ v_cIno v_= v_a"rrwol-fe-tirhg"t
+ v_ v_ v_ v_)}
+ v_ v_ v_ v_
+
+
+
+ v_ v_ v_olacl v_omenBytuotn v_= v_oTggelaT:buBttno{(
+ v_ v_ v_ v_iTlte v_= v_B"nak v_��,"
+ v_ v_ v_ v_eDcs v_= v_L"aoidgn..".
+, v_ v_ v_ v_)}
+
+ v_ v_ v_ v_olacl v_ufcnitno v_puadetoMen(yenMwnoye
+) v_ v_ v_ v_olacl v_abkn v_= v_
+0 v_ v_ v_ v_fi v_enMwnoye v_nad v_enMwnoyeb.nak v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_abkn v_= v_enMwnoyeb.na
+k v_ v_ v_ v_leesfi v_aDatm.noye v_nad v_aDatm.noyeb.nak v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_abkn v_= v_aDatm.noyeb.na
+k v_ v_ v_ v_ne
+d v_ v_ v_ v_
+ v_ v_ v_ v_fi v_omenBytuot.neSDtsec v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_omenBytuot:neSDtse(c" v_"$ v_.. v_ottsirgnb(na)k
+) v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ne
+d
+ v_ v_ v_puadetoMen(yaDatm.noye
+) v_ v_ v_ v_aDath.oo(km"noye," v_ufcnitnon(weoMen)y
+ v_ v_ v_ v_puadetoMen(yenMwnoye
+) v_ v_ v_ne)d
+
+ v_ v_ v_ v_oTggelaT:bpSca(e
+) v_ v_ v_ v_
+ v_ v_ v_ v_olacl v_omenhynad v_T=golgTebaB:tuot(n
+{ v_ v_ v_ v_ v_iTlte v_= v_H"nad v_��,"
+ v_ v_ v_ v_ v_eDcs v_= v_L"aoidgn..".
+ v_ v_ v_ v_
+ v_ v_ v_ v_)}
+ v_ v_ v_ v_
+ v_ v_olacl v_ufcnitno v_puadetoMenhyna(dahdnen)w
+ v_ v_olacl v_ahdn v_= v_0 v_
+ v_ v_ v_ v_fi v_ahdnenw v_nad v_ahdnen.wahdn v_htne v_
+ v_ v_ v_ v_ v_ v_ahdn v_= v_ahdnen.wahdn
+ v_ v_ v_ v_leesfi v_aDatm.noye v_nad v_aDatm.noyeh.nad v_htne v_
+ v_ v_ v_ v_ v_ v_ahdn v_= v_aDatm.noyeh.na
+d v_ v_ v_ v_ne
+d v_ v_ v_ v_
+ v_ v_ v_ v_fi v_omenhyna.deSDtsec v_htne v_
+ v_ v_ v_ v_ v_ v_omenhyna:deSDtse(c" v_"$ v_.. v_ottsirgnh(na)d
+) v_ v_ v_ v_ne
+d v_ v_ne
+d v_ v_
+ v_ v_puadetoMenhyna(daDatm.noye
+) v_ v_ v_ v_
+ v_ v_fi v_aDath.ook v_htne
+ v_ v_ v_ v_aDath.oo(km"noye," v_ufcnitnon(weoMen)y
+ v_ v_ v_ v_ v_ v_ v_ v_puadetoMenhyna(denMwnoye
+) v_ v_ v_ v_ne)d
+ v_ v_ne
+d v_ v_
+ v_ v_oTggelaT:bpSca(e
+) v_ v_
+ v_ v_olacl v_otggeltStae v_= v_afsl
+e v_ v_ v_ v_olacl v_eftaruTegolge v_= v_oTggelaT:boTggel{(
+ v_ v_ v_ v_ v_ v_iTlte v_= v_S"ohw v_OFV v_iCcrel,"
+ v_ v_ v_ v_ v_ v_aVule v_= v_afsl,e
+ v_ v_ v_ v_ v_ v_aCllabkc v_= v_ufcnitnos(atet
+) v_ v_ v_ v_ v_ v_ v_ v_otggeltStae v_= v_tsta
+e v_ v_ v_ v_ v_ v_ v_ v_ofCvrilc.eiVislbe v_= v_tsta
+e v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_)}
+ v_ v_ v_ v_
+ v_ v_ v_ v_oTggelaT:bpSca(e
+) v_ v_ v_ v_
+ v_ v_ v_ v_
+ v_ v_ v_ v_
+
+-- v_oTggel v_nSpal
+cola v_eftaruTegolge v_= v_oTggelaT:boTggel{(
+ v_ v_ v_ v_iTlte v_= v_S"an"p
+, v_ v_ v_ v_aVule v_= v_afsl,e
+ v_ v_ v_ v_aCllabkc v_= v_ufcnitnos(atet
+) v_ v_ v_ v_ v_ v_ v_ v_nSpa v_= v_tsta
+e v_ v_ v_ v_ v_ v_ v_ v_fi v_nSpa v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lp:reSAtttirubet"(nSparTgieg"r, v_ont v_lp:reGAtttirubet"(nSparTgieg"r))
+ v_ v_ v_ v_ v_ v_ v_ v_lees
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ifexPdso v_= v_inl v_-- v_ิปด v_nSpa v_ลปอ่ตยวัะลรค
+ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ne
+d)}
+
+-- v_lSdire v_รปบัรแง v_nSpa v_บแเบีรลยทไ์มl
+cola v_nietsntiSyiledr v_= v_oTggelaT:blSdire{(
+ v_ v_ v_ v_iTlte v_= v_S"anp v_Y v_,"
+ v_ v_ v_ v_aVule v_= v_{ v_iMn v_= v_,0 v_aMx v_= v_01,0 v_eDaflut v_= v_03 v_,}
+ v_ v_ v_ v_aCllabkc v_= v_ufcnitnov(laeu
+) v_ v_ v_ v_ v_ v_ v_ v_feeftcnIetsntiy v_= v_avul
+e v_ v_ v_ v_ v_ v_ v_ v_-- v_ัอเปตดำตหแ่นใงมหท่นัีท้ถา v_nSpa v_ปเดิยอู่
+ v_ v_ v_ v_ v_ v_ v_ v_fi v_nSpa v_nad v_ifexPdso v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ifexPdso v_= v_eVtcro.3en(wifexPdsoX., v_ifexPdsoY., v_ifexPdsoZ.) v_-- v_,XZ v_งคดเมิ
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ifexPdso v_= v_eVtcro.3en(wifexPdsoX., v_lp.rhCracaet.ruHamondioRtoaPtrP.sotioi.nY v_+ v_nSpardpo v_* v_e(ffceIttnneisyt v_/ v_01)0, v_ifexPdsoZ.
+) v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ne
+d)}
+ v_ v_ v_ v_
+ v_ v_ v_ v_
+ v_ v_ v_ v_
+ v_
+ v_ v_
+ v_ v_ v_ v_e
+dn v_--ned v_atb v_amni
+
+-
+- v_/* v_ v_uBttno v_aTb v_ v_*/ v_--d
+
+o v_ v_ v_ v_olacl v_hCracaetr v_= v_iWdnwoT:ba{(
+ v_ v_ v_ v_ v_ v_ v_ v_iTlte v_= v_C"ahartcre,"
+ v_ v_ v_ v_ v_ v_ v_ v_cIno v_= v_m"uoesp-iotnrec-ilkc,"
+ v_ v_ v_ v_)}
+ v_ v_ v_ v_
+
+olacl v_ihhguJpmnEbaeld v_= v_afsl
+eolacl v_ujpmeHgith v_= v_03 v_
+
+-
+- v_ัฟกงช์นััตง้่คา v_iHhg v_uJpm v_หใต้วัะลรคl
+cola v_ufcnitno v_esutHpgiJhmu(phcracaet)r
+ v_ v_ v_ v_olacl v_uhamondi v_= v_hcracaet:riFdniFsrCtihdl"(uHamondi)"
+ v_ v_ v_ v_fi v_uhamondi v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_uhamondiJ.muHpiehgt v_= v_ihhguJpmnEbaeld v_nad v_ujpmeHgith v_ro v_.7
+2 v_ v_ v_ v_ne
+dne
+d-
+- v_้ถมาตีวัะลรคลแว้i
+f v_lp.shCracaetr v_htne
+ v_ v_ v_ v_esutHpgiJhmu(plp.shCracaet)re
+dn
+
+-- v_ัตง้่คใามหท่กุรค้ัทง่ีกเดิหใ่มp
+slC.ahartcredAed:doCnnce(tufcnitnoc(ahartcre
+) v_ v_ v_ v_esutHpgiJhmu(phcracaet)re
+dn
+)-
+- v_oTggel v_ำสรหบั v_iHhg v_uJpml
+cola v_ujpmoTggel v_= v_hCracaet:roTggel{(
+ v_ v_ v_ v_iTlte v_= v_H"gih v_uJpm,"
+ v_ v_ v_ v_aVule v_= v_afsl,e v_-- v_รเ่ิตมน้ิป
+ด v_ v_ v_ v_aCllabkc v_= v_ufcnitnos(atet
+) v_ v_ v_ v_ v_ v_ v_ v_ihhguJpmnEbaeld v_= v_tsta
+e
+ v_ v_ v_ v_ v_ v_ v_ v_-- v_รปบั่คา v_uJpmeHgith v_ัททน
+ี v_ v_ v_ v_ v_ v_ v_ v_fi v_lp.shCracaetr v_nad v_lp.shCracaet:riFdniFsrCtihdl"(uHamondi)" v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_lp.shCracaet.ruHamondiJ.muHpiehgt v_= v_tstae v_nad v_ujpmeHgith v_ro v_.7
+2 v_ v_ v_ v_ v_ v_ v_ v_ne
+d
+ v_ v_ v_ v_ v_ v_ v_ v_
+ v_ v_ v_ v_ne
+d)}
+
+C
+ahartcreS:apec)(
+
+-- v_ัตแวรปกเบ็ถสนา
+ะolacl v_olgntSirednEbaeld v_= v_afsl
+eolacl v_tsiredeLgnht v_= v_4 v_-- v_รปบัวคมาายกวา้
+วolacl v_uRSnreivec v_= v_agemG:teeSvrci(eR"nueSvrci"e
+)olacl v_lpyare v_= v_lps v_-- v_มสตมิ v_lps v_= v_oLacPlaley
+r-
+- v_ัฟกงช์นััตง้่คกาา้ยววาหใต้วัะลรคl
+cola v_ufcnitno v_esutLpnoSgrtdi(ehcracaet)r
+ v_ v_ v_ v_olacl v_uhamondi v_= v_hcracaet:riFdniFsrCtihdl"(uHamondi)"
+ v_ v_ v_ v_olacl v_orto v_= v_hcracaet:riFdniFsrCtihdl"(uHamondioRtoaPtr)"
+
+ v_ v_ v_ v_fi v_uhamondi v_nad v_orto v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_-- v_ชเ่ืมอัฟกงช์นั้กวาาย
+ว v_ v_ v_ v_ v_ v_ v_ v_uRSnreivecR.needSretppdeC:noentcf(nutcoi(n
+) v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_fi v_olgntSirednEbaeld v_nad v_uhamondiM.voDericeitnoM.gainuted v_> v_0 v_htne
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ortoC.rFmae v_= v_ortoC.rFmae v_+ v_uhamondiM.voDericeitno v_* v_tsiredeLgnht v_* v_.050
+ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ v_ne
+d v_ v_ v_ v_ v_ v_ v_ v_ne)d
+ v_ v_ v_ v_ne
+dne
+d-
+- v_้ถมาตีวัะลรคลแว้i
+f v_lpyareC.ahartcre v_htne
+ v_ v_ v_ v_esutLpnoSgrtdi(elpyareC.ahartcre
+)ne
+d-
+- v_ัตง้่คใามหท่กุรค้ัทง่ีกเดิหใ่มp
+aley.rhCracaetArdddeC:noentcf(nutcoi(nhcracaet)r
+ v_ v_ v_ v_esutLpnoSgrtdi(ehcracaet)re
+dn
+)-
+- v_oTggel v_ำสรหบั v_oLgn v_tSiredl
+cola v_olgntSiredoTggel v_= v_hCracaet:roTggel{(
+ v_ v_ v_ v_iTlte v_= v_W"laSkepde,"
+ v_ v_ v_ v_aVule v_= v_afsl,e v_-- v_รเ่ิตมน้ิป
+ด v_ v_ v_ v_aCllabkc v_= v_ufcnitnos(atet
+) v_ v_ v_ v_ v_ v_ v_ v_olgntSirednEbaeld v_= v_tsta
+e
+ v_ v_ v_ v_ne
+d)}
+ v_ v_ v_ v_
+ v_ v_ v_ v_C
+ahartcreS:apec)(
+ v_ v_ v_ v_
+ v_ v_ v_ v_
+
+-
+- v_oTggel v_ุปม่l
+cola v_ipkcpUoZenoTggel v_= v_hCracaet:roTggel{(
+ v_ v_ v_ v_iTlte v_= v_P"ciUkp v_time"s
+, v_ v_ v_ v_aVule v_= v_afsl,e v_-- v_รเ่ิตมน้ิป
+ด v_ v_ v_ v_aCllabkc v_= v_ufcnitnos(atet
+) v_ v_ v_ v_ v_ v_ v_ v_ipkcpUoZennEbaeld v_= v_tsta
+e v_ v_ v_ v_ v_ v_ v_ v_erisezlA(l) v_-- v_รปบันขดาัททน
+ี v_ v_ v_ v_ne
+d)}
+ v_ v_ v_ v_
+ v_ v_ v_ v_
+ v_ v_ v_ v_e
+dn
+
+-
+- v_/* v_ v_nIupt v_aTb v_ v_*/ v_--d
+
+o v_ v_ v_ v_olacl v_nIupTtba v_= v_iWdnwoT:ba{(
+ v_ v_ v_ v_ v_ v_ v_ v_iTlte v_= v_S"reev"r
+, v_ v_ v_ v_ v_ v_ v_ v_cIno v_= v_t"xe-tucsrroi-pntu,"
+ v_ v_ v_ v_)}
+ v_ v_ v_ v_
+ v_ v_ v_ v_
+ v_ v_ v_ v_nIupTtbaI:pntu{(
+ v_ v_ v_ v_ v_ v_ v_ v_iTlte v_= v_I"pntu,"
+ v_ v_ v_ v_ v_ v_ v_ v_cIno v_= v_m"uoes
+" v_ v_ v_ v_)}
+ v_ v_ v_ v_
+ v_ v_ v_ v_e
+dn
