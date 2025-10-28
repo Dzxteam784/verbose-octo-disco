@@ -1,2 +1,3611 @@
-loadstring(game:HttpGet('https://pastefy.app/7CalZrnb/raw'))()
-print("Loading success")
+if not game:IsLoaded() then repeat task.wait() until game:IsLoaded() end
+
+if not (game.PlaceId == 104715542330896 or game.PlaceId == 97556409405464) then return end
+
+local require = require or getfenv().require
+local cloneref = cloneref or function(f) return f end
+local Net = require(cloneref(game:GetService('ReplicatedStorage').Modules.Core.Net))
+local getupvalue = getupvalue or debug.getupvalue
+local setconstant = setconstant or debug.setconstant
+
+do
+    local func2 = getupvalue(Net.send, 2)
+    setconstant(func2, 1, "...")
+    setconstant(func2, 3, "...")
+    setconstant(func2, 4, "...")
+    setconstant(func2, 9, "...")
+    local func = getupvalue(Net.get, 2)
+    setconstant(func, 1, "...")
+    setconstant(func, 3, "...")
+    setconstant(func, 4, "...")
+    setconstant(func, 9, "...")
+
+    local real_getfenv = getfenv
+    getfenv = function(level)
+        if level == 6 then
+            local original_env = real_getfenv(6)
+            return setmetatable({}, {
+                __index = function(self, key)
+                    if key == "getgenv" or key == "identifyexecutor" then
+                        return nil
+                    end
+                    return original_env and original_env[key]
+                end,
+                __newindex = function(self, key, value)
+                    if original_env then
+                        original_env[key] = value
+                    end
+                end
+            })
+        end
+        return real_getfenv(level)
+    end
+end
+
+
+
+local replicated = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
+local PathfindingService = game:GetService("PathfindingService")
+local vim = game:GetService("VirtualInputManager")
+local teleport = game:GetService('TeleportService')
+local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local Debris = game:GetService("Debris")
+local UserInputService = game:GetService("UserInputService")
+local CurrentCamera = workspace.CurrentCamera
+
+local Client = Players.LocalPlayer
+local Character = Client.Character or Client.CharacterAdded:Wait()
+local UserId = Client.UserId
+local PlayerGui = Client.PlayerGui
+local Humanoid = Character:WaitForChild("Humanoid")
+local RootPart = Character:WaitForChild("HumanoidRootPart")
+local Backpack = Client:WaitForChild("Backpack")
+
+Client.CharacterAdded:Connect(function(newCharacter)
+	Character = newCharacter
+	Humanoid = Character:WaitForChild('Humanoid')
+	RootPart = Character:WaitForChild('HumanoidRootPart')
+	Backpack = Client:WaitForChild("Backpack")
+end)	
+
+local insert = table.insert
+local CFrame_new = CFrame.new
+local Vector_new = Vector3.new
+local TwoD_new = Vector2.new
+local UDim2_new = UDim2.new
+local waits = task.wait
+local get = ipairs
+local getn = pairs
+local word_find = string.find
+local create = Instance.new
+local stop = task.cancel
+local this_is_string = tostring
+local this_is_number = tonumber
+local un = unpack
+local randomb = math.random
+
+local FishingPoint = {CFrame_new(168.047867, 254.27066, -841.618408, 0.984877765, -1.09087062e-09, 0.17325072, -1.50939405e-09, 1, 1.48769326e-08, -0.17325072, -1.49134625e-08, 0.984877765),CFrame_new(178.132553, 251.515717, -789.557007, -0.921630383, 8.07655525e-08, -0.388068825, 1.33635867e-08, 1, 1.76384333e-07, 0.388068825, 1.57375169e-07, -0.921630383),CFrame_new(180.987671, 251.098221, -801.266968, 0.530978322, 6.69925555e-08, 0.847385406, -2.01346104e-08, 1, -6.64414443e-08, -0.847385406, 1.82171931e-08, 0.530978322),CFrame_new(147.634399, 254.536148, -799.35144, -0.828383744, 4.44203536e-08, 0.560161054, -2.37300668e-08, 1, -1.14392023e-07, -0.560161054, -1.0805315e-07, -0.828383744)}
+local HackToolList = {[1] = "HackToolBasic",[12] = "HackToolPro",[50] = "HackToolUltimate",[90] = "HackToolQuantum",}
+local ChipPrice = {["HackToolBasic"] = 10,["HackToolPro"] = 150,["HackToolUltimate"] = 350,["HackToolQuantum"] = 550}
+local player_drawings = {}
+local item_drawings = {}
+local HeadOff = Vector_new(0, 0.5, 0)
+local LegOff = Vector_new(0, 3, 0)
+local ServerFunc,func,functionb = {},{},{}; 
+ServerFunc.__index = ServerFunc 
+func.__index = func
+
+local droppedItems = workspace:FindFirstChild("DroppedItems")
+local Puddles = workspace:FindFirstChild("Map")and workspace.Map:FindFirstChild("Tiles")and workspace.Map.Tiles:FindFirstChild("BurgerPlaceTile")and workspace.Map.Tiles.BurgerPlaceTile:FindFirstChild("BurgerPlace")and workspace.Map.Tiles.BurgerPlaceTile.BurgerPlace:FindFirstChild("Interior")and workspace.Map.Tiles.BurgerPlaceTile.BurgerPlace.Interior:FindFirstChild("Puddles")
+local SteakHouseBro = workspace:FindFirstChild("Map")and workspace.Map:FindFirstChild("Tiles")and workspace.Map.Tiles:FindFirstChild("ShoppingTile")and workspace.Map.Tiles.ShoppingTile:FindFirstChild("SteakHouse")
+local DataModule = require(replicated.Modules.Core.Data)
+local ItemUtilsModule = require(replicated.Modules.Game.Inventory.ItemUtils)
+local CrateController = require(replicated.Modules.Game.CrateSystem.Crate)
+local CharModule = require(replicated.Modules.Core.Char)
+local throwable = replicated.Items.throwable
+
+local function c() 
+    return getgenv()
+end
+
+do
+    Circle = Drawing.new("Circle")
+    Circle.Visible = false
+    Circle.Color = Color3.fromRGB(255, 255, 255)
+    Circle.Radius = 150 
+    Circle.Thickness = 1
+    Circle.Filled = false 
+
+    for _, player in get(Players:GetPlayers()) do
+        if player ~= Client then
+            local box = Drawing.new("Square")
+            box.Visible = false
+            box.Color = Color3.fromRGB(255, 0, 0)
+            box.Thickness = 1
+            box.Transparency = 1
+            box.Filled = false
+
+            local hpbar = Drawing.new("Line")
+            hpbar.Visible = false
+            hpbar.Color = Color3.new(0, 1, 0)
+            hpbar.Thickness = 2
+
+            local name = Drawing.new("Text")
+            name.Visible = false
+            name.Color = Color3.new(1, 1, 1)
+            name.Size = 15
+            name.Center = true
+            name.Outline = true
+            name.OutlineColor = Color3.new(0, 0, 0)
+
+            local dist = Drawing.new("Text")
+            dist.Visible = false
+            dist.Color = Color3.new(1, 1, 1)
+            dist.Size = 15
+            dist.Center = true
+            dist.Outline = true
+            dist.OutlineColor = Color3.new(0, 0, 0)
+
+            local tracer = Drawing.new("Line")
+            tracer.Visible = false
+            tracer.Color = Color3.fromRGB(255,255,255)
+            tracer.Thickness = 1
+
+            local tracer_aim = Drawing.new("Line")
+            tracer_aim.Visible = false
+            tracer_aim.Color = Color3.fromRGB(255,255,255)
+            tracer_aim.Thickness = 2
+
+            local skel_head = Drawing.new("Line")
+            skel_head.Visible = false
+            skel_head.Thickness = 2
+            skel_head.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_torso = Drawing.new("Line")
+            skel_torso.Visible = false
+            skel_torso.Thickness = 2
+            skel_torso.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_leftarm = Drawing.new("Line")
+            skel_leftarm.Visible = false
+            skel_leftarm.Thickness = 2
+            skel_leftarm.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_leftforearm = Drawing.new("Line")
+            skel_leftforearm.Visible = false
+            skel_leftforearm.Thickness = 2
+            skel_leftforearm.Color = Color3.fromRGB(255, 255, 255)
+            
+            local skel_lefthand = Drawing.new("Line")
+            skel_lefthand.Visible = false
+            skel_lefthand.Thickness = 2
+            skel_lefthand.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_rightarm = Drawing.new("Line")
+            skel_rightarm.Visible = false
+            skel_rightarm.Thickness = 2
+            skel_rightarm.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_rightforearm = Drawing.new("Line")
+            skel_rightforearm.Visible = false
+            skel_rightforearm.Thickness = 2
+            skel_rightforearm.Color = Color3.fromRGB(255, 255, 255)
+            
+            local skel_righthand = Drawing.new("Line")
+            skel_righthand.Visible = false
+            skel_righthand.Thickness = 2
+            skel_righthand.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_leftleg = Drawing.new("Line")
+            skel_leftleg.Visible = false
+            skel_leftleg.Thickness = 2
+            skel_leftleg.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_leftshin = Drawing.new("Line")
+            skel_leftshin.Visible = false
+            skel_leftshin.Thickness = 2
+            skel_leftshin.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_leftfoot = Drawing.new("Line")
+            skel_leftfoot.Visible = false
+            skel_leftfoot.Thickness = 2
+            skel_leftfoot.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_rightleg = Drawing.new("Line")
+            skel_rightleg.Visible = false
+            skel_rightleg.Thickness = 2
+            skel_rightleg.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_rightshin = Drawing.new("Line")
+            skel_rightshin.Visible = false
+            skel_rightshin.Thickness = 2
+            skel_rightshin.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_rightfoot = Drawing.new("Line")
+            skel_rightfoot.Visible = false
+            skel_rightfoot.Thickness = 2
+            skel_rightfoot.Color = Color3.fromRGB(255, 255, 255)
+
+            player_drawings[player] = {tracer_aim=tracer_aim,tracer=tracer,box = box, hpbar = hpbar, name=name,dist=dist,skel_head = skel_head,skel_torso = skel_torso,skel_leftarm = skel_leftarm,skel_leftforearm=skel_leftforearm,skel_lefthand=skel_lefthand,skel_rightarm = skel_rightarm,skel_rightforearm=skel_rightforearm,skel_righthand=skel_righthand,skel_leftleg = skel_leftleg,skel_leftshin=skel_leftshin,skel_leftfoot=skel_leftfoot,skel_rightleg = skel_rightleg,skel_rightshin=skel_rightshin,skel_rightfoot=skel_rightfoot}
+        end
+    end
+
+    Players.PlayerAdded:Connect(function(player)
+        if player ~= Client then
+            local box = Drawing.new("Square")
+            box.Visible = false
+            box.Color = Color3.fromRGB(255, 0, 0)
+            box.Thickness = 1
+            box.Transparency = 1
+            box.Filled = false
+
+            local hpbar = Drawing.new("Line")
+            hpbar.Visible = false
+            hpbar.Color = Color3.new(0, 1, 0)
+            hpbar.Thickness = 2
+
+            local name = Drawing.new("Text")
+            name.Visible = false
+            name.Color = Color3.new(1, 1, 1)
+            name.Size = 15
+            name.Center = true
+            name.Outline = true
+            name.OutlineColor = Color3.new(0, 0, 0)
+
+            local dist = Drawing.new("Text")
+            dist.Visible = false
+            dist.Color = Color3.new(1, 1, 1)
+            dist.Size = 15
+            dist.Center = true
+            dist.Outline = true
+            dist.OutlineColor = Color3.new(0, 0, 0)
+
+            local tracer = Drawing.new("Line")
+            tracer.Visible = false
+            tracer.Color = Color3.fromRGB(255, 255, 255)
+            tracer.Thickness = 1
+
+            local tracer_aim = Drawing.new("Line")
+            tracer_aim.Visible = false
+            tracer_aim.Color = Color3.fromRGB(255,255,255)
+            tracer_aim.Thickness = 2
+
+            local skel_head = Drawing.new("Line")
+            skel_head.Visible = false
+            skel_head.Thickness = 2
+            skel_head.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_torso = Drawing.new("Line")
+            skel_torso.Visible = false
+            skel_torso.Thickness = 2
+            skel_torso.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_leftarm = Drawing.new("Line")
+            skel_leftarm.Visible = false
+            skel_leftarm.Thickness = 2
+            skel_leftarm.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_leftforearm = Drawing.new("Line")
+            skel_leftforearm.Visible = false
+            skel_leftforearm.Thickness = 2
+            skel_leftforearm.Color = Color3.fromRGB(255, 255, 255)
+            
+            local skel_lefthand = Drawing.new("Line")
+            skel_lefthand.Visible = false
+            skel_lefthand.Thickness = 2
+            skel_lefthand.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_rightarm = Drawing.new("Line")
+            skel_rightarm.Visible = false
+            skel_rightarm.Thickness = 2
+            skel_rightarm.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_rightforearm = Drawing.new("Line")
+            skel_rightforearm.Visible = false
+            skel_rightforearm.Thickness = 2
+            skel_rightforearm.Color = Color3.fromRGB(255, 255, 255)
+            
+            local skel_righthand = Drawing.new("Line")
+            skel_righthand.Visible = false
+            skel_righthand.Thickness = 2
+            skel_righthand.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_leftleg = Drawing.new("Line")
+            skel_leftleg.Visible = false
+            skel_leftleg.Thickness = 2
+            skel_leftleg.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_leftshin = Drawing.new("Line")
+            skel_leftshin.Visible = false
+            skel_leftshin.Thickness = 2
+            skel_leftshin.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_leftfoot = Drawing.new("Line")
+            skel_leftfoot.Visible = false
+            skel_leftfoot.Thickness = 2
+            skel_leftfoot.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_rightleg = Drawing.new("Line")
+            skel_rightleg.Visible = false
+            skel_rightleg.Thickness = 2
+            skel_rightleg.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_rightshin = Drawing.new("Line")
+            skel_rightshin.Visible = false
+            skel_rightshin.Thickness = 2
+            skel_rightshin.Color = Color3.fromRGB(255, 255, 255)
+
+            local skel_rightfoot = Drawing.new("Line")
+            skel_rightfoot.Visible = false
+            skel_rightfoot.Thickness = 2
+            skel_rightfoot.Color = Color3.fromRGB(255, 255, 255)
+
+            player_drawings[player] = {tracer_aim=tracer_aim,tracer=tracer,box = box, hpbar = hpbar, name=name,dist=dist,skel_head = skel_head,skel_torso = skel_torso,skel_leftarm = skel_leftarm,skel_leftforearm=skel_leftforearm,skel_lefthand=skel_lefthand,skel_rightarm = skel_rightarm,skel_rightforearm=skel_rightforearm,skel_righthand=skel_righthand,skel_leftleg = skel_leftleg,skel_leftshin=skel_leftshin,skel_leftfoot=skel_leftfoot,skel_rightleg = skel_rightleg,skel_rightshin=skel_rightshin,skel_rightfoot=skel_rightfoot}
+        end
+    end)
+    
+    Players.PlayerRemoving:Connect(function(player)
+        if player_drawings[player] then
+            for _, drawing in getn(player_drawings[player]) do
+                if drawing.Remove then
+                    drawing:Remove()
+                end
+            end
+            player_drawings[player] = nil
+        end
+    end)
+
+    local lastUpdate = tick()
+    local updateInterval = 1/30 
+
+    RunService.RenderStepped:Connect(function()
+        local now = tick()
+        
+        if now - lastUpdate < updateInterval then
+            return
+        end
+        lastUpdate = now
+        
+        local clientRoot = Client.Character and Client.Character:FindFirstChild("HumanoidRootPart")
+        if not clientRoot then return end
+
+        local mouse = Client:GetMouse()
+
+        if c().EnabledPov then 
+            Circle.Radius = c().Radius
+            Circle.Visible = true 
+            if c().EnabledRainbow then 
+            local hue = (tick() % 5) / 5
+            local rgbColor = Color3.fromHSV(hue, 1, 1)
+            Circle.Color = rgbColor
+            else 
+            Circle.Color = Color3.fromRGB(255,255,255)
+            end
+            if c().PositionType == "Middle" then
+                local vs = CurrentCamera.ViewportSize
+                Circle.Position = TwoD_new(vs.X / 2, vs.Y / 2)
+            elseif c().PositionType == "Cursor" then 
+                Circle.Position = TwoD_new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y)
+            end
+        else
+            Circle.Visible = false
+        end
+
+
+        local closestPlay, closestDist = nil, math.huge
+        local origin = RootPart.Position
+
+        local isMobile = UserInputService.TouchEnabled
+        local screenCenter = Vector2.new(CurrentCamera.ViewportSize.X / 2, CurrentCamera.ViewportSize.Y / 2)
+
+        local referencePos = isMobile and screenCenter or UserInputService:GetMouseLocation()
+
+        for _, v in get(Players:GetPlayers()) do 
+            if v ~= Client and v.Character then 
+                if not v:GetAttribute('InMenuCharacterCreator') or v:GetAttribute('InSplashScreen') then
+                    local hrp = v.Character:FindFirstChild("HumanoidRootPart")
+                    local hum = v.Character:FindFirstChild("Humanoid")
+                    local head = v.Character:FindFirstChild("Head")
+                    
+                    if hrp and hum and hum.Health > 0 and head then
+                        if c().EnabledIngoreFriend and v:IsFriendsWith(Client.UserId) then 
+                            continue 
+                        end
+                        
+                        if c().EnabledPov and Circle then
+                            local screenPos, onScreen = CurrentCamera:WorldToViewportPoint(hrp.Position)
+                            if not onScreen then continue end
+                            
+                            local targetScreenPos = Vector2.new(screenPos.X, screenPos.Y)
+                            local circlePos = Vector2.new(Circle.Position.X, Circle.Position.Y)
+                            local inCircle = (targetScreenPos - circlePos).Magnitude <= Circle.Radius
+                            if not inCircle then continue end
+                            local dist = (targetScreenPos - referencePos).Magnitude
+                            if dist < closestDist then
+                                closestPlay = v
+                                closestDist = dist
+                            end
+                        else 
+                            local dist = ServerFunc:dist(hrp)
+                            if dist < closestDist then
+                                closestPlay = v
+                                closestDist = dist
+                            end
+                        end
+                    end
+                end
+            end
+        end
+
+        c().TargetSlientAim = closestPlay
+
+        for player, drawings in getn(player_drawings) do
+            if c().EnabledSlientAim then 
+                drawings.tracer_aim.Visible = false
+                if closestPlay and player == closestPlay then
+                    local root = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+                    if root then
+                        local rootPos, onScreen = CurrentCamera:WorldToViewportPoint(root.Position)
+                        if onScreen then
+                            drawings.tracer_aim.Color = Color3.fromRGB(255, 0, 0)
+                            drawings.tracer_aim.Visible = true
+                            if c().PositionType == "Cursor" then 
+                                if UserInputService.TouchEnabled then
+                                    drawings.tracer_aim.From = TwoD_new(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2)
+                                else
+                                    drawings.tracer_aim.From = TwoD_new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y)
+                                end 
+                            else 
+                                drawings.tracer_aim.From = TwoD_new(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2)
+                            end 
+                            drawings.tracer_aim.To = Vector2.new(rootPos.X, rootPos.Y)
+                        end
+                    end
+                end
+            else 
+                drawings.tracer_aim.Visible = false
+            end
+        end
+
+        if c().EnabledItemDrop and droppedItems then
+            for item, d in getn(item_drawings) do
+                if not item or not item.Parent then
+                    if d.box then d.box:Remove() end
+                    if d.name then d.name:Remove() end
+                    if d.dist then d.dist:Remove() end
+                    item_drawings[item] = nil
+                end
+            end
+            
+            local nearbyItems = {}
+            for _, item in getn(droppedItems:GetChildren()) do
+                if item:IsA("Model") and item:FindFirstChild("PickUpZone") and not item:GetAttribute('Locked') then
+                    table.insert(nearbyItems, {item = item, dist = dist})
+                end
+            end
+                        
+            for i = 1, math.min(20, #nearbyItems) do
+                local item = nearbyItems[i].item
+                local d = item_drawings[item]
+                
+                if not d then
+                    d = {
+                        box = Drawing.new("Square"),
+                        name = Drawing.new("Text"),
+                        dist = Drawing.new("Text")
+                    }
+                    d.box.Color = Color3.fromRGB(255,0,0)
+                    d.box.Thickness = 1
+                    d.box.Filled = false
+                    d.name.Color = Color3.new(1,1,1)
+                    d.name.Outline = true
+                    d.name.Center = true
+                    d.dist.Color = Color3.new(1,1,1)
+                    d.dist.Outline = true
+                    d.dist.Center = true
+                    item_drawings[item] = d
+                end
+
+                local rootPos, onScreen = CurrentCamera:WorldToViewportPoint(item.PickUpZone.Position)
+                if onScreen then
+                    local sizeScale = math.clamp(200 / rootPos.Z, 20, 60)
+                    d.box.Size = TwoD_new(sizeScale, sizeScale)
+                    d.box.Position = TwoD_new(rootPos.X - sizeScale/2, rootPos.Y - sizeScale/2)
+                    d.box.Visible = true
+                    d.name.Position = TwoD_new(rootPos.X, rootPos.Y - sizeScale/2 - 10)
+                    d.name.Text = item.Name
+                    d.name.Visible = true
+                    local AmountItem = item:FindFirstChild('AmountBillboardGui') and item.AmountBillboardGui:FindFirstChild('TextLabel')
+                    d.dist.Position = TwoD_new(rootPos.X, rootPos.Y + sizeScale/2 + 5)
+                    d.dist.Text = "["..(AmountItem and AmountItem.Text or "?").."]"
+                    d.dist.Visible = true
+                else
+                    d.box.Visible = false
+                    d.name.Visible = false
+                    d.dist.Visible = false
+                end
+            end
+        else 
+            for i,v in getn(item_drawings) do 
+                v.Visible = false
+            end
+        end
+
+        for player, drawings in getn(player_drawings) do
+            local char = player.Character
+            local humanoid = char and char:FindFirstChild("Humanoid")
+            local root = char and char:FindFirstChild("HumanoidRootPart")
+            local head = char and char:FindFirstChild("Head")
+            
+            if humanoid and root and head and humanoid.Health > 0 then
+                local rootPos, onScreen = CurrentCamera:WorldToViewportPoint(root.Position)
+                
+                if onScreen then
+                    local headPos = CurrentCamera:WorldToViewportPoint(head.Position + HeadOff)
+                    local legPos = CurrentCamera:WorldToViewportPoint(root.Position - LegOff)
+                    
+                    local box = drawings.box
+                    box.Size = TwoD_new(1000 / rootPos.Z, headPos.Y - legPos.Y)
+                    box.Position = TwoD_new(rootPos.X - box.Size.X/2, rootPos.Y - box.Size.Y/2)
+                    box.Visible = c().EnabledBox 
+
+                    local hpbar = drawings.hpbar
+                    local hp = humanoid.Health / humanoid.MaxHealth
+                    hpbar.From = TwoD_new(box.Position.X + box.Size.X + 5, box.Position.Y + box.Size.Y * (1 - hp))
+                    hpbar.To   = TwoD_new(box.Position.X + box.Size.X + 5, box.Position.Y + box.Size.Y)
+                    hpbar.Color = Color3.new(1 - hp, hp, 0)
+                    hpbar.Visible = c().EnabledHpBar
+
+                    local name = drawings.name
+                    name.Position = TwoD_new(box.Position.X + box.Size.X/2, headPos.Y - 20)
+                    name.Text = player.Name
+                    name.Visible = c().EnabledNameTag
+
+                    local dist = drawings.dist
+                    dist.Position = TwoD_new(box.Position.X + box.Size.X/2, headPos.Y)
+                    dist.Text = "["..tostring(math.floor((clientRoot.Position - root.Position).Magnitude)).."m".."]"
+                    dist.Visible = c().EnabledDistTag
+
+
+                    if c().EnabledFriendCheck then
+                        if player:IsFriendsWith(UserId) then
+                            box.Color = Color3.fromRGB(27, 150, 52)
+                        else
+                            box.Color = Color3.fromRGB(125, 21, 19)
+                        end
+                    else
+                        box.Color = Color3.fromRGB(125, 21, 19)
+                    end
+
+                    if c().EnabledTracer then 
+                        drawings.tracer.From = Vector2.new(CurrentCamera.ViewportSize.X/2, CurrentCamera.ViewportSize.Y)
+                        drawings.tracer.To = Vector2.new(rootPos.X, rootPos.Y)
+                        if c().EnabledRGBEsp then 
+                        local hue = (tick() % 5) / 5
+                        local rgbColor = Color3.fromHSV(hue, 1, 1)
+                        drawings.tracer.Color = rgbColor
+                        else 
+                        drawings.tracer.Color = Color3.fromRGB(255,255,255)
+                        end
+                        drawings.tracer.Visible = true
+                    else 
+                        drawings.tracer.Visible = false
+                    end
+                    
+                    if c().EnabledSkeleton then
+                        local torso_upper = char:FindFirstChild("UpperTorso") or char:FindFirstChild("Torso")
+                        local torso_lower = char:FindFirstChild("LowerTorso") or torso_upper
+                        
+                        local leftupperarm = char:FindFirstChild("LeftUpperArm") or char:FindFirstChild("Left Arm")
+                        local leftlowerarm = char:FindFirstChild("LeftLowerArm")
+                        local lefthand = char:FindFirstChild("LeftHand")
+                        
+                        local rightupperarm = char:FindFirstChild("RightUpperArm") or char:FindFirstChild("Right Arm")
+                        local rightlowerarm = char:FindFirstChild("RightLowerArm")
+                        local righthand = char:FindFirstChild("RightHand")
+                        
+                        local leftupperleg = char:FindFirstChild("LeftUpperLeg") or char:FindFirstChild("Left Leg")
+                        local leftlowerleg = char:FindFirstChild("LeftLowerLeg")
+                        local leftfoot = char:FindFirstChild("LeftFoot")
+                        
+                        local rightupperleg = char:FindFirstChild("RightUpperLeg") or char:FindFirstChild("Right Leg")
+                        local rightlowerleg = char:FindFirstChild("RightLowerLeg")
+                        local rightfoot = char:FindFirstChild("RightFoot")
+
+                        if torso_upper and torso_lower then
+                            local function to2d(part) 
+                                local pos, onScreen = CurrentCamera:WorldToViewportPoint(part.Position)
+                                return Vector2.new(pos.X, pos.Y), onScreen
+                            end
+
+                            local head2d, headOn = to2d(head)
+                            local torsoU2d, torsoUOn = to2d(torso_upper)
+                            local torsoL2d, torsoLOn = to2d(torso_lower)
+                            local heel2d,heeon = to2d(char:FindFirstChild('HumanoidRootPart'))
+
+                            if heeon then
+                                drawings.skel_head.From = head2d
+                                drawings.skel_head.To = torsoU2d
+                                drawings.skel_head.Visible = c().EnabledSkeleton
+                                
+                                if torsoLOn then
+                                    drawings.skel_torso.From = torsoU2d
+                                    drawings.skel_torso.To = torsoL2d
+                                    drawings.skel_torso.Visible = c().EnabledSkeleton
+                                end
+                                
+                                if leftupperarm then
+                                    local lUpperArm2d, lUpperArmOn = to2d(leftupperarm)
+                                    if lUpperArmOn then
+                                        drawings.skel_leftarm.From = torsoU2d
+                                        drawings.skel_leftarm.To = lUpperArm2d
+                                        drawings.skel_leftarm.Visible = c().EnabledSkeleton
+                                        
+                                        if leftlowerarm then
+                                            local lLowerArm2d, lLowerArmOn = to2d(leftlowerarm)
+                                            if lLowerArmOn then
+                                                drawings.skel_leftforearm.From = lUpperArm2d
+                                                drawings.skel_leftforearm.To = lLowerArm2d
+                                                drawings.skel_leftforearm.Visible = c().EnabledSkeleton
+                                                
+                                                if lefthand then
+                                                    local lHand2d, lHandOn = to2d(lefthand)
+                                                    if lHandOn then
+                                                        drawings.skel_lefthand.From = lLowerArm2d
+                                                        drawings.skel_lefthand.To = lHand2d
+                                                        drawings.skel_lefthand.Visible = c().EnabledSkeleton
+                                                    end
+                                                end
+                                            end
+                                        end
+                                    else
+                                        drawings.skel_leftarm.Visible = false
+                                    end
+                                else
+                                    drawings.skel_leftarm.Visible = false
+                                end
+                                
+                                if rightupperarm then
+                                    local rUpperArm2d, rUpperArmOn = to2d(rightupperarm)
+                                    if rUpperArmOn then
+                                        drawings.skel_rightarm.From = torsoU2d
+                                        drawings.skel_rightarm.To = rUpperArm2d
+                                        drawings.skel_rightarm.Visible = c().EnabledSkeleton
+                                        
+                                        if rightlowerarm then
+                                            local rLowerArm2d, rLowerArmOn = to2d(rightlowerarm)
+                                            if rLowerArmOn then
+                                                drawings.skel_rightforearm.From = rUpperArm2d
+                                                drawings.skel_rightforearm.To = rLowerArm2d
+                                                drawings.skel_rightforearm.Visible = c().EnabledSkeleton
+                                                
+                                                if righthand then
+                                                    local rHand2d, rHandOn = to2d(righthand)
+                                                    if rHandOn then
+                                                        drawings.skel_righthand.From = rLowerArm2d
+                                                        drawings.skel_righthand.To = rHand2d
+                                                        drawings.skel_righthand.Visible = c().EnabledSkeleton
+                                                    end
+                                                end
+                                            end
+                                        end
+                                    else
+                                        drawings.skel_rightarm.Visible = false
+                                    end
+                                else
+                                    drawings.skel_rightarm.Visible = false
+                                end
+                                
+                                if leftupperleg and torsoLOn then
+                                    local lUpperLeg2d, lUpperLegOn = to2d(leftupperleg)
+                                    if lUpperLegOn then
+                                        drawings.skel_leftleg.From = torsoL2d
+                                        drawings.skel_leftleg.To = lUpperLeg2d
+                                        drawings.skel_leftleg.Visible = c().EnabledSkeleton
+                                        
+                                        if leftlowerleg then
+                                            local lLowerLeg2d, lLowerLegOn = to2d(leftlowerleg)
+                                            if lLowerLegOn then
+                                                drawings.skel_leftshin.From = lUpperLeg2d
+                                                drawings.skel_leftshin.To = lLowerLeg2d
+                                                drawings.skel_leftshin.Visible = c().EnabledSkeleton
+                                                
+                                                if leftfoot then
+                                                    local lFoot2d, lFootOn = to2d(leftfoot)
+                                                    if lFootOn then
+                                                        drawings.skel_leftfoot.From = lLowerLeg2d
+                                                        drawings.skel_leftfoot.To = lFoot2d
+                                                        drawings.skel_leftfoot.Visible = c().EnabledSkeleton
+                                                    end
+                                                end
+                                            end
+                                        end
+                                    else
+                                        drawings.skel_leftleg.Visible = false
+                                    end
+                                else
+                                    drawings.skel_leftleg.Visible = false
+                                end
+                                
+                                if rightupperleg and torsoLOn then
+                                    local rUpperLeg2d, rUpperLegOn = to2d(rightupperleg)
+                                    if rUpperLegOn then
+                                        drawings.skel_rightleg.From = torsoL2d
+                                        drawings.skel_rightleg.To = rUpperLeg2d
+                                        drawings.skel_rightleg.Visible = c().EnabledSkeleton
+                                        
+                                        if rightlowerleg then
+                                            local rLowerLeg2d, rLowerLegOn = to2d(rightlowerleg)
+                                            if rLowerLegOn then
+                                                drawings.skel_rightshin.From = rUpperLeg2d
+                                                drawings.skel_rightshin.To = rLowerLeg2d
+                                                drawings.skel_rightshin.Visible = c().EnabledSkeleton
+                                                
+                                                if rightfoot then
+                                                    local rFoot2d, rFootOn = to2d(rightfoot)
+                                                    if rFootOn then
+                                                        drawings.skel_rightfoot.From = rLowerLeg2d
+                                                        drawings.skel_rightfoot.To = rFoot2d
+                                                        drawings.skel_rightfoot.Visible = c().EnabledSkeleton
+                                                    end
+                                                end
+                                            end
+                                        end
+                                    else
+                                        drawings.skel_rightleg.Visible = false
+                                    end
+                                else
+                                    drawings.skel_rightleg.Visible = false
+                                end
+                            end
+                        end
+                    else
+                        for _, d in getn({drawings.skel_head, drawings.skel_torso,drawings.skel_leftarm, drawings.skel_leftforearm, drawings.skel_lefthand,drawings.skel_rightarm, drawings.skel_rightforearm, drawings.skel_righthand,drawings.skel_leftleg, drawings.skel_leftshin, drawings.skel_leftfoot,drawings.skel_rightleg, drawings.skel_rightshin, drawings.skel_rightfoot}) do
+                            d.Visible = false
+                        end
+                    end
+                else
+                    for _, d in getn({drawings.tracer,drawings.box, drawings.hpbar, drawings.name, drawings.dist, drawings.skel_head, drawings.skel_torso,drawings.skel_leftarm, drawings.skel_leftforearm, drawings.skel_lefthand,drawings.skel_rightarm, drawings.skel_rightforearm, drawings.skel_righthand,drawings.skel_leftleg, drawings.skel_leftshin, drawings.skel_leftfoot,drawings.skel_rightleg, drawings.skel_rightshin, drawings.skel_rightfoot}) do
+                        d.Visible = false
+                    end
+                end
+            else
+                for _, d in getn(drawings) do 
+                    d.Visible = false 
+                end
+            end
+        end
+    end)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+do 
+    if not c().Created then 
+    local BlockNodeData = {
+        {20.000, 20.000, 6.000, -194.000, 258.000, 505.000},
+        {20.000, 20.000, 6.000, 943.680, 255.180, -569.610},
+        {6.000, 20.000, 6.000, 936.770, 255.180, -646.740},
+        {6.000, 20.000, 6.000, 1220.780, 255.180, -635.580},
+        {6.000, 20.000, 6.000, 1220.560, 255.080, -546.220},
+        {6.000, 20.000, 6.000, -96.210, 255.190, 106.680},
+        {6.000, 20.000, 6.000, -152.220, 255.190, 105.820},
+        {6.000, 20.000, 6.000, 81.120, 255.180, 157.070},
+        {6.000, 20.000, 6.000, -130.610, 255.100, 288.780},
+        {6.000, 20.000, 6.000, -179.220, 255.290, -248.950},
+        {6.000, 20.000, 6.000, -172.540, 255.290, -198.090},
+        {6.000, 20.000, 6.000, -283.820, 255.440, -246.490},
+        {6.000, 20.000, 6.000, -278.660, 255.440, -251.920},
+        {6.000, 20.000, 6.000, -466.750, 255.090, 97.570},
+        {8.000, 20.000, 8.000, -135.800, 255.190, 312.180},
+        {6.000, 20.000, 6.000, -91.470, 255.190, 453.260},
+        {6.000, 20.000, 6.000, -470.870, 256.840, -184.520},
+        {6.000, 20.000, 6.000, -213.930, 255.200, 204.460},
+        {6.000, 20.000, 6.000, -291.880, 255.350, 285.250},
+        {6.000, 20.000, 6.000, -290.800, 255.350, 309.950},
+        {6.000, 20.000, 6.000, -296.050, 255.350, 310.870},
+        {6.000, 20.000, 6.000, -128.750, 255.350, 315.280},
+        {6.000, 20.000, 6.000, -276.600, 255.150, 63.490},
+        {6.000, 20.000, 6.000, -289.950, 255.350, 203.010},
+    }
+
+    for _, data in get(BlockNodeData) do
+        local BlockedNode = Instance.new("Part")
+        BlockedNode.Name = "BlockedNode"
+        BlockedNode.Size = Vector_new(data[1], data[2], data[3])
+        BlockedNode.CFrame = CFrame_new(Vector_new(data[4], data[5], data[6]))
+        BlockedNode.Color = Color3.new(0.639, 0.635, 0.647)
+        BlockedNode.Transparency = 1
+        BlockedNode.Material = Enum.Material.Plastic
+        BlockedNode.Anchored = true
+        BlockedNode.CanCollide = false
+        BlockedNode.Parent = workspace.Map
+
+        local modifier = Instance.new("PathfindingModifier")
+        modifier.Parent = BlockedNode
+        modifier.Label = "BlockedNode"
+        modifier.PassThrough = false 
+    end
+    c().Created = true
+    end 
+end
+
+
+
+do
+    for _, v in getn(workspace:GetDescendants()) do
+        if v.Name == "DoorSystem" then  v:Destroy() end if v.Name == "BasementDoor" then  v:Destroy() end if v.Name == "VehicleBlockers" then v:Destroy() end
+    end
+end
+
+do
+	local GC = getconnections or get_signal_cons
+	if GC then
+		for _, conn in get(GC(game:GetService("Players").LocalPlayer.Idled)) do
+			if conn.Disable then conn:Disable() elseif conn.Disconnect then conn:Disconnect() end
+		end
+	end
+end
+
+local mainFolder = "Dece"
+local path = mainFolder.."/BlockSpin"
+local ConfigName = path.."/"..game.Players.LocalPlayer.Name.."-config.json"
+local Settings = {}
+
+do
+	if not isfolder(mainFolder) then makefolder(mainFolder) end
+	if not isfolder(path) then makefolder(path) end
+
+	if isfile(ConfigName) then
+		local success, result = pcall(function()
+			return HttpService:JSONDecode(readfile(ConfigName))
+		end)
+		if success and type(result) == "table" then
+			Settings = result
+		end
+	end
+
+	for k,v in getn(Settings) do
+		c()[k] = v
+	end
+end
+
+local function saveConfig()
+	for k,v in getn(c()) do
+		if typeof(v) == "boolean" or typeof(v) == "string" or typeof(v) == "number" then
+			Settings[k] = v
+		end
+	end
+	writefile(ConfigName, HttpService:JSONEncode(Settings))
+end
+
+function ServerFunc:Hop()
+    local PlaceID = game.PlaceId
+    local AllIDs = {}
+    local foundAnything = ""
+    local actualHour = os.date("!*t").hour
+    local Deleted = false
+    local File = pcall(function()
+        AllIDs = game:GetService('HttpService'):JSONDecode(readfile("NotSameServers.json"))
+    end)
+    if not File then
+        insert(AllIDs, actualHour)
+        writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+    end
+    function TPReturner()
+        local Site;
+        if foundAnything == "" then
+            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100'))
+        else
+            Site = game.HttpService:JSONDecode(game:HttpGet('https://games.roblox.com/v1/games/' .. PlaceID .. '/servers/Public?sortOrder=Asc&limit=100&cursor=' .. foundAnything))
+        end
+        local ID = ""
+        if Site.nextPageCursor and Site.nextPageCursor ~= "null" and Site.nextPageCursor ~= nil then
+            foundAnything = Site.nextPageCursor
+        end
+        local num = 0;
+        for i,v in getn(Site.data) do
+            local Possible = true
+            ID = tostring(v.id)
+            if tonumber(v.maxPlayers) > tonumber(v.playing) then
+                for _,Existing in getn(AllIDs) do
+                    if num ~= 0 then
+                        if ID == tostring(Existing) then
+                            Possible = false
+                        end
+                    else
+                        if tonumber(actualHour) ~= tonumber(Existing) then
+                            local delFile = pcall(function()
+                                delfile("NotSameServers.json")
+                                AllIDs = {}
+                                insert(AllIDs, actualHour)
+                            end)
+                        end
+                    end
+                    num = num + 1
+                end
+                if Possible == true then
+                    insert(AllIDs, ID)
+                    wait()
+                    pcall(function()
+                        writefile("NotSameServers.json", game:GetService('HttpService'):JSONEncode(AllIDs))
+                        wait()
+                        game:GetService("TeleportService"):TeleportToPlaceInstance(PlaceID, ID, game.Players.LocalPlayer)
+                    end)
+                    wait(4)
+                end
+            end
+        end
+    end
+
+    function Teleport()
+        while wait() do
+            pcall(function()
+                TPReturner()
+                if foundAnything ~= "" then
+                    TPReturner()
+                end
+            end)
+        end
+    end
+
+    Teleport()
+end
+
+function ServerFunc:JoinPrivateServer()
+    loadstring(game:HttpGet('https://pastefy.app/TtFqOSSt/raw'))()
+end
+
+function ServerFunc:Action(...)
+	local args = {...}
+	return Net.send(un(args))
+end
+
+function ServerFunc:dist(Objective)
+	return (Objective.Position - RootPart.Position).Magnitude
+end
+
+function ServerFunc:GetPing()
+	local stats = PlayerGui:FindFirstChild("NetworkStats")
+	if stats then
+		local pingText = stats:FindFirstChild("PingLabel")
+		if pingText then
+			local ping = this_is_number(pingText.Text:match("%d+"))
+			return ping and ping/1000 or 0.2
+		end
+	end
+	return 0.2
+end
+
+local oldfire
+oldfire = hookfunction(replicated.Remotes.Send.FireServer, function(self, ...)
+    local args = {...}
+    if args[2] == "shoot_gun" and c().EnabledSlientAim then 
+        local target = c().TargetSlientAim
+        if target and target.Character and target.Character:FindFirstChild("Head") then 
+            local origin = RootPart.Position
+            local head = target.Character.Head
+            local hrp = target.Character:FindFirstChild("HumanoidRootPart")
+            local velocity = hrp and hrp.Velocity or Vector3.zero
+            local aim = (head.Position + velocity * ServerFunc:GetPing() * 1.25)
+            if not c().EnabledWallShoot then 
+                args[4] = CFrame.new(origin, aim)
+            else 
+                args[4] = CFrame.new(math.huge, math.huge, math.huge)
+            end
+            args[5] = {{
+                {
+                    Normal = Vector3.new(0,1,0),
+                    Instance = head,
+                    Position = aim
+                }
+            }}
+            pcall(function()
+                local dir = head.Position - origin
+                local distance = dir.Magnitude
+                if distance > 0.1 then 
+                    local tracer = Instance.new("Part")
+                    tracer.Size = Vector3.new(0.1, 0.1, distance)
+                    tracer.CFrame = CFrame.new(origin, head.Position) * CFrame.new(0, 0, -distance/2)
+                    tracer.Material = Enum.Material.Neon
+                    tracer.Color = Color3.fromHSV((tick() % 5) / 5, 1, 1)
+                    tracer.CanCollide = false
+                    tracer.Anchored = true
+                    tracer.Parent = workspace
+                    Debris:AddItem(tracer, 1.5)
+                end
+            end)
+        end
+    end
+    return oldfire(self, unpack(args))
+end)
+
+function ServerFunc:GetInfo(w)
+	local amount = 0
+	local IsHaving = false
+	local Using = false
+	local Uid = nil
+	local Items = PlayerGui.Items
+	local Holding = Items:FindFirstChild('ItemsHolder').ItemsScrollingFrame
+
+	for i, v in getn(Holding:GetChildren()) do
+		if v.Name ~= 'Folder' and v.Name ~= 'UIGridLayout' and v.Name ~= "ItemTemplate" then
+			if v.ItemName.Text == w then 
+				Uid = v.Name 
+				amount = amount + 1
+				IsHaving = true
+				Using = v:FindFirstChild('ItemEquipped').Visible
+			end
+		end
+	end
+
+	return {
+		[1] = amount,   
+		[2] = IsHaving, 
+		[3] = Uid,      
+		[4] = Using    
+	}
+end
+
+function ServerFunc:FindItem(d)
+    local IsHaving = false 
+    local Path = nil
+	for i,v in get(Backpack:GetChildren()) do 
+		if string.find(v.Name,d) then 
+			IsHaving = true 
+            Path = v
+		end
+	end 
+	for i,v in get(Character:GetChildren()) do 
+		if string.find(v.Name,d) then 
+			IsHaving = true 
+            Path = v
+		end
+	end
+	return {[1]=IsHaving,[2]=Path}
+end
+
+function ServerFunc:IsFullInventory()
+    return PlayerGui.Items.ItemsHolder.ItemsCloseButton.DefaultItemsMaxItems.Text == "17/17"
+end
+
+function ServerFunc:Generate()
+	local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+	local key = ""
+	for i = 1, 8 do
+		local index = math.random(1, #chars)
+		key = key .. chars:sub(index, index)
+	end
+	return key
+end
+
+function ServerFunc:IsHavingFish()
+    if self:IsFullInventory() then
+        local items = replicated.Items.fish:GetChildren()
+
+        for _, v in get(items) do  
+            local info = self:GetInfo(v.Name)
+            if info[2] then
+                return true
+            end
+        end
+
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "⚠ Full Inventory",
+            Text = "Your Inventory is full. Drop something now!",
+            Duration = 5
+        })
+
+        repeat
+            task.wait(1)
+        until not self:IsFullInventory()
+    end
+    local totalFish = 0
+    for _, v in getn(replicated.Items.fish:GetChildren()) do
+        local info = self:GetInfo(v.Name)
+        if info[2] then
+            totalFish = totalFish + info[1] 
+        end
+    end
+    return totalFish >= 10
+end
+
+function ServerFunc:GetMoney()
+	return this_is_number(PlayerGui.TopRightHud.Holder.Frame.MoneyTextLabel.Text:sub(2))
+end
+
+function ServerFunc:ATMMoney()
+	for i,v in get(Client.PlayerGui:GetDescendants()) do 
+		if v:IsA("TextLabel") then 
+			if word_find(v.Text,"Bank Balance") then 
+				return this_is_number(v.Text:match("%$(%d+)"))
+			end
+		end
+	end
+end
+
+function ServerFunc:GetChipPrice(types)
+	return ChipPrice[types]
+end
+
+function ServerFunc:CheckingIsMinigame()
+	return PlayerGui.SliderMinigame:FindFirstChildOfClass("Frame").Visible
+end
+
+function ServerFunc:GetSkill(skillname)
+	local OptionsSkill = Client.PlayerGui:FindFirstChild('Skills')
+	local Holder = OptionsSkill:FindFirstChild('SkillsHolder').SkillsScrollingFrame
+	for i,v in getn(Holder:GetChildren()) do 
+		if v.Name == "SkillOptionTemplate" then
+			if string.find(v:FindFirstChild('SkillTitle').Text,skillname) then 
+				return tonumber(v:FindFirstChild('SkillTitle').Text:match("%d+"))
+			end
+		end
+	end 
+end
+
+function ServerFunc:GetLevel()
+	local OptionsSkill = Client.PlayerGui:FindFirstChild('Skills')
+	local Holder = OptionsSkill:FindFirstChild('SkillsHolder').SkillsScrollingFrame
+	for i,v in getn(Holder:GetChildren()) do 
+		if v.Name == "PlayerCard" then
+			return tonumber(v:FindFirstChild('SkillPlayerName').Text:match("%d+"))
+		end
+	end 
+end
+
+function ServerFunc:Detect()
+	local Notification = Client.PlayerGui:FindFirstChild('Notifications')
+    local Detect = false 
+	for _, v in get(PlayerGui.Notifications.Frame:GetChildren()) do
+		if v.Name == "Notification" and (v.Text == "Teleport detected" or v.Text == "Anti noclip triggered") then
+			Detect = true 
+        else 
+            Detect = false
+		end
+	end
+	return Detect
+end
+
+
+function ServerFunc:Teleport(destination, value, t)
+    c().StopWalking = false 
+    c()['Running'] = true 
+    local char = Client.Character or Client.CharacterAdded:Wait()
+    local RootPart = char:WaitForChild("HumanoidRootPart")
+    local Humanoid = char:WaitForChild("Humanoid")
+
+    local path = PathfindingService:CreatePath({
+        AgentCanJump = true,
+        AgentJumpHeight = 2.7,
+        AgentHeight = 4.5,
+        AgentRadius = 2.8,
+        AgentMaxSlope = 45,
+        Costs = {
+            BlockedNode = 50,
+        },
+    })
+
+    local success, err = pcall(function()
+        path:ComputeAsync(RootPart.Position, destination)
+    end)
+
+    if not success then
+        return
+    end
+
+    if path.Status == Enum.PathStatus.Success then
+        local waypoints = path:GetWaypoints()
+        for _, wp in pairs(waypoints) do
+            local offsetY = (wp.Action == Enum.PathWaypointAction.Jump) and 6 or 3
+            local targetPos = wp.Position + Vector3.new(0, offsetY, 0)
+            local startPos = RootPart.Position
+            local dir = (targetPos - startPos).Unit
+            local dist = (targetPos - startPos).Magnitude
+            local movedDist = 0
+            local speed = c().InstantWalkingSpeed or 80
+            local startTime = tick()
+
+            while movedDist < dist and not c().StopWalking and value do waits()
+                c()['Running'] = true 
+                if c().StopWalking then c()['Running'] = false break end
+                if not value then c()['Running'] = false break end
+                if Humanoid.Health <= 0 then c()['Running'] = false break end
+                if self:Detect() then c()['Running'] = false return self:Teleport(destination, value, t) end
+                if t then if (t and t:GetAttribute(c().keys[3])) or self:CheckingIsMinigame() then c()['Running'] = false return self:Teleport(destination, value, t) end end
+                local elapsedTime = tick() - startTime
+                movedDist = math.min(elapsedTime * speed, dist)
+                local newPos = startPos + dir * movedDist
+                RootPart:PivotTo(CFrame.new(newPos))
+
+                if Humanoid.Sit then
+                    Humanoid.Sit = false
+                end
+            end
+            c()['Running'] = false
+        end
+    else
+        warn("Path status:", path.Status)
+    end
+end
+
+function ServerFunc:Drive(model, destination, value, t)
+    c()["StopWalking"] = false
+    local path = PathfindingService:CreatePath({
+        AgentRadius = c().VechineType == "car" and 5 or 2.9,
+        AgentHeight = 5.5,
+        AgentCanJump = true,
+        AgentMaxSlope = 45,
+        Costs = {
+            BlockedNode = 50,
+        },
+    })
+
+    local success, err = pcall(function()
+        path:ComputeAsync(model.PrimaryPart.Position, destination)
+    end)
+
+    if not success or path.Status ~= Enum.PathStatus.Success then return end
+
+    if path.Status == Enum.PathStatus.Success then
+        local waypoints = path:GetWaypoints()
+        for i, wp in getn(waypoints) do
+            local startPos = model:GetPivot().Position
+            local goalPos = wp.Position + Vector_new(0, 3, 0)
+            local dir = (goalPos - startPos).Unit
+            local dist = (goalPos - startPos).Magnitude
+            local movedDist = 0
+            local speed = c().Vechine
+            local startTime = tick()
+
+            while movedDist < dist and value do waits()
+                c()['Running'] = true 
+                if self:Detect() then
+                    c()['Running'] = false
+                    return self:Drive(model, destination, value, t)
+                end
+
+                if not Humanoid.Sit then 
+                    c()['Running'] = false
+                    return self:Drive(model, destination, value, t)
+                end
+
+                if self:CheckingIsMinigame() or (t and t:GetAttribute(tostring(c().keys[3]))) or not value then
+                    c()['Running'] = false 
+                    break
+                end
+
+                for _, v in get(model:GetDescendants()) do
+                    if v:IsA("BasePart") and not v:FindFirstChild("PathfindingModifier") then
+                        local modifier = Instance.new("PathfindingModifier")
+                        modifier.Parent = v
+                        modifier.PassThrough = true
+                    end
+                end
+
+                local dt = tick() - startTime
+                movedDist = math.min(dt * speed, dist)
+                local newPos = startPos + dir * movedDist
+
+                if wp.Action == Enum.PathWaypointAction.Jump then
+                    newPos = newPos + Vector_new(0, 9, 0)
+                end
+
+                local Rotation = CFrame.lookAt(newPos, newPos + dir)
+
+                model:PivotTo(Rotation)
+                model.PrimaryPart.AssemblyLinearVelocity = Vector3.zero
+                model.PrimaryPart.AssemblyAngularVelocity = Vector3.zero
+                model.PrimaryPart.Velocity = Vector3.zero
+                model.PrimaryPart.RotVelocity = Vector3.zero
+            end
+            c()['Running'] = false 
+        end
+    end 
+end
+
+
+
+
+function ServerFunc:ForceStop()
+    if c()['Running'] then 
+        c()["StopWalking"] = true 
+        waits()
+        if c()["StopWalking"] then  
+            waits()
+            c()["StopWalking"] = false
+        end
+    end
+end
+function ServerFunc:Get_Vehicles(types, callback)
+    local Checker = self:GetInfo(types)
+    if Checker[2] then
+        if not Checker[4] then 
+            Net.get("toggle_equip_item",tostring(Checker[3]))
+        end
+    end
+    for _, b in get(workspace.Vehicles:GetChildren()) do
+        if b:GetAttribute('OwnerUserId') == UserId and not self:CheckingIsMinigame() and not self:Detect() then     
+			self:Action("lock_vehicle",b,true) callback(b)
+		end
+    end 
+end
+
+func['EnabledAutoATM'] = function()
+	while waits() do
+        if c().EnabledAutoATM then
+            if ServerFunc:GetLevel() >= 10 then 
+                if c().EnabledBike then 
+                    ServerFunc:Get_Vehicles(c()['VechineSelected'],function(v)
+                        if not Humanoid.Sit and not ServerFunc:CheckingIsMinigame() and not ServerFunc:Detect() then 
+                            local dist = ServerFunc:dist(v.PrimaryPart)
+                            if dist < 5 then 
+                                fireproximityprompt(v.PrimaryPart:FindFirstChild('DrivePromptAttachment'):FindFirstChild('DrivePrompt'))
+                            elseif dist > 5 and dist < 60 then 
+                                ServerFunc:Teleport(v.PrimaryPart.Position,c().EnabledAutoATM)
+                            elseif dist > 60 then 
+                                v:PivotTo(RootPart.CFrame * CFrame_new(0, 5, 0))
+                            end
+                        elseif Humanoid.Sit and not ServerFunc:CheckingIsMinigame() and not ServerFunc:Detect() then 
+                            local currentHackTool = c().HackToolSelected
+                            local hacktool = ServerFunc:GetInfo(currentHackTool)
+                            if hacktool[2] then 
+                                if hacktool[1] >= 0 then
+                                    local closestATM, shortestDist = nil, math.huge
+                                    for _, vx in get(workspace.Map.Props.ATMs:GetChildren()) do
+                                        if vx.Name == "ATM" then
+                                            c().keys = {}
+                                            for k in getn(vx:GetAttributes()) do insert(c().keys, k) end
+                                            table.sort(c().keys)
+                                            if c().keys[3] and vx:GetAttribute(c().keys[3]) == false then
+                                                local d = ServerFunc:dist(vx.Area.CFrame)
+                                                if d < shortestDist then
+                                                    closestATM = vx
+                                                    shortestDist = d
+                                                end
+                                            end
+                                        end
+                                    end
+                                    if closestATM then 
+                                        if closestATM:GetAttribute(c().keys[3]) == false then
+                                            repeat waits()
+                                                if not ServerFunc:GetInfo(c().HackToolSelected)[2] then break end
+                                                if not ServerFunc:Detect() then
+                                                    local distance = ServerFunc:dist(closestATM.Area)
+                                                    if distance > 5 and Humanoid.Sit then
+                                                        ServerFunc:Drive(v, closestATM.Area.Position, c().EnabledAutoATM, closestATM)
+                                                    elseif distance <= 5 and Humanoid.Sit then
+                                                        if c().EnabledDeposit then
+                                                            if ServerFunc:GetMoney() > 0 then
+                                                                Net.get("transfer_funds", "hand", "bank", ServerFunc:GetMoney())
+                                                            end
+                                                        end
+                                                        Net.get('exit_seat')
+                                                    elseif distance <= 5 and not Humanoid.Sit then
+                                                        if not ServerFunc:CheckingIsMinigame() then
+                                                            ServerFunc:Action("request_begin_hacking_3", closestATM, c().HackToolSelected)
+                                                        else 
+                                                            waits(1.55)
+                                                            ServerFunc:Action("atm_win_3", closestATM) 
+                                                        end
+                                                    elseif distance >= 5 and distance <= 50 and not Humanoid.Sit then
+                                                        ServerFunc:Teleport(closestATM.Area.Position,c().EnabledAutoATM)
+                                                    elseif distance >= 50 and not Humanoid.Sit then 
+                                                        v:PivotTo(RootPart.CFrame * CFrame_new(0, 5, 0))
+                                                        fireproximityprompt(v.PrimaryPart:FindFirstChild('DrivePromptAttachment'):FindFirstChild('DrivePrompt'))
+                                                    end
+                                                end
+                                            until closestATM:GetAttribute(c().keys[3]) == true or not c().EnabledAutoATM or hacktool[1] == 0
+                                        end
+                                    end
+                                end
+                            else 
+                                if ServerFunc:GetMoney() < ServerFunc:GetChipPrice(c().HackToolSelected)*c().Amount then
+                                    if ServerFunc:ATMMoney() >= ServerFunc:GetChipPrice(c().HackToolSelected)*c().Amount then
+                                        local closestATMs, shortestDistd = nil, math.huge
+                                        for _, vs in get(workspace.Map.Props.ATMs:GetChildren()) do
+                                            if vs.Name == "ATM" then
+                                                c().keys = {}
+                                                for k in getn(vs:GetAttributes()) do insert(c().keys, k) end
+                                                table.sort(c().keys)
+                                                if c().keys[3] and vs:GetAttribute(c().keys[3]) == false then
+                                                    local d = ServerFunc:dist(vs.Area.CFrame)
+                                                    if d < shortestDistd then
+                                                        closestATMs = vs
+                                                        shortestDistd = d
+                                                    end
+                                                end
+                                            end
+                                        end
+                                        if closestATMs then 
+                                            if closestATMs:GetAttribute(c().keys[3]) == false then
+                                                repeat waits()
+                                                    if ServerFunc:GetMoney() > ServerFunc:GetChipPrice(c().HackToolSelected)*c().Amount then 
+                                                        break
+                                                    end
+
+                                                    if not ServerFunc:Detect() then 
+                                                        if not ServerFunc:CheckingIsMinigame() then
+                                                            if ServerFunc:dist(closestATMs.Area.CFrame) > 5 and Humanoid.Sit then 
+                                                                ServerFunc:Drive(v, closestATMs.Area.Position, c().EnabledAutoATM, closestATMs)
+                                                            elseif ServerFunc:dist(closestATMs.Area.CFrame) > 5 and ServerFunc:dist(closestATMs.Area.CFrame) < 50 and not Humanoid.Sit then 
+                                                                ServerFunc:Teleport(closestATM.Area.Position,c().EnabledAutoATM)
+                                                            elseif ServerFunc:dist(closestATMs.Area.CFrame) > 50 and not Humanoid.Sit then 
+                                                                v:PivotTo(RootPart.CFrame * CFrame_new(0, 5, 0))
+                                                                fireproximityprompt(v.PrimaryPart:FindFirstChild('DrivePromptAttachment'):FindFirstChild('DrivePrompt'))
+                                                            else 
+                                                                local targetAmount = ServerFunc:GetChipPrice(c().HackToolSelected) * c().Amount
+                                                                local currentMoney = ServerFunc:GetMoney()
+                                                                local bankMoney = ServerFunc:ATMMoney()
+                                                                local need = targetAmount - currentMoney
+                                                                
+                                                                if need > 0 then
+                                                                    local withdrawAmount = math.min(need, bankMoney)
+                                                                    if withdrawAmount > 0 then
+                                                                        ServerFunc:Action("transfer_funds", "bank", "hand", withdrawAmount)
+                                                                        waits(2)
+                                                                    else
+                                                                        break
+                                                                    end
+                                                                end
+                                                            end
+                                                        end
+                                                    end     						
+                                                until not c().EnabledAutoATM or ServerFunc:GetMoney() >= ServerFunc:GetChipPrice(c().HackToolSelected)*c().Amount
+                                            end
+                                        end
+                                    else 
+                                        print("money maipo Kub")
+                                    end
+                                else 
+                                    local dist = ServerFunc:dist(CFrame_new(-212.181717, 255.525162, 387.744324))
+                                    if dist < 5 then
+                                        local targetAmount = ServerFunc:GetChipPrice(c().HackToolSelected) * c().Amount
+                                        local currentMoney = ServerFunc:GetMoney()
+                                        
+                                        if currentMoney >= targetAmount then
+                                            local currentHave = ServerFunc:GetInfo(c().HackToolSelected)[1]
+                                            local needToBuy = c().Amount - currentHave
+                                            
+                                            if needToBuy > 0 then
+                                                for i = 1, needToBuy do
+                                                    if ServerFunc:GetMoney() >= ServerFunc:GetChipPrice(c().HackToolSelected) then
+                                                        Net.get("purchase_consumable", workspace:FindFirstChild("ShopZone_Illegal"), c().HackToolSelected)
+                                                        local nowHave = ServerFunc:GetInfo(c().HackToolSelected)[1]
+                                                        if nowHave >= c().Amount then
+                                                            break
+                                                        end
+                                                    else
+                                                        break
+                                                    end
+                                                end
+                                            end
+                                        end
+                                    else 
+                                        ServerFunc:Drive(v, Vector_new(-212.181717, 255.525162, 387.744324), c().EnabledAutoATM)
+                                    end
+                                end 
+                            end
+                        end
+                    end)
+                else 
+                    local hacktool = ServerFunc:GetInfo(c().HackToolSelected)
+                    if hacktool[2] then 
+                        if hacktool[1] >= 0 then
+                            local closestATM, shortestDist = nil, math.huge
+                            for _, vx in get(workspace.Map.Props.ATMs:GetChildren()) do
+                                if vx.Name == "ATM" then
+                                    c().keys = {}
+                                    for k in getn(vx:GetAttributes()) do insert(c().keys, k) end
+                                    table.sort(c().keys)
+                                    if c().keys[3] and vx:GetAttribute(c().keys[3]) == false then
+                                        local d = ServerFunc:dist(vx.Area.CFrame)
+                                        if d < shortestDist then
+                                            closestATM = vx
+                                            shortestDist = d
+                                        end
+                                    end
+                                end
+                            end
+                            if closestATM then 
+                                if closestATM:GetAttribute(c().keys[3]) == false then
+                                    repeat waits()
+                                        if not ServerFunc:GetInfo(c().HackToolSelected)[2] then break end
+                                        if not ServerFunc:Detect() then
+                                            local distance = ServerFunc:dist(closestATM.Area)
+                                            if distance > 5 then
+                                                ServerFunc:Teleport(closestATM.Area.Position, c().EnabledAutoATM)
+                                            else
+                                                if c().EnabledDeposit then
+                                                    if ServerFunc:GetMoney() > 0 then
+                                                    Net.get("transfer_funds", "hand", "bank", ServerFunc:GetMoney())
+                                                    end
+                                                end
+                                                if not ServerFunc:CheckingIsMinigame() then
+                                                    ServerFunc:Action("request_begin_hacking_3", closestATM, c().HackToolSelected)
+                                                else 
+                                                    waits(1.35)
+                                                    ServerFunc:Action("atm_win_3", closestATM) 
+                                                end
+                                            end
+                                        end
+                                    until closestATM:GetAttribute(c().keys[3]) == true or not c().EnabledAutoATM or ServerFunc:GetInfo(c().HackToolSelected)[1] <= 0
+                                end
+                            end
+                        end
+                    else
+                        if ServerFunc:GetMoney() < ServerFunc:GetChipPrice(c().HackToolSelected)*c().Amount then
+                            if ServerFunc:ATMMoney() >= ServerFunc:GetChipPrice(c().HackToolSelected)*c().Amount then 
+                                local closestATMs, shortestDistd = nil, math.huge
+                                for _, vs in get(workspace.Map.Props.ATMs:GetChildren()) do
+                                    if vs.Name == "ATM" then
+                                        c().keys = {}
+                                        for k in getn(vs:GetAttributes()) do insert(c().keys, k) end
+                                        table.sort(c().keys)
+                                        if c().keys[3] and vs:GetAttribute(c().keys[3]) == false then
+                                            local d = ServerFunc:dist(vs.Area.CFrame)
+                                            if d < shortestDistd then
+                                                closestATMs = vs
+                                                shortestDistd = d
+                                            end
+                                        end
+                                    end
+                                end
+                                if closestATMs then 
+                                    if closestATMs:GetAttribute(c().keys[3]) == false then
+                                        repeat waits()
+                                            if ServerFunc:GetMoney() > ServerFunc:GetChipPrice(c().HackToolSelected)*c().Amount then 
+                                                break
+                                            end
+
+                                            if not ServerFunc:Detect() then 
+                                                if not ServerFunc:CheckingIsMinigame() then
+                                                    if ServerFunc:dist(closestATMs.Area.CFrame) > 5 then 
+                                                        ServerFunc:Teleport(closestATMs.Area.Position, c().EnabledAutoATM)
+                                                    else 
+                                                        local targetAmount = ServerFunc:GetChipPrice(c().HackToolSelected) * c().Amount
+                                                        local currentMoney = ServerFunc:GetMoney()
+                                                        local bankMoney = ServerFunc:ATMMoney()
+                                                        local need = targetAmount - currentMoney
+                                                        
+                                                        if need > 0 then
+                                                            local withdrawAmount = math.min(need, bankMoney)
+                                                            if withdrawAmount > 0 then
+                                                                ServerFunc:Action("transfer_funds", "bank", "hand", withdrawAmount)
+                                                                waits(2)
+                                                            else
+                                                                break
+                                                            end
+                                                        end
+                                                    end
+                                                end
+                                            end     								
+                                        until not c().EnabledAutoATM or ServerFunc:GetMoney() >= ServerFunc:GetChipPrice(c().HackToolSelected)*c().Amount
+                                    end
+                                end
+                            else 
+                                print("money maipo Kub")
+                            end
+                        else 
+                            local dist = ServerFunc:dist(CFrame_new(-212.181717, 255.525162, 387.744324))
+                            if dist < 5 then
+                                local targetAmount = ServerFunc:GetChipPrice(c().HackToolSelected) * c().Amount
+                                local currentMoney = ServerFunc:GetMoney()
+                                
+                                if currentMoney >= targetAmount then
+                                    local currentHave = ServerFunc:GetInfo(c().HackToolSelected)[1]
+                                    local needToBuy = c().Amount - currentHave
+                                    
+                                    if needToBuy > 0 then
+                                        for i = 1, needToBuy do
+                                            if ServerFunc:GetMoney() >= ServerFunc:GetChipPrice(c().HackToolSelected) then
+                                                Net.get("purchase_consumable", workspace:FindFirstChild("ShopZone_Illegal"), c().HackToolSelected)
+                                                waits(0.5)
+                                                local nowHave = ServerFunc:GetInfo(c().HackToolSelected)[1]
+                                                if nowHave >= c().Amount then
+                                                    break
+                                                end
+                                            else
+                                                break
+                                            end
+                                        end
+                                    end
+                                end
+                            else 
+                                ServerFunc:Teleport(Vector_new(-212.181717, 255.525162, 387.744324), c().EnabledAutoATM) 
+                            end
+                        end 
+                    end
+                end
+            end
+        else 
+            ServerFunc:ForceStop()
+        end
+	end
+end
+
+local AutoDeposit = 200
+
+func['StartJob'] = function()
+    while waits() do 
+        if c().StartJob then 
+            local Jobs = c().JobSelected
+            if Jobs then 
+                local Jan,Ste,Quick11 = Jobs == "Janitor", Jobs == "Steak", Jobs == "Quick-11"
+                if Jan then
+                    if Client:GetAttribute("Job") == "janitor" then
+                        if Character:FindFirstChild('Mop') then
+                            local nearestPuddle = nil
+                            local shortestDistance = math.huge
+
+                            local janitorLevel = ServerFunc:GetSkill("Janitor")
+
+                            for _, puddle in get(Puddles:GetChildren()) do
+                                if puddle:IsA("BasePart") and puddle.Size.Magnitude > 0.001 and puddle.Transparency < 1 then
+                                    local valid = (puddle.Name ~= "NastyPuddle" and puddle.Name ~= "ToxicPuddle" and puddle.Name ~= "OilPuddle")
+
+                                    if janitorLevel > 5 then
+                                        valid = valid or puddle.Name == "LargePuddle"
+                                    end
+
+                                    if valid then
+                                        local distance = ServerFunc:dist(puddle)
+                                        if distance < shortestDistance then
+                                            nearestPuddle = puddle
+                                            shortestDistance = distance
+                                        end
+                                    end
+                                end
+                            end
+
+                            if nearestPuddle then
+                                ServerFunc:Teleport(nearestPuddle.Position,c().StartJob)
+                            end
+                        else 
+                            Humanoid:EquipTool('Mop')
+                        end
+                    else 
+                        if ServerFunc:dist(CFrame_new(110, 255, -309)) < 3 then
+                            ServerFunc:Action("apply_for_job", workspace:WaitForChild("BurgePlaceBeacon"))
+                        end
+                        ServerFunc:Teleport(Vector_new(110.824829, 255.190384, -309.609131),c().StartJob)
+                    end
+                elseif Ste then
+                    local progressGui = PlayerGui.ProgressBar.ProgressBarFrame
+                    if Client:GetAttribute("Job") == "steakhouse_cook" then
+                        if not ServerFunc:FindItem("Steak")[1] and not progressGui.Visible then
+                            if ServerFunc:dist(CFrame_new(-279.035919, 256.224487, 334.839172)) < 5 then
+                                for i,v in get(workspace.Map.Tiles.ShoppingTile.SteakHouse.Interior.Fridge:GetChildren()) do 
+                                    if v:FindFirstChild('Attachment') then 
+                                        if v:FindFirstChild('Attachment'):FindFirstChild('ProximityPrompt') then 
+                                            fireproximityprompt(v:FindFirstChild('Attachment'):FindFirstChild('ProximityPrompt'))
+                                        end
+                                    end
+                                end
+                            end
+                            ServerFunc:Teleport(Vector_new(-279.16619873046875, 256.2244873046875, 335.1399841308594),c().StartJob)
+                        elseif ServerFunc:FindItem("Steak")[1] and not progressGui.Visible then
+                            Humanoid:EquipTool(ServerFunc:FindItem("Steak")[2])
+                            if workspace:FindFirstChild("Beacon") and workspace.Beacon.PrimaryPart then
+                                ServerFunc:Teleport(workspace.Beacon.PrimaryPart.Position,c().StartJob)
+                            end
+                        elseif not ServerFunc:FindItem("Steak")[1] and progressGui.Visible then
+                            local scale = progressGui.MainFrame.BarAmount.Size.X.Scale
+                            if scale > 0.93 and scale < 1 then
+                                for _, v in get(SteakHouseBro.Interior:GetChildren()) do
+                                    if v.Name == "Grill" then
+                                        ServerFunc:Action("finish_grilling_2", v, "Perfect")
+                                    end
+                                end
+                            end
+                        end
+                    else
+                        if ServerFunc:dist(CFrame_new(-230.680832, 256.501099, 330.690674, -0.00825279299, -1.21512826e-07, 0.999965966, 2.18528484e-08, 1, 1.21697312e-07, -0.999965966, 2.28564456e-08, -0.00825279299)) < 2 then
+                            ServerFunc:Action("apply_for_job", SteakHouseBro.Interior.SteakHouseBeacon)
+                        else 
+                            if ServerFunc:dist(CFrame_new(-228.423172, 255.251801, 330.278656, -0.00910349376, 2.88088451e-08, 0.999958575, -2.08891766e-08, 1, -2.9000212e-08, -0.999958575, -2.11523137e-08, -0.00910349376)) < 5  then
+                                RootPart.CFrame = CFrame_new(-230.680832, 256.501099, 330.690674, -0.00825279299, -1.21512826e-07, 0.999965966, 2.18528484e-08, 1, 1.21697312e-07, -0.999965966, 2.28564456e-08, -0.00825279299)
+                            else 
+                                ServerFunc:Teleport(Vector_new(-228.423172, 255.251801, 330.278656, -0.00910349376, 2.88088451e-08, 0.999958575, -2.08891766e-08, 1, -2.9000212e-08, -0.999958575, -2.11523137e-08, -0.00910349376),c().StartJob)
+                            end 
+                        end
+                    end
+                elseif Quick11 then
+                    if Client:GetAttribute("Job") == "shelf_stocker" then 
+                        print(ServerFunc:GetMoney())
+                        if ServerFunc:GetMoney() < AutoDeposit then 
+                            if not Backpack:FindFirstChild("BoxTool") and not Character:FindFirstChild("BoxTool") then
+                                if workspace.Map:FindFirstChild('Tiles'):FindFirstChild('GasStationTile'):FindFirstChild('Quick11'):FindFirstChild('Interior'):FindFirstChild('ShelfStockingJob'):FindFirstChild('GoldenBox').BillboardGui.Frame.StockLeft.Text == "Stock: 0/5 (x25)" then
+                                    if ServerFunc:dist(CFrame_new(133.074203, 255.315063, 208.376404, 0.99999994, 7.32260652e-09, 0.000278151216, -7.28950011e-09, 1, -1.19023902e-07, -0.000278151216, 1.1902187e-07, 0.99999994)) < 5 then
+                                        fireproximityprompt(workspace.Map.Tiles.GasStationTile.Quick11.Interior.ShelfStockingJob.NormalBox:FindFirstChild('ProximityPrompt'))
+                                    end
+                                    ServerFunc:Teleport(Vector_new(133.074203, 255.315063, 208.376404, 0.99999994, 7.32260652e-09, 0.000278151216, -7.28950011e-09, 1, -1.19023902e-07, -0.000278151216, 1.1902187e-07, 0.99999994),c().StartJob)
+                                else
+                                    if ServerFunc:dist(CFrame_new(129.082565, 237.444138, 210.597443, -0.998427451, -2.36445796e-08, -0.0560596287, -2.61457771e-08, 1, 4.38832934e-08, 0.0560596287, 4.52800073e-08, -0.998427451)) < 5 then
+                                        fireproximityprompt(workspace.Map.Tiles.GasStationTile.Quick11.Interior.ShelfStockingJob.GoldenBox:FindFirstChild('ProximityPrompt'))
+                                    end
+                                    ServerFunc:Teleport(Vector_new(129.082565, 237.444138, 210.597443, -0.998427451, -2.36445796e-08, -0.0560596287, -2.61457771e-08, 1, 4.38832934e-08, 0.0560596287, 4.52800073e-08, -0.998427451),c().StartJob)
+                                end    
+                            else
+                                if Character:FindFirstChild("BoxTool") then
+                                    local shel = workspace.Map.Tiles.GasStationTile.Quick11.Interior.ShelfStockingJob.Shelves
+                                    repeat waits()
+                                        for _,v in get(shel:GetChildren()) do 
+                                            if v:FindFirstChild("Attachment") then
+                                                ServerFunc:Teleport(v.Position,c().StartJob)
+                                            end
+                                        end
+                                    until not Character:FindFirstChild("BoxTool") or not c().StartJob
+                                else
+                                    Humanoid:EquipTool(Backpack:FindFirstChild("BoxTool"))
+                                end
+                            end
+                        else 
+                            c().keys = {}
+                            for k in getn(workspace.Map.Tiles.GasStationTile.Quick11.Interior.ATM:GetAttributes()) do insert(c().keys, k) end
+                            table.sort(c().keys)
+                            if c().keys[3] and workspace.Map.Tiles.GasStationTile.Quick11.Interior.ATM:GetAttribute(c().keys[3]) == false then
+                                repeat waits()
+                                    local dist = ServerFunc:dist(CFrame_new(93.0151443, 255.467148, 170.286346, 0.960293412, 1.78697146e-08, -0.278992116, -2.06586712e-08, 1, -7.05637104e-09, 0.278992116, 1.25397923e-08, 0.960293412))
+                                    if dist > 2 then 
+                                        ServerFunc:Teleport(Vector_new(93.0151443, 255.467148, 170.286346, 0.960293412, 1.78697146e-08, -0.278992116, -2.06586712e-08, 1, -7.05637104e-09, 0.278992116, 1.25397923e-08, 0.960293412),c().StartJob)
+                                    else 
+                                        Net.get("transfer_funds", "hand", "bank", ServerFunc:GetMoney())
+                                    end
+                                until not c().StartJob or ServerFunc:GetMoney() == 0 or workspace.Map.Tiles.GasStationTile.Quick11.Interior.ATM:GetAttribute(c().keys[3]) == true
+                            end
+                        end
+                    else
+                        if ServerFunc:dist(CFrame_new(133.074203, 255.315063, 208.376404, 0.99999994, 7.32260652e-09, 0.000278151216, -7.28950011e-09, 1, -1.19023902e-07, -0.000278151216, 1.1902187e-07, 0.99999994)) < 5 then
+                            ServerFunc:Action("apply_for_job",workspace:WaitForChild("Map"):WaitForChild("Tiles"):WaitForChild("GasStationTile"):WaitForChild("Quick11"):WaitForChild("Interior"):WaitForChild("Quick11Beacon"))
+                        end
+                        ServerFunc:Teleport(Vector_new(133.074203, 255.315063, 208.376404, 0.99999994, 7.32260652e-09, 0.000278151216, -7.28950011e-09, 1, -1.19023902e-07, -0.000278151216, 1.1902187e-07, 0.99999994),c().StartJob)
+                    end
+                -- elseif Fishing then
+                    -- local FishingSport = CFrame_new(168.849213, 252.508652, -822.437439, -0.957006097, 7.60641043e-08, 0.290067732, 1.00586526e-07, 1, 6.96313762e-08, -0.290067732, 9.58145563e-08, -0.957006097)
+                    -- local ShopPosition = CFrame_new(-136.406662, 254.851074, 153.555588)
+                    -- local quick11Pos = CFrame_new(133.074203, 255.315063, 208.376404, 0.99999994, 7.32260652e-09, 0.000278151216, -7.28950011e-09, 1, -1.19023902e-07, -0.000278151216, 1.1902187e-07, 0.99999994)
+                    -- if not ServerFunc:IsHavingFish() then 
+                    --     if not ServerFunc:GetInfo("FishingRodRegular")[2] or not ServerFunc:GetInfo("fish_bait_wormtec_regular")[2] then 
+                    --         if ServerFunc:GetMoney() >= (100 + 20 * 10) then 
+                    --             if not ServerFunc:GetInfo("FishingRodRegular")[2]  or not ServerFunc:GetInfo("fish_bait_wormtec_regular")[2] then 
+                    --                 local dist = ServerFunc:dist(ShopPosition)
+                    --                 if dist > 5 then
+                    --                     if not ServerFunc:GetInfo("BMX")[2] then
+                    --                         ServerFunc:Teleport(ShopPosition.Position, c().StartJob)
+                    --                     else
+                    --                         ServerFunc:Get_Vehicles("BMX", function(v)
+                    --                             if not Humanoid.Sit then
+                    --                                 v:SetPrimaryPartCFrame(RootPart.CFrame * CFrame_new(0,0,-5))
+                    --                                 fireproximityprompt(v.PrimaryPart.DrivePromptAttachment.DrivePrompt)
+                    --                             else
+                    --                                 ServerFunc:Drive(v, ShopPosition.Position, c().StartJob)
+                    --                             end
+                    --                         end)
+                    --                     end
+                    --                 else
+                    --                     if not ServerFunc:GetInfo("FishingRodRegular")[2] then 
+                    --                         Net.send("purchase_consumable", workspace:FindFirstChild("ShopZone_Hardware"), "FishingRodRegular")
+                    --                     end 
+                    --                     if not ServerFunc:GetInfo("fish_bait_wormtec_regular")[2] then                                            
+                    --                         for i = 1, 10 do
+                    --                             Net.get("purchase_consumable", workspace:FindFirstChild("ShopZone_Hardware"), "fish_bait_wormtec_regular")
+                    --                         end
+                    --                     end
+                    --                 end
+                    --             end
+                    --         else 
+                    --             if ServerFunc:ATMMoney() >= (100 + 20 * 10) then 
+                    --                 local closestATM, shortestDist = nil, math.huge
+                    --                 for _, atm in get(workspace.Map.Props.ATMs:GetChildren()) do
+                    --                     if atm.Name == "ATM" then
+                    --                         c().keys = {}
+                    --                         for k in getn(atm:GetAttributes()) do insert(c().keys, k) end
+                    --                         table.sort(c().keys)
+                    --                         if c().keys[3] and atm:GetAttribute(c().keys[3]) == false then
+                    --                             local d = ServerFunc:dist(atm.Area.CFrame)
+                    --                             if d < shortestDist then
+                    --                                 closestATM = atm
+                    --                                 shortestDist = d
+                    --                             end
+                    --                         end
+                    --                     end
+                    --                 end
+                                    
+                    --                 if closestATM then
+                    --                     local atmDist = ServerFunc:dist(closestATM.Area.CFrame)
+                    --                     if atmDist > 5 then
+                    --                         if not ServerFunc:GetInfo("BMX")[2] then
+                    --                             ServerFunc:Teleport(closestATM.Area.Position, c().StartJob)
+                    --                         else
+                    --                             ServerFunc:Get_Vehicles("BMX", function(v)
+                    --                                 if not Humanoid.Sit then
+                    --                                     v:SetPrimaryPartCFrame(RootPart.CFrame * CFrame_new(0,0,-5))
+                    --                                     fireproximityprompt(v.PrimaryPart.DrivePromptAttachment.DrivePrompt)
+                    --                                 else
+                    --                                     ServerFunc:Drive(v, closestATM.Area.Position, c().StartJob)
+                    --                                 end
+                    --                             end)
+                    --                         end
+                    --                     else
+                    --                         local withdrawAmount = math.min((100 + 20 * 10) - ServerFunc:GetMoney(), ServerFunc:ATMMoney())
+                    --                         if withdrawAmount > 0 then
+                    --                             ServerFunc:Action("transfer_funds", "bank", "hand", withdrawAmount)
+                    --                             waits(2)
+                    --                         end
+                    --                     end
+                    --                 end 
+                    --             else 
+                    --                 if Client:GetAttribute("Job") == "shelf_stocker" then
+                    --                     if not Backpack:FindFirstChild("BoxTool") and not Character:FindFirstChild("BoxTool") then
+                    --                         if ServerFunc:dist(quick11Pos) < 5 then
+                    --                             fireproximityprompt(workspace.Map.Tiles.GasStationTile.Quick11.Interior.ShelfStockingJob.NormalBox:FindFirstChild('ProximityPrompt'))
+                    --                         else
+                    --                             ServerFunc:Teleport(quick11Pos.Position, c().StartJob)
+                    --                         end
+                    --                     else
+                    --                         if Character:FindFirstChild("BoxTool") then
+                    --                             local shel = workspace.Map.Tiles.GasStationTile.Quick11.Interior.ShelfStockingJob.Shelves
+                    --                             for _,v in get(shel:GetChildren()) do 
+                    --                                 if v:FindFirstChild("Attachment") then
+                    --                                     ServerFunc:Teleport(v.Position, c().StartJob)
+                    --                                     waits(1)
+                    --                                 end
+                    --                             end
+                    --                         else
+                    --                             Humanoid:EquipTool(Backpack:FindFirstChild("BoxTool"))
+                    --                         end
+                    --                     end
+                    --                 else
+                    --                     if ServerFunc:dist(quick11Pos) < 5 then
+                    --                         ServerFunc:Action("apply_for_job", workspace.Map.Tiles.GasStationTile.Quick11.Interior.Quick11Beacon)
+                    --                     else
+                    --                         ServerFunc:Teleport(quick11Pos.Position, c().StartJob)
+                    --                     end
+                    --                 end
+                    --             end
+                    --         end
+                    --     else 
+                    --         if ServerFunc:GetInfo("FishingRodRegular")[2] and ServerFunc:GetInfo("fish_bait_wormtec_regular")[2] then
+                    --             local dist = ServerFunc:dist(FishingSport)
+                    --             if dist > 3 then 
+                    --                 if not ServerFunc:GetInfo("BMX")[2] then
+                    --                     ServerFunc:Teleport(FishingSport.Position, c().StartJob)
+                    --                 else
+                    --                     ServerFunc:Get_Vehicles("BMX", function(v)
+                    --                         if not Humanoid.Sit then
+                    --                             v:SetPrimaryPartCFrame(RootPart.CFrame * CFrame_new(0,0,-5))
+                    --                             fireproximityprompt(v.PrimaryPart.DrivePromptAttachment.DrivePrompt)
+                    --                         else
+                    --                             ServerFunc:Drive(v, FishingSport.Position, c().StartJob)
+                    --                         end
+                    --                     end)
+                    --                 end
+                    --             else 
+                    --                 if not Character:FindFirstChild("FishingRodRegular") then
+                    --                     if ServerFunc:GetInfo("FishingRodRegular")[4] then 
+                    --                     Humanoid:EquipTool(ServerFunc:FindItem("FishingRodRegular")[2])
+                    --                     else 
+                    --                     Net.get("toggle_equip_item",ServerFunc:GetInfo("FishingRodRegular")[3])
+                    --                     end
+                    --                 end
+                    --                 if Character:FindFirstChild("FishingRodRegular") then
+                    --                     if not ServerFunc:GetInfo("BMX")[2] then
+                    --                         ServerFunc:TeleportAndFish(FishingPoint, function()
+                    --                             if not ServerFunc:CheckingIsMinigame() then
+                    --                                 c().statusreeling = {}
+                    --                                 for k in pairs(Character:FindFirstChild('FishingRodRegular'):GetAttributes()) do insert(c().statusreeling, k) end
+                    --                                 table.sort(c().statusreeling)
+                    --                                 if c().statusreeling[6] and Character:FindFirstChild('FishingRodRegular'):GetAttribute(c().statusreeling[6]) == false then
+                    --                                     local BaitAmmo = ItemUtilsModule.get_item_info(DataModule, Character:FindFirstChild("FishingRodRegular"):GetAttribute("ItemGUID")).ammo_amount
+                    --                                     if BaitAmmo == 0 then
+                    --                                         Net.get("equip_ammo_on_item", ServerFunc:GetInfo("FishingRodRegular")[3], ServerFunc:GetInfo("fish_bait_wormtec_regular")[3])
+                    --                                     else
+                    --                                         Net.get("throw_rod", Character:FindFirstChild("FishingRodRegular"),CFrame_new(154.25450134277344, 249.84375, -798.1232299804688).Position)
+                    --                                     end
+                    --                                 end
+                    --                             else 
+                    --                                 Net.get("reel_ended", Character:FindFirstChild("FishingRodRegular"), true)
+                    --                             end
+                    --                         end)
+                    --                     else 
+                    --                         ServerFunc:Get_Vehicles("BMX", function(v)
+                    --                             if not Humanoid.Sit then
+                    --                                 v:SetPrimaryPartCFrame(RootPart.CFrame * CFrame_new(0,0,-5))
+                    --                                 fireproximityprompt(v.PrimaryPart.DrivePromptAttachment.DrivePrompt)
+                    --                             else
+                    --                                 ServerFunc:DriveAndFish(v, FishingPoint, function()
+                    --                                     if not ServerFunc:CheckingIsMinigame() then
+                    --                                         c().statusreeling = {}
+                    --                                         for k in pairs(Character:FindFirstChild('FishingRodRegular'):GetAttributes()) do insert(c().statusreeling, k) end
+                    --                                         table.sort(c().statusreeling)
+                    --                                         if c().statusreeling[6] and Character:FindFirstChild('FishingRodRegular'):GetAttribute(c().statusreeling[6]) == false then
+                    --                                             local BaitAmmo = ItemUtilsModule.get_item_info(DataModule, Character:FindFirstChild("FishingRodRegular"):GetAttribute("ItemGUID")).ammo_amount
+                    --                                             if BaitAmmo == 0 then
+                    --                                                 Net.get("equip_ammo_on_item", ServerFunc:GetInfo("FishingRodRegular")[3], ServerFunc:GetInfo("fish_bait_wormtec_regular")[3])
+                    --                                             else
+                    --                                                 Net.get("throw_rod", Character:FindFirstChild("FishingRodRegular"),CFrame_new(154.25450134277344, 249.84375, -798.1232299804688).Position)
+                    --                                             end
+                    --                                         end
+                    --                                     else 
+                    --                                         Net.get("reel_ended", Character:FindFirstChild("FishingRodRegular"), true)
+                    --                                     end
+                    --                                 end)
+                    --                             end
+                    --                         end)
+                    --                     end
+                    --                 end
+                    --             end
+                    --         end
+                    --     end
+                    -- else 
+                    --     if not Character:FindFirstChild("FishingRodRegular") then
+                    --         local dist = ServerFunc:dist(CFrame_new(-252.613586, 255.0354, 379.803589, -1.1920929e-07, -0, -1.00000012, 0, 1, -0, 1.00000012, 0, -1.1920929e-07))
+                    --         if dist < 3 then 
+                    --             Net.get('sell_all_fish')
+                    --         else 
+                    --             if not ServerFunc:GetInfo("BMX")[2] then
+                    --                 ServerFunc:Teleport(CFrame_new(-252.613586, 255.0354, 379.803589, -1.1920929e-07, -0, -1.00000012, 0, 1, -0, 1.00000012, 0, -1.1920929e-07).Position, c().StartJob)
+                    --             else
+                    --                 ServerFunc:Get_Vehicles("BMX", function(v)
+                    --                     if not Humanoid.Sit then
+                    --                         v:SetPrimaryPartCFrame(RootPart.CFrame * CFrame_new(0,0,-5))
+                    --                         fireproximityprompt(v.PrimaryPart.DrivePromptAttachment.DrivePrompt, 1)
+                    --                     else
+                    --                         ServerFunc:Drive(v, Vector_new(-252.613586, 255.0354, 379.803589, -1.1920929e-07, -0, -1.00000012, 0, 1, -0, 1.00000012, 0, -1.1920929e-07), c().StartJob)
+                    --                     end
+                    --                 end)
+                    --             end
+                    --         end
+                    --     else
+                    --         if Character:FindFirstChild("FishingRodRegular"):GetAttribute(c().statusreeling[6]) == false then
+                    --             Humanoid:UnequipTools()
+                    --         else 
+                    --             if ServerFunc:CheckingIsMinigame() then 
+                    --                 Net.get("reel_ended", Character:FindFirstChild("FishingRodRegular"), true)
+                    --             end
+                    --         end
+                    --     end
+                    -- end
+                end
+            end 
+        else 
+            ServerFunc:ForceStop()
+        end 
+    end
+end
+
+
+func['EnabledSnap'] = function()
+    local baseY = RootPart.Position.Y
+    local baseX = RootPart.Position.X
+    local baseZ = RootPart.Position.Z
+    local lastOffset = c().YOffset or 1
+
+    while c().EnabledSnap do waits()
+        if Humanoid.Health > 0 then
+            local currentOffset = c().YOffset or 1
+            if currentOffset ~= lastOffset then
+                lastOffset = currentOffset
+            end
+            local targetY = baseY - currentOffset
+            RootPart.CFrame = CFrame.new(baseX, targetY, baseZ)
+        end
+    end
+end
+
+
+func['EnabledAnonymous'] = function()
+    while waits(0.1) do 
+        if c().EnabledAnonymous then 
+            if Character then 
+                local CharacterBilboard = RootPart:FindFirstChild('CharacterBillboardGui') 
+                if CharacterBilboard then 
+                    local PlayerName = CharacterBilboard:FindFirstChild('PlayerName')
+                    if PlayerName then 
+                        PlayerName.Text = ServerFunc:Generate()
+                        PlayerName.LevelImage.LevelText.Text = tostring(math.random(1,100))
+                    end
+                end
+            end 
+        else 
+            if Character then 
+                local CharacterBilboard = RootPart:FindFirstChild('CharacterBillboardGui') 
+                if CharacterBilboard then 
+                    local PlayerName = CharacterBilboard:FindFirstChild('PlayerName')
+                    if PlayerName then 
+                        PlayerName.Text = Client.Name
+                        PlayerName.LevelImage.LevelText.Text = ServerFunc:GetLevel()
+                    end
+                end
+            end 
+        end 
+    end
+end
+
+local EverDown = false
+func['AntiDied'] = function()
+    while waits(0.2) do 
+        if c().AntiDied then 
+            local hum = CharModule.get_hum()
+            if hum:GetAttribute('HasBeenDowned') then 
+                if not hum:GetAttribute('IsDead') then 
+                    if Humanoid.Health > 0 then
+                        local deathscreen = PlayerGui.DeathScreen.DeathScreenHolder
+                        if not deathscreen.Visible then 
+                            local Radius = math.random(-20,35)
+                            local Gan = math.random(-5,5)
+                            RootPart.Anchored = false 
+                            RootPart.CanCollide = false
+                            RootPart.CFrame = RootPart.CFrame * CFrame.new(Gan,Radius,Gan)
+                            EverDown = true
+                        end
+                    else
+                        EverDown = false 
+                    end
+                else
+                    EverDown = false 
+                end
+            else 
+                if EverDown then 
+                    if not hum:GetAttribute('IsInCombat') then 
+                        EverDown = false
+                        waits(0.2)
+                        Net.send('request_respawn')
+                    end
+                end
+            end
+        else 
+            EverDown = false 
+        end
+    end
+end
+
+c().EnabledAutoRespawn = true
+
+func['EnabledAutoRespawn'] = function()
+    while c().EnabledAutoRespawn do waits()
+        local deathscreen = PlayerGui.DeathScreen.DeathScreenHolder
+        if deathscreen.Visible then 
+            if deathscreen.Frame.RespawnButtonFrame.RespawnButton.TextLabel.Text == "Respawn" then 
+                Net.send("death_screen_request_respawn")
+            end
+        end
+    end
+end
+
+task.spawn(func['EnabledAutoRespawn'])
+
+
+
+func['HitAura'] = function()
+	while c().HitAura do waits()
+		for _, vx in getn(game:GetService("Players"):GetPlayers()) do
+			if vx ~= Client then
+				if vx.Character and vx.Character:FindFirstChild("HumanoidRootPart") then
+					if ServerFunc:dist(vx.Character:FindFirstChild('HumanoidRootPart')) < tonumber(c().HitDistance) then
+						for i,v in get(Character:GetChildren()) do 
+							if v:IsA("Tool") then 
+								ServerFunc:Action("melee_attack",v,{vx},vx.Character:FindFirstChild('HumanoidRootPart').CFrame,0.1)
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
+func['EnabledThrowAura'] = function()
+	while c().EnabledThrowAura do waits()
+		for _,x in get(throwable:GetChildren()) do
+			for i,v in getn(Players:GetPlayers()) do 
+				if v ~= Client then 
+					if v.Character and v.Character:FindFirstChild("HumanoidRootPart") then 
+						local dist = ServerFunc:dist(v.Character:FindFirstChild("HumanoidRootPart"))
+						if dist < 10 then
+							if ServerFunc:FindItem(tostring(x.Name))[1] then
+								ServerFunc:Action("throw_item",ServerFunc:FindItem(tostring(x.Name))[2],v.Character:FindFirstChild('HumanoidRootPart').Position,Client:GetMouse().Hit.Position)
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
+c().EnabledSpeed = false
+c().SpeedAmount = 24
+
+
+func['EnabledSpeed'] = function()
+	while waits() do
+		if c().EnabledSpeed then 
+			Humanoid:SetAttribute("TargetWalkSpeed", c().SpeedAmount)
+            Humanoid.WalkSpeed = c().SpeedAmount
+            ServerFunc:Action("set_sprinting_1", true)
+        else 
+            ServerFunc:Action("set_sprinting_1", false)
+            Humanoid:SetAttribute("TargetWalkSpeed", 8)
+			Humanoid.WalkSpeed = 8
+		end
+	end
+end
+
+
+func['EnabledJump'] = function()
+	while waits() do
+		if c().EnabledJump then 
+			Humanoid.JumpHeight = c()['JumpAmount']
+		else 
+			Humanoid.JumpHeight = 3.89
+		end
+	end
+end
+
+func['AutoPickItem'] = function()
+    while waits() do 
+        if c().AutoPickItem then 
+            for i,v in get(droppedItems:GetChildren()) do 
+                if not v:GetAttribute('Locked') then
+                    local dist = ServerFunc:dist(v:FindFirstChild('PickUpZone'))
+                    if dist < c().Stud_PickItem then 
+                        Net.get("pickup_dropped_item",v)
+                    end 
+                end
+            end
+        end
+    end
+end
+
+func['AutoFinish'] = function()
+    while waits() do 
+        if c().AutoFinish then
+            local closestPlayer = nil
+            local closestDist = math.huge
+            for _, v in get(Players:GetPlayers()) do
+                if v ~= Client and v.Character and v.Character:FindFirstChild('Humanoid') and v.Character.Humanoid.Health > 0 then
+                    local hrp = v.Character:FindFirstChild('HumanoidRootPart')
+                    if hrp then
+                        local dist = ServerFunc:dist(hrp)
+                        if dist < closestDist then
+                            closestDist = dist
+                            closestPlayer = v
+                        end
+                    end
+                end
+            end
+            if closestPlayer then
+                local hrp = closestPlayer.Character:FindFirstChild("HumanoidRootPart")
+                if hrp and hrp:FindFirstChild("FinishPrompt") and hrp.FinishPrompt.Enabled then
+                    hrp:PivotTo(RootPart.CFrame * CFrame_new(0,0,-5))
+                    repeat waits(0.1)
+                        vim:SendKeyEvent(true, Enum.KeyCode.X, false, game)
+                    until not hrp.FinishPrompt.Enabled or not c().AutoFinish
+                end
+            end
+        end
+    end
+end
+
+func['WhiteScreen'] = function()
+    while waits() do
+        if c().WhiteScreen then
+            RunService:Set3dRenderingEnabled(false)
+        else 
+            RunService:Set3dRenderingEnabled(true)
+        end 
+    end 
+end
+
+local LoaderLibrary = loadstring(game:HttpGet("https://pastefy.app/hK1tVbbb/raw"))();
+
+local Window = LoaderLibrary.new();
+
+Window:load() 
+
+local Tabs = {
+	AutoFarm = Window:create_tab("General",'library');
+	Combat = Window:create_tab('Combat','sword');
+	Visual = Window:create_tab('Visual','eye');
+	Players = Window:create_tab('Players','user');
+	Miscellaneous = Window:create_tab('Miscellaneous','album');
+}
+
+local function Section(tabs, richs, sections, titles, descriptions)
+	local Section = tabs:create_section({
+		rich = richs,
+		section = sections,
+		title = titles,
+		description = descriptions,
+		flag = "Heee",
+	});
+    return Section
+end
+
+local function Toggle(section,titles,flags,key)
+    local tasks
+    local Toggle = section:create_toggle({
+		title = titles,
+		flag = flags,
+        default = Settings[key] or false,
+        callback = function(state)
+			c()[key] = state
+			Settings[key] = state
+            if not state then if tasks then stop(tasks) tasks = nil end end 
+
+            if state then 
+                if func[key] then 
+                    tasks = task.spawn(func[key])
+                end
+            end
+			--saveConfig()
+        end
+	})
+    return Toggle
+end
+
+local function Dropdown(sections,list,multi,flags,titles,key)
+    local dropdown = sections:create_dropdown({
+        options = list,
+        default = Settings[key] or list[1],
+        multi_dropdown = multi,
+        maximum_options = 3,
+        flag = flags,
+        title = titles,
+        callback = function(value)
+            Settings[key] = value
+			c()[key] = value
+			--saveConfig()
+        end,
+    })
+    return dropdown
+end
+
+local function Slider(sections,titles,flags,min,max,values,key,CallbackF) 
+    local Slide = sections:create_slider({
+
+        title = titles,
+
+        flag = flags,
+
+        minimum_value = min,
+
+        maximum_value = max,
+
+        value = Settings[key] or values or 1,
+
+        round_number = true,
+
+        callback = function(value)
+            Settings[key] = value 
+            c()[key] = value 
+            --saveConfig()
+            if CallbackF then CallbackF(value) end
+        end
+
+    })
+    return Slide
+end
+
+local function Button(Sections,titles,callbacks)
+    local Buttons = Sections:create_button({
+        title = titles,
+        callback = callbacks,
+    })
+    return Buttons
+end
+
+do
+    local Infomation = Section(Tabs.AutoFarm, false, "left", "Infomation", 'Infomation about you',"info")
+    BankMoney = Infomation:create_text({
+        text = "🏦 Bank Balance : nil"
+    })
+    HandMoney = Infomation:create_text({
+        text = "💳 Money Balance : nil"
+    })
+    local ATMFARM = Section(Tabs.AutoFarm, false, "left", "ATM Farming", 'Automatic to farm atm')
+    Dropdown(ATMFARM,{"HackToolBasic","HackToolPro","HackToolUltimate","HackToolQuantum","Smart Select"},false,"HackToolClass","Select Swipper","HackToolClass")
+    Slider(ATMFARM,"Swipper Limit", "ITAM",1,16,3,"Amount")
+    Toggle(ATMFARM,"Start Hacking ATM","ATMFAR","EnabledAutoATM")
+	Toggle(ATMFARM,"Enabled Bike","Bike", "EnabledBike") 
+	Toggle(ATMFARM,"Enabled Deposit","Des", "EnabledDeposit") 
+    local Job = Section(Tabs.AutoFarm, false, "left", "Job Farming", 'Automatic to do job')
+    Dropdown(Job,{"Janitor","Steak","Quick-11"},false,"JobSelect","Select Job type","JobSelected")
+    Toggle(Job,"Start Job","JobsDo","StartJob")
+    local Character_Tabs = Section(Tabs.AutoFarm, false, "right", "Character", 'About Your Character')
+    Toggle(Character_Tabs,"Snap","DownTp","EnabledSnap")
+    Slider(Character_Tabs,"Y Offset", "Yoffset",1,100,30,"YOffset")
+    Toggle(Character_Tabs,"Anti Died","AntiDiedAntiDied","AntiDied")
+    -- Toggle(Character_Tabs,"Anti Aim","AntiAim","AntiAim")
+    Toggle(Character_Tabs,"Auto Respawn","Automatic","EnabledAutoRespawn")
+    local SettingsFarming = Section(Tabs.AutoFarm, false, "right", "Settings Normal Farming", 'Just Settings bro')
+    Dropdown(SettingsFarming,{"Bike","Car"},false,"VechineType","Select Vechine Type","VechineType")
+    Slider(SettingsFarming,"Instant Teleport Speed", "InstantTeleportSpeed",1,35,34,"InstantWalkingSpeed")
+    Slider(SettingsFarming,"Instant Vechine Speed", "InstantVechineSpeed",1,150,55,"Vechine")
+    local Miscellneous_General = Section(Tabs.AutoFarm, false, "right", "Misellneous", 'Just Misc bro')
+    Toggle(Miscellneous_General,"Skip Spin Animation","S","EnabledSkip")
+    Button(Miscellneous_General,"Claim All Quest",function()
+        local QuestAll = PlayerGui.Quests.QuestsHolder.QuestsScrollingFrame
+        for i,v in getn(QuestAll:GetChildren()) do
+            if v.Name ~= "UIListLayout" then
+                ServerFunc:Action("claim_quest",v.Name)
+            end 
+        end
+    end)
+    local Aimbot_Combat = Section(Tabs.Combat, false, "left", "Aimbots", 'just aimbot kub pom.')
+    Toggle(Aimbot_Combat,"Enabled Slient Aim","SlientAim","EnabledSlientAim")
+    Toggle(Aimbot_Combat,"Enabled Wall Shot","WallShoot","EnabledWallShoot")
+    Toggle(Aimbot_Combat,"Enabled Ingore Friend","Ingorefriend","EnabledIngoreFriend")
+    Toggle(Aimbot_Combat,"Enabled Pov","Pov","EnabledPov")
+    Toggle(Aimbot_Combat,"Enabled Rgb","Rgb","EnabledRainbow")
+    Slider(Aimbot_Combat,"Radius Pov", "Rd",1,800,200,"Radius")
+    Dropdown(Aimbot_Combat,{"Cursor","Middle"},false,"Pov Position Type","Select Position type","PositionType")
+    local Combats_Miscellneous = Section(Tabs.Combat, false, "right", "Miscellneous", 'nothing bro just look here.')
+    Toggle(Combats_Miscellneous,"Hit Aura","HitAura","HitAura")
+    Slider(Combats_Miscellneous,"Distance", "Ds",1,10,1,"HitDistance")
+    Toggle(Combats_Miscellneous,"Throw Aura","Thro","EnabledThrowAura")
+    local Esp_Visual = Section(Tabs.Visual, false, "left", "Esp", 'just esp you know.')
+    Toggle(Esp_Visual,"Box","Boxs","EnabledBox")
+    Toggle(Esp_Visual,"Tracer","Tracer","EnabledTracer")
+    Toggle(Esp_Visual,"Skeleton","Skeleton","EnabledSkeleton")
+    Toggle(Esp_Visual,"Health bar","hpbar","EnabledHpBar")
+    Toggle(Esp_Visual,"Name","Name","EnabledNameTag")
+    Toggle(Esp_Visual,"Distance","dist","EnabledDistTag")
+    Toggle(Esp_Visual,"Inventory Viewer","InventoryViewer","EnabledInventoryViewer")
+    Toggle(Esp_Visual,"Item dropped","EnabledItemDrop","EnabledItemDrop")
+    local Esp_Settings = Section(Tabs.Visual, false, "right", "Esp Settings", 'just settings esp you know.')
+    Toggle(Esp_Settings,"Enabled Friend Check","EnabledFriend","EnabledFriendCheck")
+    Toggle(Esp_Settings,"Enabled RGB","EnabledRgb","EnabledRGBEsp")
+    local Status = Section(Tabs.Players, false, "left", "Status", 'About ur infomation.')
+    LevelSkill = Status:create_text({
+        text = "🌟 Level : nil"
+    })
+    JanitorLevel = Status:create_text({
+        text = "🧹 Janior : nil"
+    })
+    ShelfLevel = Status:create_text({
+        text = "📦 Shelf Stocker : nil"
+    })
+    ChefLevel = Status:create_text({
+        text = "🥩 Cook : nil"
+    })
+    FishingLevel = Status:create_text({
+        text = "🐟 Fishing : nil"
+    })
+    Stamina = Status:create_text({
+        text = "🍾 Stamina : nil"
+    })
+    FarmingLevel = Status:create_text({
+        text = "🧑‍🌾 Farming : nil"
+    })
+    Swiper = Status:create_text({
+        text = "👩‍💻 Swiper : nil"
+    })
+    local Players_Modifies = Section(Tabs.Players, false, "left", "Modifies", 'Modifies Humanoid.')
+    Toggle(Players_Modifies,"Enabled Speed","SpeedsMod", "EnabledSpeed")
+    Slider(Players_Modifies,"Speed Multiple", "SpeedValue",1,35,30,"SpeedAmount")
+    Toggle(Players_Modifies,"Enabled Jump","JumpMod", "EnabledJump")
+    Slider(Players_Modifies,"Jump Multiple", "JumpValue",1,40,20,"JumpAmount")
+    local PickItem = Section(Tabs.Players, false, "left", "Pick item", "Automatic to pick item")
+    Toggle(PickItem,"Auto Pick Item","EnabledPickItem","AutoPickItem")
+    Slider(PickItem,"Distance","DistancePickitem",1,20,15,"Stud_PickItem")
+    local Crates = Section(Tabs.Players, false, "right", "Crate (near)", 'Instant Open Crate.')
+    Dropdown(Crates,{"Pistol","Rifle","Shotgun","Special"},false,"GunAmmo","Select Ammo Crate","AmmoCrate")
+    Button(Crates,"Open",function()
+        local crate = workspace:WaitForChild("Map"):WaitForChild("Tiles"):WaitForChild("GunShopTile"):WaitForChild("PatriotWeapons"):WaitForChild("Interior"):WaitForChild("Crates"):WaitForChild("Ammo Crate"):WaitForChild("CrateOptions"):WaitForChild(c()['AmmoCrate'])
+        ServerFunc:Action("open_crate", crate, "money")
+    end)
+    Dropdown(Crates,{"Basic","Advanced","Superior","Elite","Legendary","Omega"},false,"Gun","Select Gun Crate","GunCrate")
+    Button(Crates,"Open",function()
+        local crate = workspace:WaitForChild("Map"):WaitForChild("Tiles"):WaitForChild("GunShopTile"):WaitForChild("PatriotWeapons"):WaitForChild("Interior"):WaitForChild("Crates"):WaitForChild("Weapon Crate"):WaitForChild("CrateOptions"):WaitForChild(c()['GunCrate'])
+        ServerFunc:Action("open_crate", crate, "money")
+    end)
+    Dropdown(Crates,{"Basic","Rare","Elite"},false,"Car","Select Car Crate","CaseCrate")
+    Button(Crates,"Open",function()
+        local crate = workspace:WaitForChild("Map"):WaitForChild("Tiles"):WaitForChild("PrestigeDealerAndHousing"):WaitForChild("PrestigeCarDealer"):WaitForChild("Interior"):WaitForChild("Crates"):WaitForChild("Car Crate"):WaitForChild("CrateOptions"):WaitForChild(c()['CaseCrate'])
+        ServerFunc:Action("open_crate", crate, "money")
+    end)
+    local Miscellaneous_Player = Section(Tabs.Players, false, "right", "Miscellneous", 'na.')
+    Toggle(Miscellaneous_Player,"Auto Finish","AutoFinish","AutoFinish")
+    local JobId = Section(Tabs.Miscellaneous, false, "left", "JobId", 'JobId.')
+    local JobIdInsert = JobId:create_textbox({
+        title = "Jobid",
+        placeholder = "xxx-xxx-xxx-xxx",
+        flag = "job",
+        callback = function(v)
+            c().JobId = v 
+        end,
+    })
+    Button(JobId,"Join JobId",function()
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, c().JobId, Client)
+    end)
+    Button(JobId,"Copy JobId",function()
+        setclipboard(tostring(game.JobId))
+    end)
+    local Server = Section(Tabs.Miscellaneous, false, "left", "Servers", 'About Server.')
+    Button(Server,"Rejoin",function()
+        game:GetService('TeleportService'):Teleport(game.PlaceId, Client)
+    end)
+    Button(Server,"Server Hop",function()
+        ServerFunc:Hop()
+    end)
+    Button(Server,"Join Private Server",function()
+        ServerFunc:JoinPrivateServer()
+    end)
+    local Graphics = Section(Tabs.Miscellaneous, false, "right", "Graphic", 'About your graphic.')
+    Toggle(Graphics,"Whitescreen (Reduce Cpu)","whitescreen","WhiteScreen")
+    Toggle(Graphics,"Set Fps Limit","whitescreen","EnabledFpsLimit")
+    Slider(Graphics,"Fps Limit", "FpsLimites",10,240,240,"FpsLimit",function(v)
+        if c().EnabledFpsLimit then 
+            setfpscap(v)
+        else 
+            setfpscap(150)
+        end
+    end)
+end
+
+task.spawn(function()
+    while waits(1) do 
+        pcall(function()
+            local level = ServerFunc:GetLevel() or 1
+            LevelSkill:Set({ text = "🌟 Level : " .. level })
+            local jobs = {
+                ["Janitor"] = {textObj = JanitorLevel, text = "🧹 Janitor"},
+                ["Shelf"] = {textObj = ShelfLevel, text = "📦 Shelf Stocker"},
+                ["Chef"] = {textObj = ChefLevel, text = "🥩 Cook"},
+                ["Fishing"] = {textObj = FishingLevel, text = "🐟 Fishing"},
+                ["Farming"] = {textObj = FarmingLevel, text = "🧑‍🌾 Farming"},
+                ["Swiper"] = {textObj = Swiper, text = "👩‍💻 Swiper"},
+                ["Stamina"] = {textObj = Stamina, text = "🍾 Stamina"}
+            }
+
+            for i, v in getn(jobs) do
+                local skillLevel = ServerFunc:GetSkill(i) or 1
+                v.textObj:Set({ text = v.text .. " : " .. skillLevel })
+            end
+        end)
+        pcall(function()
+            BankMoney:Set({ text = "🏦 Bank Balance : $" .. ServerFunc:ATMMoney()})
+            HandMoney:Set({ text = "💳 Money Balance : $" .. ServerFunc:GetMoney()})
+        end)
+
+        if c().StartJob or c().EnabledAutoATM then 
+            pcall(function()
+                ServerFunc:Action("set_sprinting_1", true)
+            end)
+        end
+        
+        if ServerFunc:GetLevel() >= 10 then
+            if c().HackToolClass == "Smart Select" then 
+                local SwipperSkill = ServerFunc:GetSkill("Swiper")
+                for i,v in getn(HackToolList) do 
+                    if SwipperSkill >= i then 
+                        c().HackToolSelected = v
+                    end
+                end
+            else 
+                c().HackToolSelected = c().HackToolClass
+            end
+            
+            if c().VechineType == "Bike" then 
+                local ScrollingFrame = PlayerGui.Items.ItemsHolder.ItemsScrollingFrame
+                c().VechineSelected = nil
+                for i,v in get(ScrollingFrame:GetChildren()) do 
+                    if v:GetAttribute("ItemType") == "bike" then
+                        if v.ItemName.Text == "BMX" then
+                            c().VechineSelected = "BMX"
+                            break
+                        else
+                            c().VechineSelected = v.ItemName.Text
+                            break
+                        end
+                    end 
+                end
+            else 
+                local ScrollingFrame = PlayerGui.Items.ItemsHolder.ItemsScrollingFrame
+                c().VechineSelected = nil
+                for i,v in get(ScrollingFrame:GetChildren()) do 
+                    if v:GetAttribute('ItemType') == "car" and not c().VechineSelected then 
+                        c()['VechineSelected'] = v.ItemName.Text
+                        break
+                    end
+                end
+            end
+            -- for i,v in pairs (game:GetService("CoreGui"):GetChildren())do
+            --     if v.Name == "DevConsoleMaster" then
+            --         v.Enabled = false
+            --         v:Destroy()
+            --         game.Players.LocalPlayer:Kick("Anti Skid Detect Niggers")
+            --         waits(.5)
+            --         while true do end
+            --     end
+            -- end
+        end
+    end
+end)
+
+task.spawn(function()
+	while waits(1) do 
+		pcall(function()
+			for _, player in get(Players:GetPlayers()) do
+				if player ~= Client and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+					local head = player.Character.HumanoidRootPart
+
+					local gui = head:FindFirstChild("ItemBillboard")
+					if not gui then
+						gui = Instance.new("BillboardGui")
+						gui.Name = "ItemBillboard"
+						gui.AlwaysOnTop = true
+						gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+						gui.Size = UDim2.new(0, 200, 0, 50)
+						gui.StudsOffset = Vector3.new(0, -5, 0)
+						gui.Parent = head
+						gui.ExtentsOffset = Vector3.new(0, 1, 0)
+						gui.LightInfluence = 1
+
+						local bg = Instance.new("Frame")
+						bg.Name = "BG"
+						bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+						bg.BackgroundTransparency = 1
+						bg.Size = UDim2.new(1, 0, 1, 0) 
+						bg.AnchorPoint = Vector2.new(0.5, 0.5)
+						bg.Position = UDim2.new(0.5, 0, 0.5, 0) 
+						bg.Parent = gui
+
+						local layout = Instance.new("UIListLayout")
+						layout.FillDirection = Enum.FillDirection.Horizontal
+						layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+						layout.VerticalAlignment = Enum.VerticalAlignment.Center
+						layout.Padding = UDim.new(0, 5)
+						layout.Parent = bg
+					end
+
+					local bg = gui:FindFirstChild("BG")
+					for _, v in get(bg:GetChildren()) do
+						if v:IsA("ImageLabel") then
+							v:Destroy()
+						end
+					end
+
+					local hasItem = false
+
+					for _, container in get({player.Backpack, player.Character}) do
+						for _, v in get(container:GetChildren()) do
+							if v:IsA("Tool") and not v:GetAttribute("JobTool") then
+								if not v:GetAttribute('Locked') then 
+									local itemList = nil
+									if v:GetAttribute("AmmoType") then
+										itemList = replicated.Items.gun:GetChildren()
+									else
+										itemList = replicated.Items.melee:GetChildren()
+									end
+
+									for _, z in get(itemList) do
+										if v:GetAttribute("RarityName") == z:GetAttribute("RarityName") and 
+										   v:GetAttribute("RarityPrice") == z:GetAttribute("RarityPrice") then
+											local imageId = z:GetAttribute("ImageId")
+											if imageId then
+												local icon = Instance.new("ImageLabel")
+												icon.Name = z.Name
+												icon.Image = imageId
+												icon.BackgroundTransparency = 1
+												icon.Size = UDim2.new(0, 30, 0, 30)
+												icon.Parent = bg
+												hasItem = true
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+
+					if not hasItem then
+						gui:Destroy()
+					else
+						gui.Enabled = c().EnabledInventoryViewer
+					end
+				end
+			end
+		end)
+	end
+end)
+
+
+
+local Staminacolor = Client.PlayerGui.TopRightHud.Holder.StaminaBar.Fill.Normal
+local isInCombat = Client:GetAttribute("IsInCombat")
+local plr = game:GetService("Players").LocalPlayer
+local DROP_Y = -40
+local HEALTH_MIN = 20
+local HEALTH_RECOVER = 30
+local isDropping = false 
+local antiKillEnabled = false
+local RunService = game:GetService("RunService")
+local camera = workspace.CurrentCamera
+local cameraLockConn
+
+local function lockCamera()
+    local lockedPosition = camera.CFrame.Position
+    if cameraLockConn then
+        cameraLockConn:Disconnect()
+        cameraLockConn = nil
+    end
+
+    cameraLockConn = RunService.RenderStepped:Connect(function()
+        local lookVector = camera.CFrame.LookVector
+        camera.CFrame = CFrame.new(lockedPosition, lockedPosition + lookVector)
+    end)
+end
+
+local function unlockCamera()
+    if cameraLockConn then
+        cameraLockConn:Disconnect()
+        cameraLockConn = nil
+    end
+end
+
+-- ฟังก์ชันตั้งค่า character
+local function setupCharacter(char)
+    local humanoid = char:WaitForChild("Humanoid")
+    local rootPart = char:WaitForChild("HumanoidRootPart")
+
+    local function startDrop()
+        if not antiKillEnabled then return end
+        if isDropping then return end
+        isDropping = true
+        lockCamera()
+        
+
+        local fixedPos = rootPart.Position  
+        fixedPos = Vector3.new(fixedPos.X, fixedPos.Y + DROP_Y, fixedPos.Z)  
+
+        local t = 0
+        while isDropping do  
+            if humanoid.Health >= HEALTH_RECOVER or humanoid.Health <= 0 then
+                isDropping = false
+                unlockCamera()
+
+                if  isInCombat then
+                    print("hee")
+                else
+                    task.wait(0.6)
+                    Net.send('request_respawn')
+                end
+                break
+            end  
+
+            t += 5
+            local swingX = math.sin(t * 700) * 6
+            local swingZ = math.cos(t * 600) * 7
+            local newPos = fixedPos + Vector3.new(swingX, math.sin(t * 2) * 2, swingZ)
+
+            rootPart.CFrame = CFrame.new(newPos)
+            task.wait() 
+        end
+    end
+
+    humanoid.HealthChanged:Connect(function(hp)
+        if hp < HEALTH_MIN and hp > 0 then
+            startDrop()
+        end
+    end)
+end
+
+-- เรียกตอนเริ่มเกม
+if plr.Character then
+    setupCharacter(plr.Character)
+end
+
+-- เรียกใหม่ทุกครั้งที่ respawn
+plr.CharacterAdded:Connect(setupCharacter)
+
+
+
+
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+-- ESP Settings
+local ESPSettings = {
+    Box3DEnabled = false,
+    SkeletonEnabled = false,
+    NameEnabled = false,
+    DistanceEnabled = false,
+    HealthEnabled = false,
+    EspViewitems = false,
+    BoxColor = Color3.fromRGB(255,255,255),
+    LockColor = Color3.fromRGB(255,0,0),
+    NameColor = Color3.fromRGB(255,255,255),
+    HealthColor = Color3.fromRGB(0,255,0)
+}
+
+-- Store Drawing objects
+local ESPObjects = {}
+
+-- Function to remove ESP when player leaves
+local function removeESP(player)
+    if ESPObjects[player] then
+        for _, obj in pairs(ESPObjects[player]) do
+            if typeof(obj) == "table" then
+                for _, v in ipairs(obj) do v:Remove() end
+            else
+                obj:Remove()
+            end
+        end
+        ESPObjects[player] = nil
+    end
+end
+
+-- Function to create ESP for a player
+local function createESP(player)
+    -- Box 3D (12 เส้น)
+    local box3D = {}
+    for i = 1, 12 do
+        local line = Drawing.new("Line")
+        line.Thickness = 1
+        line.Color = ESPSettings.BoxColor
+        line.Visible = false
+        table.insert(box3D, line)
+    end
+
+    -- Name
+    local nameText = Drawing.new("Text")
+    nameText.Size = 10
+    nameText.Color = ESPSettings.NameColor
+    nameText.Center = true
+    nameText.Outline = true
+    nameText.Visible = false
+
+    -- Distance
+    local distanceText = Drawing.new("Text")
+    distanceText.Size = 7
+    distanceText.Center = true
+    distanceText.Outline = true
+    distanceText.Visible = false
+
+    -- Health text
+    local healthText = Drawing.new("Text")
+    healthText.Size = 8
+    healthText.Color = ESPSettings.HealthColor
+    healthText.Center = true
+    healthText.Outline = true
+    healthText.Visible = false
+
+    ESPObjects[player] = {
+        Box3D = box3D,
+        Name = nameText,
+        Distance = distanceText,
+        Health = healthText
+    }
+end
+
+-- Create ESP for existing players
+for _, player in pairs(Players:GetPlayers()) do
+    if player ~= LocalPlayer then
+        createESP(player)
+    end
+end
+
+-- Create ESP for new players
+Players.PlayerAdded:Connect(function(player)
+    if player ~= LocalPlayer then
+        createESP(player)
+    end
+end)
+
+-- Remove ESP when player leaves
+Players.PlayerRemoving:Connect(function(player)
+    removeESP(player)
+end)
+
+-- Function to get closest target
+local function getClosestTargetInFOV()
+    local closestDistance = math.huge
+    local closestTarget = nil
+    for _, player in pairs(Players:GetPlayers()) do
+        if player ~= LocalPlayer and player.Character then
+            local part = player.Character:FindFirstChild("Head") or player.Character:FindFirstChild("HumanoidRootPart")
+            if part then
+                local screenPos, onScreen = Camera:WorldToViewportPoint(part.Position)
+                if onScreen then
+                    local distToCenter = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)).Magnitude
+                    if distToCenter < closestDistance then
+                        closestDistance = distToCenter
+                        closestTarget = part
+                    end
+                end
+            end
+        end
+    end
+    return closestTarget
+end
+
+-- 🔹 อัปเดต Box 3D
+local function updateBox3D(player, obj)
+    local char = player.Character
+    if not char or not char:FindFirstChild("HumanoidRootPart") then return end
+
+    local hrp = char.HumanoidRootPart
+    local cf, size = hrp.CFrame, Vector3.new(4, 7, 4)
+
+    local corners = {
+        Vector3.new(-size.X, -size.Y, -size.Z) / 2,
+        Vector3.new( size.X, -size.Y, -size.Z) / 2,
+        Vector3.new( size.X,  size.Y, -size.Z) / 2,
+        Vector3.new(-size.X,  size.Y, -size.Z) / 2,
+        Vector3.new(-size.X, -size.Y,  size.Z) / 2,
+        Vector3.new( size.X, -size.Y,  size.Z) / 2,
+        Vector3.new( size.X,  size.Y,  size.Z) / 2,
+        Vector3.new(-size.X,  size.Y,  size.Z) / 2,
+    }
+
+    local screenCorners, visCount = {}, 0
+    for i, v in ipairs(corners) do
+        local worldPos = (cf * CFrame.new(v)).Position
+        local screenPos, onScreen = Camera:WorldToViewportPoint(worldPos)
+        screenCorners[i] = Vector2.new(screenPos.X, screenPos.Y)
+        if onScreen then visCount += 1 end
+    end
+
+    local edges = {
+        {1,2},{2,3},{3,4},{4,1},
+        {5,6},{6,7},{7,8},{8,5},
+        {1,5},{2,6},{3,7},{4,8},
+    }
+
+    local lines = obj.Box3D
+    if ESPSettings.Box3DEnabled and visCount == 8 then
+        local target = getClosestTargetInFOV()
+        local color = (target and target.Parent == char) and ESPSettings.LockColor or ESPSettings.BoxColor
+
+        for i, e in ipairs(edges) do
+            local line = lines[i]
+            line.From = screenCorners[e[1]]
+            line.To   = screenCorners[e[2]]
+            line.Color = color
+            line.Visible = true
+        end
+    else
+        for _, l in ipairs(lines) do l.Visible = false end
+    end
+end
+
+-- Update ESP
+RunService.RenderStepped:Connect(function()
+    for player, obj in pairs(ESPObjects) do
+        local char = player.Character
+        if char and char:FindFirstChild("HumanoidRootPart") and char:FindFirstChild("Humanoid") then
+            local root = char.HumanoidRootPart
+            local head = char:FindFirstChild("Head")
+            local humanoid = char.Humanoid
+
+            local screenHead, headOnScreen = Camera:WorldToViewportPoint(head.Position)
+            local distance = (root.Position - LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+
+            if headOnScreen then
+                updateBox3D(player, obj)
+
+                -- Name
+                if ESPSettings.NameEnabled then
+                    obj.Name.Text = player.Name
+                    obj.Name.Position = Vector2.new(screenHead.X, screenHead.Y - 10)
+                    obj.Name.Visible = true
+                else
+                    obj.Name.Visible = false
+                end
+
+                -- Distance
+                if ESPSettings.DistanceEnabled then
+                    obj.Distance.Text = string.format("%.0f", distance).."m"
+                    obj.Distance.Position = Vector2.new(screenHead.X, screenHead.Y + 20)
+                    obj.Distance.Visible = true
+                else
+                    obj.Distance.Visible = false
+                end
+
+                
+                if ESPSettings.HealthEnabled then
+                    obj.Health.Text = string.format("[ %d HP ]", math.floor(humanoid.Health))
+                    obj.Health.Position = Vector2.new(screenHead.X, screenHead.Y + 35)
+                    obj.Health.Visible = true
+                else
+                    obj.Health.Visible = false
+                end
+            else
+                updateBox3D(player, obj)
+                obj.Name.Visible = false
+                obj.Distance.Visible = false
+                obj.Health.Visible = false
+            end
+        else
+            updateBox3D(player, obj)
+            obj.Name.Visible = false
+            obj.Distance.Visible = false
+            obj.Health.Visible = false
+        end
+    end
+end)
+
+local ItemESPObjects = {}
+
+-- ฟังก์ชันสร้าง ESP ให้ของตก
+local function createItemESP(item)
+    if not item:IsA("BasePart") and not item:FindFirstChildWhichIsA("BasePart") then return end
+
+    local box3D = {}
+    for i = 1, 12 do
+        local line = Drawing.new("Line")
+        line.Thickness = 1
+        line.Color = ESPSettings.BoxColor
+        line.Visible = false
+        table.insert(box3D, line)
+    end
+
+    local nameText = Drawing.new("Text")
+    nameText.Size = 9
+    nameText.Color = Color3.fromRGB(255, 255, 0)
+    nameText.Center = true
+    nameText.Outline = true
+    nameText.Visible = false
+
+    ItemESPObjects[item] = {
+        Box3D = box3D,
+        Name = nameText
+    }
+end
+
+-- ลบ ESP เมื่อของหายไป
+local function removeItemESP(item)
+    if ItemESPObjects[item] then
+        for _, obj in pairs(ItemESPObjects[item]) do
+            if typeof(obj) == "table" then
+                for _, v in ipairs(obj) do v:Remove() end
+            else
+                obj:Remove()
+            end
+        end
+        ItemESPObjects[item] = nil
+    end
+end
+
+-- เมื่อมีของใหม่ถูกสร้าง
+if droppedItems then
+    droppedItems.ChildAdded:Connect(function(item)
+        task.wait(0.2)
+        createItemESP(item)
+    end)
+
+    droppedItems.ChildRemoved:Connect(removeItemESP)
+
+    for _, item in pairs(droppedItems:GetChildren()) do
+        createItemESP(item)
+    end
+end
+
+-- อัปเดต ESP ของของตก
+RunService.RenderStepped:Connect(function()
+    if not droppedItems then return end
+for item, obj in pairs(ItemESPObjects) do
+    if item and item.Parent then
+        if item.Name == "Money" then
+            -- ซ่อนกล่องกับชื่อ
+            for _, l in ipairs(obj.Box3D) do l.Visible = false end
+            obj.Name.Visible = false
+            continue -- ข้ามไป item ถัดไป
+        end
+            local basePart = item:IsA("BasePart") and item or item:FindFirstChildWhichIsA("BasePart")
+            if not basePart then continue end
+
+            local cf, size = basePart.CFrame, Vector3.new(1, 0.8, 1.5)
+            local corners = {
+        Vector3.new(-size.X, -size.Y, -size.Z) / 2,
+        Vector3.new( size.X, -size.Y, -size.Z) / 2,
+        Vector3.new( size.X,  size.Y, -size.Z) / 2,
+        Vector3.new(-size.X,  size.Y, -size.Z) / 2,
+        Vector3.new(-size.X, -size.Y,  size.Z) / 2,
+        Vector3.new( size.X, -size.Y,  size.Z) / 2,
+        Vector3.new( size.X,  size.Y,  size.Z) / 2,
+        Vector3.new(-size.X,  size.Y,  size.Z) / 2,
+            }
+
+            local screenCorners, visCount = {}, 0
+            for i, v in ipairs(corners) do
+                local worldPos = (cf * CFrame.new(v)).Position
+                local screenPos, onScreen = Camera:WorldToViewportPoint(worldPos)
+                screenCorners[i] = Vector2.new(screenPos.X, screenPos.Y)
+                if onScreen then visCount += 1 end
+            end
+
+            local edges = {
+        {1,2},{2,3},{3,4},{4,1},
+        {5,6},{6,7},{7,8},{8,5},
+        {1,5},{2,6},{3,7},{4,8},
+             }
+
+            local lines = obj.Box3D
+            if visCount == 8 and ESPSettings.EspViewitems then
+                for i, e in ipairs(edges) do
+                    local line = lines[i]
+                    line.From = screenCorners[e[1]]
+                    line.To = screenCorners[e[2]]
+                    line.Visible = true
+                end
+
+                local screenPos, onScreen = Camera:WorldToViewportPoint(cf.Position)
+                if onScreen and ESPSettings.EspViewitems then
+                    obj.Name.Text = item.Name
+                    obj.Name.Position = Vector2.new(screenPos.X, screenPos.Y - 10)
+                    obj.Name.Visible = true
+                else
+                    obj.Name.Visible = false
+                end
+            else
+                for _, l in ipairs(lines) do l.Visible = false end
+                obj.Name.Visible = false
+            end
+        else
+            removeItemESP(item)
+        end
+    end
+end)
+
+
+local longStrideEnabled = false
+local strideLength = 4.5
+local RunService = game:GetService("RunService")
+
+-- ฟังก์ชันหลัก
+local function setupLongStride(character)
+    local humanoid = character:FindFirstChild("Humanoid")
+    local root = character:FindFirstChild("HumanoidRootPart")
+
+    if humanoid and root then
+        RunService.RenderStepped:Connect(function()
+            if longStrideEnabled and humanoid.MoveDirection.Magnitude > 0 then
+                root.CFrame = root.CFrame + humanoid.MoveDirection * strideLength * 0.05
+            end
+        end)
+    end
+end
+
+-- โหลดตัวละคร
+if Client.Character then
+    setupLongStride(Client.Character)
+end
+
+Client.CharacterAdded:Connect(setupLongStride)
+
+
+c().EnabledSkip = true
+
+-- ประกาศฟังก์ชัน Skip
+func['EnabledSkip'] = function()
+    while c().EnabledSkip do
+        task.wait() -- ใช้ task.wait() ดีกว่า waits() (เร็วและนิ่งกว่า)
+        if CrateController and CrateController.spinning and CrateController.spinning.get() then
+            CrateController.skip_spin()
+        end
+    end
+end
+
+task.spawn(func['EnabledSkip'])
+
+
+
+
+
+
+
+
+local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Data = require(ReplicatedStorage.Modules.Core.Data)
+local pls = game.Players.LocalPlayer
+local Window = WindUI:CreateWindow({
+    Title = "DZHUB  | v-1.0 Test ",
+    Author = "by danzaza ",
+    HideSearchBar = false,
+    Folder = "admin",
+    
+  
+    SideBarWidth = 200,
+    
+    KeySystem = {
+        Note = "Get the key to get full access to the script",
+        SaveKey = false,
+        Key = { "1234", "5678" },  
+         Note = "Example Key System. With platoboost, etc.",
+          URL = "https://github.com/Footagesus/WindUI",
+          Thumbnail = {
+              Image = "rbxassetid://134656917989517",
+             
+          },
+    },
+    
+    OpenButton = {
+        Title = "Open DZHUB UI", -- can be changed
+        CornerRadius = UDim.new(1,0), -- fully rounded
+        StrokeThickness = 3, -- removing outline
+        Enabled = true, -- enable or disable openbutton
+        Draggable = true,
+        OnlyMobile = false,
+        
+        Color = ColorSequence.new( -- gradient
+            Color3.fromHex("#30FF6A"), 
+            Color3.fromHex("#e7ff2f")
+        )
+    }
+}) 
+-- */ Other Functions /* --
+local function parseJSON(luau_table, indent, level, visited)
+    indent = indent or 2
+    level = level or 0
+    visited = visited or {}
+    
+    local currentIndent = string.rep(" ", level * indent)
+    local nextIndent = string.rep(" ", (level + 1) * indent)
+    
+    if luau_table == nil then
+        return "null"
+    end
+    
+    local dataType = type(luau_table)
+    
+    if dataType == "table" then
+        if visited[luau_table] then
+            return "\"[Circular Reference]\""
+        end
+        
+        visited[luau_table] = true
+        
+        local isArray = true
+        local maxIndex = 0
+        
+        for k, _ in pairs(luau_table) do
+            if type(k) == "number" and k > maxIndex then
+                maxIndex = k
+            end
+            if type(k) ~= "number" or k <= 0 or math.floor(k) ~= k then
+                isArray = false
+                break
+            end
+        end
+        
+        local count = 0
+        for _ in pairs(luau_table) do
+            count = count + 1
+        end
+        if count ~= maxIndex and isArray then
+            isArray = false
+        end
+        
+        if count == 0 then
+            return "{}"
+        end
+        
+        if isArray then
+            if count == 0 then
+                return "[]"
+            end
+            
+            local result = "[\n"
+            
+            for i = 1, maxIndex do
+                result = result .. nextIndent .. parseJSON(luau_table[i], indent, level + 1, visited)
+                if i < maxIndex then
+                    result = result .. ","
+                end
+                result = result .. "\n"
+            end
+            
+            result = result .. currentIndent .. "]"
+            return result
+        else
+            local result = "{\n"
+            local first = true
+            
+            local keys = {}
+            for k in pairs(luau_table) do
+                table.insert(keys, k)
+            end
+            table.sort(keys, function(a, b)
+                if type(a) == type(b) then
+                    return tostring(a) < tostring(b)
+                else
+                    return type(a) < type(b)
+                end
+            end)
+            
+            for _, k in ipairs(keys) do
+                local v = luau_table[k]
+                if not first then
+                    result = result .. ",\n"
+                else
+                    first = false
+                end
+                
+                if type(k) == "string" then
+                    result = result .. nextIndent .. "\"" .. k .. "\": "
+                else
+                    result = result .. nextIndent .. "\"" .. tostring(k) .. "\": "
+                end
+                
+                result = result .. parseJSON(v, indent, level + 1, visited)
+            end
+            
+            result = result .. "\n" .. currentIndent .. "}"
+            return result
+        end
+    elseif dataType == "string" then
+        local escaped = luau_table:gsub("\\", "\\\\")
+        escaped = escaped:gsub("\"", "\\\"")
+        escaped = escaped:gsub("\n", "\\n")
+        escaped = escaped:gsub("\r", "\\r")
+        escaped = escaped:gsub("\t", "\\t")
+        
+        return "\"" .. escaped .. "\""
+    elseif dataType == "number" then
+        return tostring(luau_table)
+    elseif dataType == "boolean" then
+        return luau_table and "true" or "false"
+    elseif dataType == "function" then
+        return "\"function\""
+    else
+        return "\"" .. dataType .. "\""
+    end
+end
+
+local function tableToClipboard(luau_table, indent)
+    indent = indent or 4
+    local jsonString = parseJSON(luau_table, indent)
+    setclipboard(jsonString)
+    return jsonString
+end
+
+
+
+
+
+
+-- */  Toggle Tab  /* --
+do
+    local ToggleTab = Window:Tab({
+        Title = "Main",
+        Icon = "arrow-left-right"
+    })
+    
+    local SilentAim = ToggleTab:Toggle({
+      Title = "Silent Aim",
+      Value = false,
+      Callback = function(state)
+        c().EnabledSlientAim = state
+      end
+    })
+    
+    local Fov = ToggleTab:Toggle({
+      Title = "Fov Enabled",
+      Value = false,
+      Callback = function(state)
+        c().EnabledPov = state
+      end
+    })
+    
+    local intensitySlider = ToggleTab:Slider({
+    Title = "Fov Radius",
+    Value = { Min = 100, Max = 600, Default = 200 },
+    Callback = function(value)
+        c().Radius = tonumber(value)
+    end
+    })
+        
+    local values = {"Cursor", "Middle"}
+
+    local testDropdown = ToggleTab:Dropdown({
+      Title = "Select Position type",
+      Values = values,
+      Flag = "testDropdown",
+      Value = "Middle",  -- ค่าพื้นฐาน
+      Callback = function(option)
+       
+        c().PositionType = option
+      end
+    })
+    
+    local Megic Bullet = ToggleTab:Toggle({
+      Title = "MegicBullet ",
+      Value = false,
+      Callback = function(state)
+       c().EnabledWallShoot = state
+      end
+    })
+    
+    local checkFriend = ToggleTab:Toggle({
+      Title = "EnabledIngoreFriend",
+      Value = false,
+      Callback = function(state)
+        c().EnabledIngoreFriend = state
+      end
+    })
+    
+    local HitAura1 = ToggleTab:Toggle({
+      Title = "Hit Aura",
+      Value = false,
+      Callback = function(state)
+        c().HitAura = state
+      end
+    })
+    
+    local HitDistance1 = ToggleTab:Slider({
+    Title = "HitDistance",
+    Value = { Min = 1, Max = 10, Default = 1 },
+    Callback = function(value)
+        c().HitDistance = tonumber(value) -- แปลงให้เป็น number เผื่อเป็น string
+    end
+    })
+    
+    local ThrowAura = ToggleTab:Toggle({
+      Title = "EnabledThrowAura",
+      Value = false,
+      Callback = function(state)
+        c().EnabledThrowAura = state
+      end
+    })
+    
+end --end tab main
+
+
+-- */  Button Tab  /* --
+do
+    local Character = Window:Tab({
+        Title = "Character",
+        Icon = "user",
+    })
+    
+    
+    
+    local antikilll = Character:Toggle({
+    Title = "Anti Kill",
+    Value = false,
+    Callback = function(state)
+        antiKillEnabled = state
+    end
+})
+
+--local autore = Character:Toggle({
+   -- Title = "Auto Respawn",
+   -- Value = false,
+   -- Callback = function(state)
+       -- c().EnabledAutoRespawn = state
+   -- end
+--})
+
+
+
+local antiRagdoll = Character:Toggle({
+    Title = "Anti Ragdoll",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+        AntiRagdoll = state
+        
+   if  AntiRagdoll then
+    task.spawn(function()
+	while true do
+		pcall(function()
+			Net.send('end_ragdoll_early')
+		end)
+		waits(0.25)
+	  end
+   end)
+     print("ทำงาน")
+   else
+     print("ไม่ทำงาน")
+end
+    end
+})
+
+Character:Space()
+  
+local InfinityStamina = Character:Toggle({
+    Title = "Infinity Stamina",
+    Value = false,
+    Callback = function(state)
+        c().EnabledSpeed = state
+        if state then
+            Staminacolor.Color = ColorSequence.new(Color3.fromRGB(107, 50, 124))
+            task.spawn(func['EnabledSpeed'])
+        else
+            c().EnabledSpeed = false
+        end
+    end
+})
+
+local longStrideToggle = Character:Toggle({
+    Title = "WalkSpeed",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+        longStrideEnabled = state
+
+    end
+})
+
+local StrideSlider = Character:Slider({
+    Title = "Stride Length",
+    Value = { Min = 0.5, Max = 5, Default = 4.5 },
+    Callback = function(value)
+      strideLength = value
+    end
+ })
+
+local AutoPickItem = Character:Toggle({
+    Title = "PickItem",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+    c().AutoPickItem = state
+    end
+})
+
+
+
+end
+
+do
+    local Esp = Window:Tab({
+        Title = "ESP",
+        Icon = "text-cursor-input",
+    })
+    
+    local espbox1 = Esp:Toggle({
+    Title = "Esp 3DBox",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+         ESPSettings.Box3DEnabled = state
+    end
+    })
+    
+    local espbox2 = Esp:Toggle({
+    Title = "Esp Name",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+         ESPSettings.NameEnabled = state
+    end
+    })
+    
+    local espbox3 = Esp:Toggle({
+    Title = "Esp Hp",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+         ESPSettings.HealthEnabled = state
+    end
+     })
+    
+    local EspInventoryViewer = Esp:Toggle({
+    Title = "Esp InventoryViewer",
+    Value = false,
+    Callback = function(state)
+         c().EnabledInventoryViewer = state
+    end
+    })
+    
+    local espbox5 = Esp:Toggle({
+    Title = "Esp Viewer Items 3D Box",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+         ESPSettings.EspViewitems = state
+    end
+     })
+    
+end
+
+do
+local Fram = Window:Tab({
+        Title = "FRAM",
+        Icon = "text-cursor-input",
+    })
+local jobsfarm = {"Quick-11","Steak","Janitor"}
+
+local farm = Fram:Dropdown({
+      Title = "Select Jobs",
+     Values = jobsfarm,
+      Flag = "Jobs",
+      Value = "Quick-11",  -- ค่าพื้นฐาน
+      Callback = function(option)
+       c().JobSelected = option
+      end
+    })
+    
+-- ตัวแปรเก็บ thread ไว้ข้างนอก
+local jobThread
+
+local StartJobdz = Fram:Toggle({
+    Title = "StartJob",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+        c().StartJob = state
+
+        if state then
+            -- ถ้ามี thread เก่าแล้วยังไม่ถูกยกเลิก → ยกเลิกก่อน
+            if jobThread then
+                task.cancel(jobThread)
+            end
+
+            -- สร้าง task ใหม่
+            jobThread = task.spawn(function()
+                func['StartJob']() -- เรียกฟังก์ชันจริง
+            end)
+
+            print("work ✅")
+
+        else
+            -- ถ้ามี thread อยู่ → ยกเลิก
+            if jobThread then
+                task.cancel(jobThread)
+                jobThread = nil
+            end
+
+            print("not work ❌")
+        end
+    end
+})
+
+
+end
+
+do
+
+    local MISC = Window:Tab({
+        Title = "MISC",
+        Icon = "text-cursor-input",
+    })
+    
+   local cilam1 = MISC:Button({
+    Title = "ClaimQuest",
+    Value = false,
+    Callback = function(state)
+        if state then
+            local QuestAll = PlayerGui.Quests.QuestsHolder.QuestsScrollingFrame
+            for _, v in pairs(QuestAll:GetChildren()) do
+                if v.Name ~= "UIListLayout" then
+                    ServerFunc:Action("claim_quest", v.Name)
+                end
+            end
+        end
+    end
+})
+
+    
+--local cilam = MISC:Toggle({
+  --  Title = "Claim Quest",
+    -- Value = false, -- เริ่มต้นปิด
+   -- Callback = function(state)
+       -- if state then
+          --  local QuestAll = PlayerGui.Quests.QuestsHolder.QuestsScrollingFrame
+          --  for _, v in pairs(QuestAll:GetChildren()) do
+              --  if v.Name ~= "UIListLayout" then
+                 --   ServerFunc:Action("claim_quest", v.Name)
+             --   end
+          --  end
+       -- end
+   -- end
+--})
+
+end
+
+
+print("heeee")
+
