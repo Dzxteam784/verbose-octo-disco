@@ -2168,23 +2168,7 @@ func['EnabledThrowAura'] = function()
 	end
 end
 
-c().EnabledSpeed = false
-c().SpeedAmount = 24
 
-
-func['EnabledSpeed'] = function()
-	while waits() do
-		if c().EnabledSpeed then 
-			Humanoid:SetAttribute("TargetWalkSpeed", c().SpeedAmount)
-            Humanoid.WalkSpeed = c().SpeedAmount
-            ServerFunc:Action("set_sprinting_1", true)
-        else 
-            ServerFunc:Action("set_sprinting_1", false)
-            Humanoid:SetAttribute("TargetWalkSpeed", 8)
-			Humanoid.WalkSpeed = 8
-		end
-	end
-end
 
 
 func['EnabledJump'] = function()
@@ -2437,8 +2421,8 @@ do
         text = "👩‍💻 Swiper : nil"
     })
     local Players_Modifies = Section(Tabs.Players, false, "left", "Modifies", 'Modifies Humanoid.')
-    Toggle(Players_Modifies,"Enabled Speed","SpeedsMod", "EnabledSpeed")
-    Slider(Players_Modifies,"Speed Multiple", "SpeedValue",1,35,30,"SpeedAmount")
+   -- Toggle(Players_Modifies,"Enabled Speed","SpeedsMod", "EnabledSpeed")
+   -- Slider(Players_Modifies,"Speed Multiple", "SpeedValue",1,35,30,"SpeedAmount")
     Toggle(Players_Modifies,"Enabled Jump","JumpMod", "EnabledJump")
     Slider(Players_Modifies,"Jump Multiple", "JumpValue",1,40,20,"JumpAmount")
     local PickItem = Section(Tabs.Players, false, "left", "Pick item", "Automatic to pick item")
@@ -3148,7 +3132,23 @@ end
 task.spawn(func['EnabledSkip'])
 
 
+c().EnabledSpeed = false
+c().SpeedAmount = 24
 
+
+func['EnabledSpeed'] = function()
+	while waits() do
+		if c().EnabledSpeed then 
+			Humanoid:SetAttribute("TargetWalkSpeed", c().SpeedAmount)
+            Humanoid.WalkSpeed = c().SpeedAmount
+            ServerFunc:Action("set_sprinting_1", true)
+        else 
+            ServerFunc:Action("set_sprinting_1", false)
+            Humanoid:SetAttribute("TargetWalkSpeed", 8)
+			Humanoid.WalkSpeed = 8
+		end
+	end
+end
 
 
 
