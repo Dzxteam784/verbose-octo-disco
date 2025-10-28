@@ -43,6 +43,44 @@ do
 end
 
 
+local function disableDoorSystemCollisions(model)
+	for _, part in ipairs(model:GetDescendants()) do
+		if part:IsA("BasePart") then
+			-- ปิดการชนทางฟิสิกส์
+			part.CanCollide = false
+			part.CanTouch = false
+			part.CanQuery = true  -- สำคัญ! ให้ PathfindingService ตรวจสอบพื้นที่นี้ได้
+
+			-- สร้างหรืออัปเดต PathfindingModifier
+			local modifier = part:FindFirstChildOfClass("PathfindingModifier")
+			if not modifier then
+				modifier = Instance.new("PathfindingModifier")
+				modifier.PassThrough = true  -- ให้ PathfindingService ผ่านได้
+				modifier.Label = "DoorPass"  -- ตั้งชื่อเผื่อกำหนดค่าใน Pathfinding
+				modifier.Parent = part
+			else
+				modifier.PassThrough = true
+			end
+		end
+	end
+end
+
+for _, descendant in ipairs(workspace:GetDescendants()) do
+    if descendant.Name == "DoorSystem" then
+        disableDoorSystemCollisions(descendant)
+    end
+    if descendant.Name == "VehicleBlockers" then
+        descendant:Destroy()
+    end
+end
+
+workspace.DescendantAdded:Connect(function(descendant)
+    if descendant.Name == "DoorSystem" then
+        disableDoorSystemCollisions(descendant)
+    end
+end)
+
+
 
 local replicated = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
@@ -844,11 +882,6 @@ end
 
 
 
-do
-    for _, v in getn(workspace:GetDescendants()) do
-        if v.Name == "DoorSystem" then  v:Destroy() end if v.Name == "BasementDoor" then  v:Destroy() end if v.Name == "VehicleBlockers" then v:Destroy() end
-    end
-end
 
 do
 	local GC = getconnections or get_signal_cons
@@ -999,7 +1032,7 @@ oldfire = hookfunction(replicated.Remotes.Send.FireServer, function(self, ...)
             local head = target.Character.Head
             local hrp = target.Character:FindFirstChild("HumanoidRootPart")
             local velocity = hrp and hrp.Velocity or Vector3.zero
-            local aim = (head.Position + velocity * ServerFunc:GetPing() * 1.25)
+            local aim = (head.Position + velocity * ServerFunc:GetPing() * 1.35)
             if not c().EnabledWallShoot then 
                 args[4] = CFrame.new(origin, aim)
             else 
@@ -1195,6 +1228,7 @@ function ServerFunc:Teleport(destination, value, t)
         AgentMaxSlope = 45,
         Costs = {
             BlockedNode = 50,
+            DoorPass = 1,
         },
     })
 
@@ -1244,12 +1278,13 @@ end
 function ServerFunc:Drive(model, destination, value, t)
     c()["StopWalking"] = false
     local path = PathfindingService:CreatePath({
-        AgentRadius = c().VechineType == "car" and 5 or 2.9,
+        AgentRadius = c().VechineType == "car" and 5 or 3,
         AgentHeight = 5.5,
         AgentCanJump = true,
         AgentMaxSlope = 45,
         Costs = {
             BlockedNode = 50,
+            DoorPass = 1,
         },
     })
 
@@ -1990,18 +2025,24 @@ end
 
 func['EnabledSnap'] = function()
     local baseY = RootPart.Position.Y
-    local baseX = RootPart.Position.X
-    local baseZ = RootPart.Position.Z
     local lastOffset = c().YOffset or 1
 
-    while c().EnabledSnap do waits()
+    while c().EnabledSnap do
+     waits()
         if Humanoid.Health > 0 then
             local currentOffset = c().YOffset or 1
             if currentOffset ~= lastOffset then
                 lastOffset = currentOffset
             end
+
+            -- อัปเดต Y โดยใช้ baseY - offset
             local targetY = baseY - currentOffset
-            RootPart.CFrame = CFrame.new(baseX, targetY, baseZ)
+
+            -- ดึงตำแหน่งปัจจุบันของผู้เล่น (ให้เดินได้อิสระในแกน X/Z)
+            local currentPos = RootPart.Position
+
+            -- อัปเดตเฉพาะค่า Y เท่านั้น
+            RootPart.CFrame = CFrame.new(currentPos.X, targetY, currentPos.Z) * RootPart.CFrame.Rotation
         end
     end
 end
@@ -2323,9 +2364,9 @@ do
     Toggle(ATMFARM,"Start Hacking ATM","ATMFAR","EnabledAutoATM")
 	Toggle(ATMFARM,"Enabled Bike","Bike", "EnabledBike") 
 	Toggle(ATMFARM,"Enabled Deposit","Des", "EnabledDeposit") 
-    local Job = Section(Tabs.AutoFarm, false, "left", "Job Farming", 'Automatic to do job')
-    Dropdown(Job,{"Janitor","Steak","Quick-11"},false,"JobSelect","Select Job type","JobSelected")
-    Toggle(Job,"Start Job","JobsDo","StartJob")
+ --   local Job = Section(Tabs.AutoFarm, false, "left", "Job Farming", 'Automatic to do job')
+  --  Dropdown(Job,{"Janitor","Steak","Quick-11"},false,"JobSelect","Select Job type","JobSelected")
+   -- Toggle(Job,"Start Job","JobsDo","StartJob")
     local Character_Tabs = Section(Tabs.AutoFarm, false, "right", "Character", 'About Your Character')
     Toggle(Character_Tabs,"Snap","DownTp","EnabledSnap")
     Slider(Character_Tabs,"Y Offset", "Yoffset",1,100,30,"YOffset")
@@ -2630,8 +2671,8 @@ end)
 local Staminacolor = Client.PlayerGui.TopRightHud.Holder.StaminaBar.Fill.Normal
 local isInCombat = Client:GetAttribute("IsInCombat")
 local plr = game:GetService("Players").LocalPlayer
-local DROP_Y = -40
-local HEALTH_MIN = 20
+local DROP_Y = -50
+local HEALTH_MIN = 21
 local HEALTH_RECOVER = 30
 local isDropping = false 
 local antiKillEnabled = false
@@ -2668,7 +2709,7 @@ local function setupCharacter(char)
         if not antiKillEnabled then return end
         if isDropping then return end
         isDropping = true
-        lockCamera()
+      --  lockCamera()
         
 
         local fixedPos = rootPart.Position  
@@ -2678,7 +2719,7 @@ local function setupCharacter(char)
         while isDropping do  
             if humanoid.Health >= HEALTH_RECOVER or humanoid.Health <= 0 then
                 isDropping = false
-                unlockCamera()
+               -- unlockCamera()
 
                 if  isInCombat then
                     print("hee")
@@ -2689,9 +2730,9 @@ local function setupCharacter(char)
                 break
             end  
 
-            t += 5
-            local swingX = math.sin(t * 700) * 6
-            local swingZ = math.cos(t * 600) * 7
+            t += 50
+            local swingX = math.sin(t * 3000) * 6
+            local swingZ = math.cos(t * 3000) * 8
             local newPos = fixedPos + Vector3.new(swingX, math.sin(t * 2) * 2, swingZ)
 
             rootPart.CFrame = CFrame.new(newPos)
@@ -3343,11 +3384,34 @@ do
       end
     })
     
+    local Snap = ToggleTab:Toggle({
+      Title = "Snap",
+      Value = false,
+      Callback = function(state)
+        c().EnabledSnap = state
+        task.spawn(func['EnabledSnap'])
+      end
+    })
+    
+    local Yoffset = ToggleTab:Slider({
+    Title = "Y Offset",
+    Value = { Min = 1, Max = 100.0, Default = 30 },
+    Callback = function(value)
+        c().YOffset = tonumber(value)
+    end
+    })
+        
+    
+    
+    
+    
+    
     local HitAura1 = ToggleTab:Toggle({
       Title = "Hit Aura",
       Value = false,
       Callback = function(state)
         c().HitAura = state
+        task.spawn(func['HitAura'])
       end
     })
     
@@ -3562,6 +3626,63 @@ local StartJobdz = Fram:Toggle({
         end
     end
 })
+
+
+
+local toolhack = {"HackToolBasic","HackToolPro","HackToolUltimate","HackToolQuantum","Smart Select"}
+
+    local Framatm = Fram:Dropdown({
+      Title = "Select Position type",
+      Values = toolhack,
+      Flag = "testDropdown",
+      Value = "Smart Select",  -- ค่าพื้นฐาน
+      Callback = function(option)
+        c().HackToolSelected = option
+      end
+    })
+
+   local SwipperSlider = Fram:Slider({
+    Title = "Swipper Limit",
+    Value = { Min = 1, Max = 16, Default = 1 },
+    Callback = function(value)
+        c().Amount = tonumber(value)
+    end
+    })
+    
+    local startatm = Fram:Toggle({
+    Title = "EnabledAutoATM",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+         c().EnabledAutoATM = state
+         task.spawn(func['EnabledAutoATM'])
+    end
+     })
+     
+     local startatm = Fram:Toggle({
+    Title = "Enabled Bike",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+         c().EnabledBike = state
+         task.spawn(func['EnabledBike'])
+    end
+     })
+     
+     local deposit= Fram:Toggle({
+    Title = "Enabled Deposit",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+         c().EnabledDeposit = state
+         task.spawn(func['EnabledDeposit'])
+    end
+     })
+
+
+  --  Slider(ATMFARM,"Swipper Limit", "ITAM",1,16,3,"Am
+  --  Toggle(ATMFARM,"Start Hacking ATM","ATMFAR","EnabledAutoATM")
+  
+--	Toggle(ATMFARM,"Enabled Bike","Bike", "EnabledBike") 
+--	Toggle(ATMFARM,"Enabled Deposit","Des", "EnabledDeposit") 
+
 
 
 end
