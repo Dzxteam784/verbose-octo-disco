@@ -1,3 +1,7 @@
+if not game:IsLoaded() then repeat task.wait() until game:IsLoaded() end
+
+if not (game.PlaceId == 104715542330896 or game.PlaceId == 97556409405464) then return end
+
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Dzxteam784/DZHUB/refs/heads/main/dist/main.lua"))()
 
 
@@ -257,7 +261,8 @@ end)
 
 -------------------Modules--------------------
 local Data = require(ReplicatedStorage.Modules.Core.Data)
-
+local ItemUtilsModule = require(replicated.Modules.Game.Inventory.ItemUtils)
+local CrateController = require(replicated.Modules.Game.CrateSystem.Crate)
 
 local get = ipairs
 local getn = pairs
@@ -1167,6 +1172,7 @@ func['EnabledSpeed'] = function()
 end
 
 c().EnabledSkip = true
+
 func['EnabledSkip'] = function()
     while c().EnabledSkip do
         task.wait()
@@ -1427,7 +1433,9 @@ local jumpToggle = Character:Toggle({
     Value = false, -- เริ่มต้นปิด
     Callback = function(state)
         highJumpEnabled = state
-        
+             if Client.Character and Client.Character:FindFirstChild("Humanoid") then
+            Client.Character.Humanoid.JumpHeight = state and jumpHeight or 7.2
+        end
     end
 })
    
