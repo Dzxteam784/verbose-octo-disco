@@ -1,3 +1,7 @@
+if not game:IsLoaded() then repeat task.wait() until game:IsLoaded() end
+
+if not (game.PlaceId == 104715542330896 or game.PlaceId == 97556409405464) then return end
+
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Dzxteam784/DZHUB/refs/heads/main/dist/main.lua"))()
 
 
