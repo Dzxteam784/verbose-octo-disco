@@ -1,7 +1,3 @@
-if not game:IsLoaded() then repeat task.wait() until game:IsLoaded() end
-
-if not (game.PlaceId == 104715542330896 or game.PlaceId == 97556409405464) then return end
-
 local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Dzxteam784/DZHUB/refs/heads/main/dist/main.lua"))()
 
 
@@ -348,14 +344,7 @@ RunService.RenderStepped:Connect(function()
     fov.Radius = getgenv().Radius or fov.Radius
     fov.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
     
-    local ping = Client:GetAttribute("ServerPing")
-    if ping then
-        -- แปลงเป็นมิลลิวินาที
-        local pingMs = ping * 1000
-        -- ตัดทศนิยมเหลือ 3 หลัก
-        local formattedPing = string.format("%.3f", pingMs)
-      
-    end
+   
 end)
 
 
@@ -410,7 +399,7 @@ local function getPredictedPosition(target)
     local root = target.Parent:FindFirstChild("HumanoidRootPart")
     if not root then return target.Position end
 
-    local velocity = root.Velocity or Vector3.new(0,0,0)
+    local velocity = root.Velocity or Vector3.new(0,0.1,0)
     local ping = 0.28 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
     local predictedPos = target.Position + velocity * ping
     return predictedPos
@@ -574,7 +563,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
         if hrp then
             local currentVelocity = hrp.Velocity
             
-            hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(0.0005), 0)
+            hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(0.0010), 0)
         
             hrp.AssemblyLinearVelocity = Vector3.new(math.random(-50, 50), math.random(0, 50), math.random(-50, 50))   game:GetService("RunService").RenderStepped:Wait() 
             hrp.Velocity = currentVelocity 
@@ -1177,6 +1166,18 @@ func['EnabledSpeed'] = function()
 	end
 end
 
+c().EnabledSkip = true
+func['EnabledSkip'] = function()
+    while c().EnabledSkip do
+        task.wait()
+        if CrateController and CrateController.spinning and CrateController.spinning.get() then
+            CrateController.skip_spin()
+        end
+    end
+end
+
+task.spawn(func['EnabledSkip'])
+
 
 func['EnabledSnap'] = function()
     local baseY = RootPart.Position.Y
@@ -1426,12 +1427,6 @@ local jumpToggle = Character:Toggle({
     Value = false, -- เริ่มต้นปิด
     Callback = function(state)
         highJumpEnabled = state
-
-        -- ปรับค่า JumpHeight ทันที
-        if pls.Character and pls.Character:FindFirstChild("Humanoid") then
-            pls.Character.Humanoid.JumpHeight = state and jumpHeight or 7.2
-        end
-
         
     end
 })
@@ -1440,7 +1435,7 @@ local jumpToggle = Character:Toggle({
     Title = "PickItem",
     Value = false, -- เริ่มต้นปิด
     Callback = function(state)
-   -- c().AutoPickItem = state
+    c().AutoPickItem = state
     pickUpZoneEnabled = state
         resizeAll() -- ปรับขนาดทันที
     end
