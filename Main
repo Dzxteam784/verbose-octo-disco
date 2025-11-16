@@ -1,57 +1,22 @@
-if not game:IsLoaded() then repeat task.wait() until game:IsLoaded() end
-
-if not (game.PlaceId == 104715542330896 or game.PlaceId == 97556409405464) then return end
-
-local require = require or getfenv().require
-local cloneref = cloneref or function(f) return f end
-local Net = require(cloneref(game:GetService('ReplicatedStorage').Modules.Core.Net))
-local getupvalue = getupvalue or debug.getupvalue
-local setconstant = setconstant or debug.setconstant
-
-do
-    local func2 = getupvalue(Net.send, 2)
-    setconstant(func2, 1, "...")
-    setconstant(func2, 3, "...")
-    setconstant(func2, 4, "...")
-    setconstant(func2, 9, "...")
-    local func = getupvalue(Net.get, 2)
-    setconstant(func, 1, "...")
-    setconstant(func, 3, "...")
-    setconstant(func, 4, "...")
-    setconstant(func, 9, "...")
-
-    local real_getfenv = getfenv
-    getfenv = function(level)
-        if level == 6 then
-            local original_env = real_getfenv(6)
-            return setmetatable({}, {
-                __index = function(self, key)
-                    if key == "getgenv" or key == "identifyexecutor" then
-                        return nil
-                    end
-                    return original_env and original_env[key]
-                end,
-                __newindex = function(self, key, value)
-                    if original_env then
-                        original_env[key] = value
-                    end
-                end
-            })
-        end
-        return real_getfenv(level)
-    end
-end
+local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Dzxteam784/DZHUB/refs/heads/main/dist/main.lua"))()
 
 
+local SOUND_ID = "rbxassetid://232127604"
+
+local sound = Instance.new("Sound")
+sound.Name = "LocalSound"
+sound.SoundId = SOUND_ID
+sound.Volume = 1
+sound.PlaybackSpeed = 0.8
+sound.Looped = false
+
+-- ใส่เข้า SoundService ทำให้เสียงเป็น “Local Only”
+sound.Parent = game:GetService("SoundService")
 
 
-local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Footagesus/WindUI/main/dist/main.lua"))()
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Data = require(ReplicatedStorage.Modules.Core.Data)
-local pls = game.Players.LocalPlayer
 local Window = WindUI:CreateWindow({
-    Title = "DZHUB  | v-1.0 Test 🔫",
-    Author = "by danzaza ",
+    Title = "DZHUB'Dev | v-1.0 PvP - Test",
+    Author = "by danzaza",
     
     BackgroundImageTransparency = 0.25,
     HideSearchBar = false,
@@ -60,31 +25,31 @@ local Window = WindUI:CreateWindow({
     SideBarWidth = 200,
     
     KeySystem = {
-        Note = "Get the key to get full access to the script",
+        Note = "Key System Dzhub.",
         SaveKey = false,
-        Key = { "1234", "test" },  
-         Note = "Key System Dzhub.",
-          URL = "https://github.com/Footagesus/WindUI",
-          Thumbnail = {
-              Image = "rbxassetid://134656917989517",
-             
-          },
+        Key = { "1234", "test" },
+        URL = "https://github.com/Footagesus/WindUI",
+        Thumbnail = {
+            Image = "rbxassetid://134656917989517",
+        },
     },
     
+    
     OpenButton = {
-        Title = "DZHUB | v-1.0", -- can be changed
-        CornerRadius = UDim.new(1,0), -- fully rounded
-        StrokeThickness = 3, -- removing outline
-        Enabled = true, -- enable or disable openbutton
-        Draggable = false,
+        Title = "DZHUB | v-1.0",
+        Enabled = true,
+        Draggable = true,
         OnlyMobile = false,
-        
-        Color = ColorSequence.new( -- gradient
-            Color3.fromHex("#30FF6A"), 
-            Color3.fromHex("#e7ff2f")
-        )
+
+        OnlyIcon = true,     -- ใช้เฉพาะโลโก้
+        Icon = "rbxassetid://134656917989517",
+
+        StrokeThickness = 0, -- ไม่มีขอบ
     }
-}) 
+})
+
+sound:Play()
+
 -- */ Other Functions /* --
 local function parseJSON(luau_table, indent, level, visited)
     indent = indent or 2
@@ -211,29 +176,68 @@ local function tableToClipboard(luau_table, indent)
     return jsonString
 end
 
+Window:SetBackgroundTransparency(0.1)
+Window:SetBackgroundImageTransparency(0.1)
 
-local replicated = game:GetService("ReplicatedStorage")
-local CrateController = require(replicated.Modules.Game.CrateSystem.Crate)
+Window:Tag({
+    Title = "v1.0.0",
+    Color = Color3.fromHex("#FF0000")
+})
+    
+
+
+local require = require or getfenv().require
+local cloneref = cloneref or function(f) return f end
+local Net = require(cloneref(game:GetService('ReplicatedStorage').Modules.Core.Net))
+local getupvalue = getupvalue or debug.getupvalue
+local setconstant = setconstant or debug.setconstant
+
+do
+    local func2 = getupvalue(Net.send, 2)
+    setconstant(func2, 1, "...")
+    setconstant(func2, 3, "...")
+    setconstant(func2, 4, "...")
+    setconstant(func2, 9, "...")
+    local func = getupvalue(Net.get, 2)
+    setconstant(func, 1, "...")
+    setconstant(func, 3, "...")
+    setconstant(func, 4, "...")
+    setconstant(func, 9, "...")
+
+    local real_getfenv = getfenv
+    getfenv = function(level)
+        if level == 6 then
+            local original_env = real_getfenv(6)
+            return setmetatable({}, {
+                __index = function(self, key)
+                    if key == "getgenv" or key == "identifyexecutor" then
+                        return nil
+                    end
+                    return original_env and original_env[key]
+                end,
+                __newindex = function(self, key, value)
+                    if original_env then
+                        original_env[key] = value
+                    end
+                end
+            })
+        end
+        return real_getfenv(level)
+    end
+end
+
+
+
+
+------------GetService--------------
 local Players = game:GetService("Players")
-local CharModule = require(replicated.Modules.Core.Char)
-local Client = Players.LocalPlayer
-local PlayerGui = Client.PlayerGui
-local Character = Client.Character or Client.CharacterAdded:Wait()
-local Humanoid = Character:WaitForChild("Humanoid")
-
-
-local replicated = game:GetService("ReplicatedStorage")
-local TweenService = game:GetService("TweenService")
-local PathfindingService = game:GetService("PathfindingService")
-local vim = game:GetService("VirtualInputManager")
-local teleport = game:GetService('TeleportService')
 local RunService = game:GetService("RunService")
-local HttpService = game:GetService("HttpService")
-local Players = game:GetService("Players")
-local Debris = game:GetService("Debris")
-local UserInputService = game:GetService("UserInputService")
-local CurrentCamera = workspace.CurrentCamera
+local workspace = game:GetService("Workspace")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local replicated = game:GetService("ReplicatedStorage")
 
+
+------------Player--------------
 local Client = Players.LocalPlayer
 local Character = Client.Character or Client.CharacterAdded:Wait()
 local UserId = Client.UserId
@@ -241,6 +245,8 @@ local PlayerGui = Client.PlayerGui
 local Humanoid = Character:WaitForChild("Humanoid")
 local RootPart = Character:WaitForChild("HumanoidRootPart")
 local Backpack = Client:WaitForChild("Backpack")
+local Camera = workspace.CurrentCamera
+
 
 Client.CharacterAdded:Connect(function(newCharacter)
 	Character = newCharacter
@@ -249,28 +255,13 @@ Client.CharacterAdded:Connect(function(newCharacter)
 	Backpack = Client:WaitForChild("Backpack")
 end)	
 
-local insert = table.insert
-local CFrame_new = CFrame.new
-local Vector_new = Vector3.new
-local TwoD_new = Vector2.new
-local UDim2_new = UDim2.new
-local waits = task.wait
+-------------------Modules--------------------
+local Data = require(ReplicatedStorage.Modules.Core.Data)
+
+
 local get = ipairs
 local getn = pairs
-local word_find = string.find
-local create = Instance.new
-local stop = task.cancel
-local this_is_string = tostring
-local this_is_number = tonumber
 local un = unpack
-local randomb = math.random
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local LocalPlayer = Players.LocalPlayer
-local SendRemote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Send")
-local Camera = workspace.CurrentCamera
-
-
 
 local ServerFunc,func,functionb = {},{},{}; 
 ServerFunc.__index = ServerFunc 
@@ -288,65 +279,107 @@ end
 
 
 
+local fov = Drawing.new("Circle")
+fov.Radius = 200
+fov.Color = Color3.new(255,255,255)
+fov.Thickness = 1.25
+fov.Filled = false
+fov.Visible = false
+fov.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
 
-local droppedItems = workspace:FindFirstChild("DroppedItems")
-local Puddles = workspace:FindFirstChild("Map")and workspace.Map:FindFirstChild("Tiles")and workspace.Map.Tiles:FindFirstChild("BurgerPlaceTile")and workspace.Map.Tiles.BurgerPlaceTile:FindFirstChild("BurgerPlace")and workspace.Map.Tiles.BurgerPlaceTile.BurgerPlace:FindFirstChild("Interior")and workspace.Map.Tiles.BurgerPlaceTile.BurgerPlace.Interior:FindFirstChild("Puddles")
-local SteakHouseBro = workspace:FindFirstChild("Map")and workspace.Map:FindFirstChild("Tiles")and workspace.Map.Tiles:FindFirstChild("ShoppingTile")and workspace.Map.Tiles.ShoppingTile:FindFirstChild("SteakHouse")
-local DataModule = require(replicated.Modules.Core.Data)
-local ItemUtilsModule = require(replicated.Modules.Game.Inventory.ItemUtils)
-local CrateController = require(replicated.Modules.Game.CrateSystem.Crate)
-local CharModule = require(replicated.Modules.Core.Char)
-local throwable = replicated.Items.throwable
-
-
-
-
-
-local Staminacolor = Client.PlayerGui.TopRightHud.Holder.StaminaBar.Fill.Normal
-Staminacolor.Color = ColorSequence.new(Color3.fromRGB(107, 50, 124))
 local SilentAim = false
+local line = Drawing.new("Line")
+line.Color = Color3.new(1,0,0)
+line.Thickness = 1.5
+line.Transparency = 1
 
 
-
--- กำหนดตำแหน่ง GUI ที่ต้องการ
-local guiPosition = LocalPlayer.PlayerGui.SelectPlayer.ChoosePlayerHolder.AbsolutePosition
-local guiSize = LocalPlayer.PlayerGui.SelectPlayer.ChoosePlayerHolder.AbsoluteSize
-
--- FOV Circle
-local fovCircle = Drawing.new("Circle")
-fovCircle.Radius = 200
-fovCircle.Color = Color3.new(255,255,255)
-fovCircle.Thickness = 2
-fovCircle.Filled = false
-fovCircle.Visible = false
-fovCircle.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
-
--- หาเป้าหมายใกล้ที่สุดใน FOV
 local function getClosestTargetInFOV()
-    local closestDistance = math.huge
-    local closestHumanoidPart = nil
+	local closestDistance = math.huge
+	local closestPart = nil
 
-    for _, player in pairs(Players:GetPlayers()) do
-        if player ~= LocalPlayer and player.Character then
-            local head = player.Character:FindFirstChild("Head")
-            if head then
-                local screenPos, onScreen = Camera:WorldToViewportPoint(head.Position)
-                if onScreen then
-                    local distToCenter = (Vector2.new(screenPos.X, screenPos.Y) - Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)).Magnitude
-                    if distToCenter <= fovCircle.Radius and distToCenter < closestDistance then
-                        closestDistance = distToCenter
-                        closestHumanoidPart = head
-                    end
-                end
-            end
-        end
-    end
-
-    return closestHumanoidPart
+	for _, player in ipairs(Players:GetPlayers()) do
+		if player ~= Client and player.Character then
+			local head = player.Character:FindFirstChild("Head")
+			if head then
+				local screenPos, onScreen = Camera:WorldToViewportPoint(head.Position)
+				if onScreen then
+					local distToCenter = (
+                        Vector2.new(screenPos.X, screenPos.Y) -
+                        Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+                    ).Magnitude
+					
+					if distToCenter <= fov.Radius and distToCenter < closestDistance then
+						closestDistance = distToCenter
+						closestPart = head
+					end
+				end
+			end
+		end
+	end
+	return closestPart
 end
 
 
--- สร้าง Tracer
+
+
+
+
+RunService.RenderStepped:Connect(function()
+    local target = getClosestTargetInFOV()
+
+	if target and SilentAim then
+		local screenPos, onScreen = Camera:WorldToViewportPoint(target.Position)
+		if onScreen then
+			line.From = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
+			line.To = Vector2.new(screenPos.X, screenPos.Y)
+			line.Visible = true
+		else
+			line.Visible = false
+		end
+	else
+		line.Visible = false
+	end
+    
+    fov.Radius = getgenv().Radius or fov.Radius
+    fov.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
+    
+    local ping = Client:GetAttribute("ServerPing")
+    if ping then
+        -- แปลงเป็นมิลลิวินาที
+        local pingMs = ping * 1000
+        -- ตัดทศนิยมเหลือ 3 หลัก
+        local formattedPing = string.format("%.3f", pingMs)
+      
+    end
+end)
+
+
+
+----antiaim----
+
+local animation = Instance.new("Animation")
+animation.AnimationId = "rbxassetid://94324173536622"
+
+local animationTrack
+getgenv().Antiaim = false
+
+local function startAntiAim()
+    if Humanoid then
+        animationTrack = Humanoid:LoadAnimation(animation)
+        animationTrack.Looped = true
+        animationTrack:Play()
+        animationTrack:AdjustSpeed(99999999999999)
+    end
+end
+local function stopAntiAim()
+    if animationTrack then
+        animationTrack:Stop()
+    end
+end
+
+local SendRemote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Send")
+
 local function createTracer(startPos, endPos, hitPlayer)
     local tracer = Instance.new("Part")
     tracer.Anchored = true
@@ -361,53 +394,20 @@ end
 
 
 
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local SendRemote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Send")
+local Camera = workspace.CurrentCamera
 
--- ESP Line
-local line = Drawing.new("Line")
-line.Color = Color3.new(1,0,0)
-line.Thickness = 2
-line.Transparency = 1
 
-
-  
-
--- Update FOV + ESP
-RunService.RenderStepped:Connect(function()
-    fovCircle.Radius = c().Radius
-    fovCircle.Position = Vector2.new(Camera.ViewportSize.X/2, Camera.ViewportSize.Y/2)
-
-    -- อัพเดทตำแหน่ง GUI
-    guiPosition = LocalPlayer.PlayerGui.SelectPlayer.ChoosePlayerHolder.AbsolutePosition
-    guiSize = LocalPlayer.PlayerGui.SelectPlayer.ChoosePlayerHolder.AbsoluteSize
-    
-    -- คำนวณจุดกึ่งกลางของ GUI และปรับให้ต่ำลง
-    local guiCenter = Vector2.new(
-        guiPosition.X + guiSize.X / 2,
-        guiPosition.Y + guiSize.Y + 58  -- เพิ่มค่า Y ให้ต่ำลง 50 pixels จากขอบล่างของ GUI
-    )
-
-    local target = getClosestTargetInFOV()
-  
-    
-    if target and SilentAim then
-        local endPos = Camera:WorldToViewportPoint(target.Position)
-
-        -- เริ่มจาก GUI ไปหาศัตรู
-        line.From = guiCenter
-        line.To = Vector2.new(endPos.X, endPos.Y)
-        line.Visible = true
-    else
-        line.Visible = false
-    end
-end)
-
--- ฟังก์ชันคำนวณตำแหน่งดักหน้า
 local function getPredictedPosition(target)
     local root = target.Parent:FindFirstChild("HumanoidRootPart")
     if not root then return target.Position end
 
-    local velocity = root.Velocity or Vector3.new(0,1,0)
-    local ping = 0.27 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
+    local velocity = root.Velocity or Vector3.new(0,0,0)
+    local ping = 0.28 -- กำหนดเวลา lag/ping (ปรับตามความจริง)
     local predictedPos = target.Position + velocity * ping
     return predictedPos
 end
@@ -433,13 +433,7 @@ oldSendFire = hookfunction(SendRemote.FireServer, function(self, ...)
                         Material = Enum.Material.Plastic,
                         Distance = (predictedPos - LocalPlayer.Character.Head.Position).Magnitude
                     },
-                    {
-                        Instance = targetHead,
-                        Position = predictedPos,
-                        Normal = (predictedPos - LocalPlayer.Character.Head.Position).Unit,
-                        Material = Enum.Material.Plastic,
-                        Distance = (predictedPos - LocalPlayer.Character.Head.Position).Magnitude
-                    }
+               
                 }
             }
 
@@ -455,6 +449,247 @@ end)
 
 
 
+local isInCombat = Client:GetAttribute("IsInCombat")
+local plr = game:GetService("Players").LocalPlayer
+local DROP_Y = -50
+local HEALTH_MIN = 21
+local HEALTH_RECOVER = 30
+local isDropping = false 
+local antiKillEnabled = false
+local camera = workspace.CurrentCamera
+local cameraLockConn
+
+local function lockCamera()
+    local lockedPosition = camera.CFrame.Position
+    if cameraLockConn then
+        cameraLockConn:Disconnect()
+        cameraLockConn = nil
+    end
+
+    cameraLockConn = RunService.RenderStepped:Connect(function()
+        local lookVector = camera.CFrame.LookVector
+        camera.CFrame = CFrame.new(lockedPosition, lockedPosition + lookVector)
+    end)
+end
+
+local function unlockCamera()
+    if cameraLockConn then
+        cameraLockConn:Disconnect()
+        cameraLockConn = nil
+    end
+end
+
+-- ฟังก์ชันตั้งค่า character
+local function setupCharacter(char)
+    local humanoid = char:WaitForChild("Humanoid")
+    local rootPart = char:WaitForChild("HumanoidRootPart")
+
+    local function startDrop()
+        if not antiKillEnabled then return end
+        if isDropping then return end
+        isDropping = true
+        lockCamera()
+        
+
+        local fixedPos = rootPart.Position  
+        fixedPos = Vector3.new(fixedPos.X, fixedPos.Y + DROP_Y, fixedPos.Z)  
+
+        local t = 0
+        while isDropping do  
+            if humanoid.Health >= HEALTH_RECOVER or humanoid.Health <= 0 then
+                isDropping = false
+                unlockCamera()
+
+                if  isInCombat then
+                    print("hee")
+                else
+                    task.wait(0.6)
+                    Net.send('request_respawn')
+                end
+                break
+            end  
+
+            t += 50
+            local swingX = math.sin(t * 3000) * 6
+            local swingZ = math.cos(t * 3000) * 8
+            local newPos = fixedPos + Vector3.new(swingX, math.sin(t * 2) * 2, swingZ)
+
+            rootPart.CFrame = CFrame.new(newPos)
+            task.wait() 
+        end
+    end
+
+    humanoid.HealthChanged:Connect(function(hp)
+        if hp < HEALTH_MIN and hp > 0 then
+            startDrop()
+        end
+    end)
+end
+
+
+if plr.Character then
+    setupCharacter(plr.Character)
+end
+plr.CharacterAdded:Connect(setupCharacter)
+
+
+
+
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+
+getgenv().DesyncEnabled = false
+
+
+local function clearUnwantedScripts(character)
+    for _, v in pairs(character:GetChildren()) do
+        if v:IsA("Script") and v.Name ~= "Health" and v.Name ~= "Sound" and v:FindFirstChild("LocalScript") then
+            v:Destroy()
+        end
+    end
+end
+
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+    repeat task.wait() until char 
+    clearUnwantedScripts(char)
+    
+    char.ChildAdded:Connect(function(child)
+        if child:IsA("Script") and child:FindFirstChild("LocalScript") then
+            task.wait(0.25) 
+            child.LocalScript:FireServer() 
+        end
+    end)
+end)
+
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if getgenv().DesyncEnabled then
+        local hrp = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.HumanoidRootPart
+        if hrp then
+            local currentVelocity = hrp.Velocity
+            
+            hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(0.0005), 0)
+        
+            hrp.AssemblyLinearVelocity = Vector3.new(math.random(-50, 50), math.random(0, 50), math.random(-50, 50))   game:GetService("RunService").RenderStepped:Wait() 
+            hrp.Velocity = currentVelocity 
+        end
+    end
+end)
+
+local UserInputService = game:GetService("UserInputService")
+local toggleKey = Enum.KeyCode.E -- Change this to any key
+
+UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+    if not gameProcessedEvent and input.KeyCode == toggleKey then
+        getgenv().DesyncEnabled = not getgenv().DesyncEnabled
+        print("Desync " .. (getgenv().DesyncEnabled and "Enabled" or "Disabled"))
+    end
+end)
+
+
+
+
+
+ -- เปิด/ปิด Viewer แบบ Global
+local settings = {
+    EnabledInventoryViewer = false
+}
+
+task.spawn(function()
+	while task.wait(1) do 
+		pcall(function()
+			for _, player in ipairs(Players:GetPlayers()) do
+				if player ~= Client and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+					
+					local head = player.Character.HumanoidRootPart
+					local gui = head:FindFirstChild("ItemBillboard")
+
+					-- สร้าง GUI ถ้าไม่มี
+					if not gui then
+						gui = Instance.new("BillboardGui")
+						gui.Name = "ItemBillboard"
+						gui.AlwaysOnTop = true
+						gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+						gui.Size = UDim2.new(0, 200, 0, 50)
+						gui.StudsOffset = Vector3.new(0, -5, 0)
+						gui.Parent = head
+						gui.ExtentsOffset = Vector3.new(0, 1, 0)
+						gui.LightInfluence = 1
+
+						local bg = Instance.new("Frame")
+						bg.Name = "BG"
+						bg.BackgroundTransparency = 1
+						bg.Size = UDim2.new(1, 0, 1, 0)
+						bg.AnchorPoint = Vector2.new(0.5, 0.5)
+						bg.Position = UDim2.new(0.5, 0, 0.5, 0)
+						bg.Parent = gui
+
+						local layout = Instance.new("UIListLayout")
+						layout.FillDirection = Enum.FillDirection.Horizontal
+						layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+						layout.VerticalAlignment = Enum.VerticalAlignment.Center
+						layout.Padding = UDim.new(0, 5)
+						layout.Parent = bg
+					end
+
+					local bg = gui.BG
+
+					-- ล้างรูปเก่า
+					for _, v in ipairs(bg:GetChildren()) do
+						if v:IsA("ImageLabel") then
+							v:Destroy()
+						end
+					end
+
+					local hasItem = false
+
+					-- หาของใน Backpack + Character
+					for _, container in ipairs({player.Backpack, player.Character}) do
+						for _, tool in ipairs(container:GetChildren()) do
+							if tool:IsA("Tool") and not tool:GetAttribute("JobTool") then
+								if not tool:GetAttribute("Locked") then
+									
+									local itemList
+									if tool:GetAttribute("AmmoType") then
+										itemList = ReplicatedStorage.Items.gun:GetChildren()
+									else
+										itemList = ReplicatedStorage.Items.melee:GetChildren()
+									end
+
+									for _, z in ipairs(itemList) do
+										if tool:GetAttribute("RarityName") == z:GetAttribute("RarityName")
+										   and tool:GetAttribute("RarityPrice") == z:GetAttribute("RarityPrice") then
+											
+											local imageId = z:GetAttribute("ImageId")
+											if imageId then
+												local icon = Instance.new("ImageLabel")
+												icon.Name = z.Name
+												icon.Image = imageId
+												icon.BackgroundTransparency = 1
+												icon.Size = UDim2.new(0, 30, 0, 30)
+												icon.Parent = bg
+												hasItem = true
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+
+					-- ถ้าไม่มีไอเท็ม ก็ลบ GUI
+					if not hasItem then
+						gui.Enabled = false
+					else
+						gui.Enabled = settings.EnabledInventoryViewer
+					end
+				end
+			end
+		end)
+	end
+end)
 
 
 
@@ -877,147 +1112,85 @@ for item, obj in pairs(ItemESPObjects) do
     
 end)
 
+local highJumpEnabled = false
+local jumpHeight = 30 
 
-
-
-
-
-
-local Staminacolor = Client.PlayerGui.TopRightHud.Holder.StaminaBar.Fill.Normal
-local isInCombat = Client:GetAttribute("IsInCombat")
-local plr = game:GetService("Players").LocalPlayer
-local DROP_Y = -50
-local HEALTH_MIN = 21
-local HEALTH_RECOVER = 30
-local isDropping = false 
-local antiKillEnabled = false
-local RunService = game:GetService("RunService")
-local camera = workspace.CurrentCamera
-local cameraLockConn
-
-local function lockCamera()
-    local lockedPosition = camera.CFrame.Position
-    if cameraLockConn then
-        cameraLockConn:Disconnect()
-        cameraLockConn = nil
-    end
-
-    cameraLockConn = RunService.RenderStepped:Connect(function()
-        local lookVector = camera.CFrame.LookVector
-        camera.CFrame = CFrame.new(lockedPosition, lockedPosition + lookVector)
-    end)
-end
-
-local function unlockCamera()
-    if cameraLockConn then
-        cameraLockConn:Disconnect()
-        cameraLockConn = nil
+-- ฟังก์ชันตั้งค่า High Jump ให้ตัวละคร
+local function setupHighJump(character)
+    local humanoid = character:FindFirstChild("Humanoid")
+    if humanoid then
+        humanoid.JumpHeight = highJumpEnabled and jumpHeight or 7.2
     end
 end
 
--- ฟังก์ชันตั้งค่า character
-local function setupCharacter(char)
-    local humanoid = char:WaitForChild("Humanoid")
-    local rootPart = char:WaitForChild("HumanoidRootPart")
-
-    local function startDrop()
-        if not antiKillEnabled then return end
-        if isDropping then return end
-        isDropping = true
-      --  lockCamera()
-        
-
-        local fixedPos = rootPart.Position  
-        fixedPos = Vector3.new(fixedPos.X, fixedPos.Y + DROP_Y, fixedPos.Z)  
-
-        local t = 0
-        while isDropping do  
-            if humanoid.Health >= HEALTH_RECOVER or humanoid.Health <= 0 then
-                isDropping = false
-               -- unlockCamera()
-
-                if  isInCombat then
-                    print("hee")
-                else
-                    task.wait(0.6)
-                    Net.send('request_respawn')
-                end
-                break
-            end  
-
-            t += 50
-            local swingX = math.sin(t * 3000) * 6
-            local swingZ = math.cos(t * 3000) * 8
-            local newPos = fixedPos + Vector3.new(swingX, math.sin(t * 2) * 2, swingZ)
-
-            rootPart.CFrame = CFrame.new(newPos)
-            task.wait() 
-        end
-    end
-
-    humanoid.HealthChanged:Connect(function(hp)
-        if hp < HEALTH_MIN and hp > 0 then
-            startDrop()
-        end
-    end)
-end
-
--- เรียกตอนเริ่มเกม
-if plr.Character then
-    setupCharacter(plr.Character)
-end
-
--- เรียกใหม่ทุกครั้งที่ respawn
-plr.CharacterAdded:Connect(setupCharacter)
 
 
 
 
+local longStrideEnabled = false
+local strideLength = 5
+local function setupLongStride(character)
+    local humanoid = character:FindFirstChild("Humanoid")
+    local root = character:FindFirstChild("HumanoidRootPart")
 
-
-
-local Snap = false
-local Snapdrop = -100
-local isDropping = false
-local effectIntensity = 50 -- ค่า Slider เริ่มต้น
-local fixedPos = nil -- จะเก็บตำแหน่งค้างนิ่ง
-
-local plr = Players.LocalPlayer
-
--- ฟังก์ชันตั้งค่า character
-local function setupCharacter(char)
-    local rootPart = char:WaitForChild("HumanoidRootPart")
-
-    local function startDrop()
-        if not Snap then return end
-        if isDropping then return end
-        isDropping = true
-
-        -- เก็บตำแหน่งค้างนิ่งตอนเริ่ม
-        local pos = rootPart.Position
-        fixedPos = Vector3.new(pos.X, pos.Y + Snapdrop * (effectIntensity / 100), pos.Z)
-
-        -- วนลูปค้างตำแหน่ง
-        while Snap and isDropping do
-            if rootPart and fixedPos then
-                rootPart.CFrame = CFrame.new(fixedPos)
+    if humanoid and root then
+        -- เชื่อมฟังก์ชันก้าวยาว
+        RunService.RenderStepped:Connect(function()
+            if longStrideEnabled and humanoid.MoveDirection.Magnitude > 0 then
+                root.CFrame = root.CFrame + humanoid.MoveDirection * strideLength * 0.05
             end
-            task.wait()
-        end
-
-        isDropping = false
+        end)
     end
-
-    -- เรียก startDrop ได้ทุกครั้งที่ Toggle หรือ Slider เปลี่ยน
-    plr:GetAttributeChangedSignal("SnapTrigger"):Connect(startDrop)
 end
 
-if plr.Character then
-    setupCharacter(plr.Character)
+if Client.Character then
+    setupHighJump(Client.Character)
+    setupLongStride(Client.Character)
 end
-plr.CharacterAdded:Connect(setupCharacter)
+
+-- ตั้งค่าใหม่ทุกครั้งที่เกิดใหม่
+Client.CharacterAdded:Connect(function(character)
+      setupHighJump(character)
+    setupLongStride(character)
+end)
 
 
+c().EnabledSpeed = false
+c().SpeedAmount = 24
+
+
+func['EnabledSpeed'] = function()
+	while task.wait() do
+		if c().EnabledSpeed then 
+			Humanoid:SetAttribute("TargetWalkSpeed", c().SpeedAmount)
+            Humanoid.WalkSpeed = c().SpeedAmount
+            ServerFunc:Action("set_sprinting_1", true)
+        else 
+            ServerFunc:Action("set_sprinting_1", false)
+            Humanoid:SetAttribute("TargetWalkSpeed", 8)
+			Humanoid.WalkSpeed = 8
+		end
+	end
+end
+
+
+func['EnabledSnap'] = function()
+    local baseY = RootPart.Position.Y
+    local lastOffset = c().YOffset or 1
+
+    while c().EnabledSnap do
+     task.wait()
+        if Humanoid.Health > 0 then
+            local currentOffset = c().YOffset or 1
+            if currentOffset ~= lastOffset then
+                lastOffset = currentOffset
+            end
+            local targetY = baseY - currentOffset
+            local currentPos = RootPart.Position
+            RootPart.CFrame = CFrame.new(currentPos.X, targetY, currentPos.Z) * RootPart.CFrame.Rotation
+        end
+    end
+end
 
 func['AutoPickItem'] = function()
     while waits() do 
@@ -1062,261 +1235,85 @@ end)
 
 
 
--- เปิดค่าการทำงาน
-c().EnabledSkip = true
-
--- ประกาศฟังก์ชัน Skip
-func['EnabledSkip'] = function()
-    while c().EnabledSkip do
-        task.wait() -- ใช้ task.wait() ดีกว่า waits() (เร็วและนิ่งกว่า)
-        if CrateController and CrateController.spinning and CrateController.spinning.get() then
-            CrateController.skip_spin()
-        end
-    end
-end
-
-task.spawn(func['EnabledSkip'])
-
-local AntiRagdoll = false
-
-c().EnabledSpeed = false
-c().SpeedAmount = 24
-
-
-func['EnabledSpeed'] = function()
-	while waits() do
-		if c().EnabledSpeed then 
-			Humanoid:SetAttribute("TargetWalkSpeed", c().SpeedAmount)
-            Humanoid.WalkSpeed = c().SpeedAmount
-            ServerFunc:Action("set_sprinting_1", true)
-        else 
-            ServerFunc:Action("set_sprinting_1", false)
-            Humanoid:SetAttribute("TargetWalkSpeed", 8)
-			Humanoid.WalkSpeed = 8
-		end
-	end
-end
-
-
-func['EnabledSnap'] = function()
-    local baseY = RootPart.Position.Y
-    local lastOffset = c().YOffset or 1
-
-    while c().EnabledSnap do
-     waits()
-        if Humanoid.Health > 0 then
-            local currentOffset = c().YOffset or 1
-            if currentOffset ~= lastOffset then
-                lastOffset = currentOffset
-            end
-            local targetY = baseY - currentOffset
-            local currentPos = RootPart.Position
-            RootPart.CFrame = CFrame.new(currentPos.X, targetY, currentPos.Z) * RootPart.CFrame.Rotation
-        end
-    end
-end
 
 
 
 
-
-
-
-
- c().EnabledInventoryViewer = false
-
-
-task.spawn(function()
-	while waits(1) do 
-		pcall(function()
-			for _, player in get(Players:GetPlayers()) do
-				if player ~= Client and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-					local head = player.Character.HumanoidRootPart
-
-					local gui = head:FindFirstChild("ItemBillboard")
-					if not gui then
-						gui = Instance.new("BillboardGui")
-						gui.Name = "ItemBillboard"
-						gui.AlwaysOnTop = true
-						gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-						gui.Size = UDim2.new(0, 200, 0, 50)
-						gui.StudsOffset = Vector3.new(0, -5, 0)
-						gui.Parent = head
-						gui.ExtentsOffset = Vector3.new(0, 1, 0)
-						gui.LightInfluence = 1
-
-						local bg = Instance.new("Frame")
-						bg.Name = "BG"
-						bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-						bg.BackgroundTransparency = 1
-						bg.Size = UDim2.new(1, 0, 1, 0) 
-						bg.AnchorPoint = Vector2.new(0.5, 0.5)
-						bg.Position = UDim2.new(0.5, 0, 0.5, 0) 
-						bg.Parent = gui
-
-						local layout = Instance.new("UIListLayout")
-						layout.FillDirection = Enum.FillDirection.Horizontal
-						layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-						layout.VerticalAlignment = Enum.VerticalAlignment.Center
-						layout.Padding = UDim.new(0, 5)
-						layout.Parent = bg
-					end
-
-					local bg = gui:FindFirstChild("BG")
-					for _, v in get(bg:GetChildren()) do
-						if v:IsA("ImageLabel") then
-							v:Destroy()
-						end
-					end
-
-					local hasItem = false
-
-					for _, container in get({player.Backpack, player.Character}) do
-						for _, v in get(container:GetChildren()) do
-							if v:IsA("Tool") and not v:GetAttribute("JobTool") then
-								if not v:GetAttribute('Locked') then 
-									local itemList = nil
-									if v:GetAttribute("AmmoType") then
-										itemList = replicated.Items.gun:GetChildren()
-									else
-										itemList = replicated.Items.melee:GetChildren()
-									end
-
-									for _, z in get(itemList) do
-										if v:GetAttribute("RarityName") == z:GetAttribute("RarityName") and 
-										   v:GetAttribute("RarityPrice") == z:GetAttribute("RarityPrice") then
-											local imageId = z:GetAttribute("ImageId")
-											if imageId then
-												local icon = Instance.new("ImageLabel")
-												icon.Name = z.Name
-												icon.Image = imageId
-												icon.BackgroundTransparency = 1
-												icon.Size = UDim2.new(0, 30, 0, 30)
-												icon.Parent = bg
-												hasItem = true
-											end
-										end
-									end
-								end
-							end
-						end
-					end
-
-					if not hasItem then
-						gui:Destroy()
-					else
-						gui.Enabled = c().EnabledInventoryViewer
-					end
-				end
-			end
-		end)
-	end
-end)
-
-
-c().EnabledFpsLimit = true
-
-function v()
-    if c().EnabledFpsLimit then 
-        print("work")
-        setfpscap(90) -- ตั้งค่า FPS Limit ที่ต้องการ เช่น 60
-    else 
-        setfpscap(150) -- หรือไม่จำกัด FPS
-    end
-end
-
--- เรียกฟังก์ชันทดสอบ
-v()
-
-
-
-
--- */  Toggle Tab  /* --
 do
-    local ToggleTab = Window:Tab({
+local Main = Window:Tab({
         Title = "Main",
         Icon = "arrow-left-right"
     })
     
-
-
-
-   local moneyButton = ToggleTab:Button({
-    Title = "Bank 🏛",
-    Desc = "Loading...",
-    })
     
-    ToggleTab:Space()
     
-    local moneyhand =ToggleTab:Button({
-     Title = "Hand 💵",
-     Desc = "Loading..."
-    
-    })
-    
-
-    local function updateMoney(newMoney, handnew)
-    local bank = 0
-    local hand = 0 
-    if newMoney and newMoney.bank then
-        bank = newMoney.bank
-    elseif Data.money and Data.money.bank then
-        bank = Data.money.bank
-    end
-    if handnew and handnew.hand then
-        hand = handnew.hand
-    elseif Data.money and Data.money.hand then
-        hand = Data.money.hand
-    end
-    if moneyButton and moneyButton.SetDesc and moneyhand and moneyhand.SetDesc then
-        moneyButton:SetDesc(" $" .. tostring(bank))
-        moneyhand:SetDesc(" $" .. tostring(hand))
-    end
-end
-updateMoney(Data.money)
-Data.hook("money", function(newMoney)
-    updateMoney(newMoney)
-end)
-
-
-    
-  
-  ToggleTab:Space()
-    local Aim = ToggleTab:Toggle({
+    local Aim = Main:Toggle({
       Title = "SilentAim",
       Value = false,
       Callback = function(state)
         SilentAim = state
       end
     })
-  
-  
-  local toggleState = false
-    local featureToggle = ToggleTab:Toggle({
-      Title = "Show FOV Circle",
+    
+    local FovEn = Main:Toggle({
+      Title = "Fov Enabled",
       Value = false,
       Callback = function(state)
-        toggleState = state
-        fovCircle.Visible = state
+        fov.Visible = state
       end
     })
-   
+    
+    
 
-
-local intensitySlider = ToggleTab:Slider({
-    Title = "Fov Radius",
-    Value = { Min = 200, Max = 600, Default = 200 },
-    Callback = function(value)
-        c().Radius = tonumber(value)
-    end
+    local FovSize = Main:Slider({
+        Title = "Fov Radius",
+        Value = { Min = 10, Max = 600, Default = 100 },
+        Callback = function(value)
+            getgenv().Radius = tonumber(value)
+        end
     })
+    
+    FovSize:SetMin(10)
+    FovSize:SetMax(600)
+    FovSize:Set(100)
+    
+--[[ local antiAim = Main:Toggle({
+    Title = "Anti Aim",
+   -Value = false,
+   Callback = function(state)
+        getgenv().Antiaim = state
+        if state then
+            startAntiAim()
+        else
+            stopAntiAim()
+        end
+    end
+})
+--]]
+
+Client.CharacterAdded:Connect(function(char)
+    character = char
+    humanoid = char:WaitForChild("Humanoid")
+
+    if getgenv().Antiaim then
+        startAntiAim()
+    end
+end)
 
 
+local antiAim = Main:Toggle({
+    Title = "Anti Aim",
+    Value = false,
+    Desc = "KeyBind E",
+    Callback = function(state)
+        getgenv().DesyncEnabled = state
+    end
+})
+
+
+    Main:Space()
     
-    
-    ToggleTab:Space()
-    
-    local Snap = ToggleTab:Toggle({
+    local Snap = Main:Toggle({
       Title = "Snap",
       Value = false,
       Callback = function(state)
@@ -1325,36 +1322,30 @@ local intensitySlider = ToggleTab:Slider({
       end
     })
     
-    local Yoffset = ToggleTab:Slider({
+    local Yoffset = Main:Slider({
     Title = "Y Offset",
     Value = { Min = 1, Max = 100.0, Default = 30 },
     Callback = function(value)
         c().YOffset = tonumber(value)
     end
     })
+    
+    Yoffset:SetMin(1)
+    Yoffset:SetMax(100)
+    Yoffset:Set(10)
+    
         
     
 
-  
     
-end --end tab main
+end
 
 
--- */  Button Tab  /* --
 do
     local Character = Window:Tab({
         Title = "Character",
         Icon = "mouse-pointer-click",
     })
-    
-    local antikilll = Character:Toggle({
-    Title = "Anti Kill",
-    Value = false,
-    Callback = function(state)
-        antiKillEnabled = state
-    end
-})
-
     
 
 local antiRagdoll = Character:Toggle({
@@ -1379,26 +1370,53 @@ end
     end
 })
 
-    
-local highJumpEnabled = false
-local jumpHeight = 30 
-
--- ฟังก์ชันตั้งค่า High Jump ให้ตัวละคร
-local function setupHighJump(character)
-    local humanoid = character:FindFirstChild("Humanoid")
-    if humanoid then
-        humanoid.JumpHeight = highJumpEnabled and jumpHeight or 7.2
+    local antikilll = Character:Toggle({
+    Title = "Anti Kill",
+    Value = false,
+    Callback = function(state)
+        antiKillEnabled = state
     end
-end
-if pls.Character then
-    setupHighJump(pls.Character)
-end
-pls.CharacterAdded:Connect(function(character)
-    setupHighJump(character)
-end)
+})
 
 
--- Toggle สำหรับ High Jump
+
+-- Toggle สำหรับ Long Stride
+local longStrideToggle = Character:Toggle({
+    Title = "WalkSpeed",
+    Value = false, -- เริ่มต้นปิด
+    Callback = function(state)
+        longStrideEnabled = state
+
+    end
+})
+
+local StrideSlider = Character:Slider({
+    Title = "Stride Length",
+    Value = { Min = 1, Max = 5, Default = 3 },
+    Callback = function(value)
+      strideLength = value
+    end
+ })
+ 
+    StrideSlider:SetMin(1)
+    StrideSlider:SetMax(5)
+    StrideSlider:Set(3)
+    
+    local InfinityStamina = Character:Toggle({
+    Title = "Infinity Stamina",
+    Value = false,
+    Callback = function(state)
+        c().EnabledSpeed = state
+        if state then
+            task.spawn(func['EnabledSpeed'])
+        else
+            c().EnabledSpeed = false
+        end
+    end
+})
+
+
+
 local jumpToggle = Character:Toggle({
     Title = "High Jump",
     Value = false, -- เริ่มต้นปิด
@@ -1413,69 +1431,8 @@ local jumpToggle = Character:Toggle({
         
     end
 })
-
-
-local longStrideEnabled = false
-local strideLength = 4.5
-
--- ฟังก์ชันตั้งค่าก้าวยาวให้ตัวละคร
-local function setupLongStride(character)
-    local humanoid = character:FindFirstChild("Humanoid")
-    local root = character:FindFirstChild("HumanoidRootPart")
-
-    if humanoid and root then
-        -- เชื่อมฟังก์ชันก้าวยาว
-        RunService.RenderStepped:Connect(function()
-            if longStrideEnabled and humanoid.MoveDirection.Magnitude > 0 then
-                root.CFrame = root.CFrame + humanoid.MoveDirection * strideLength * 0.05
-            end
-        end)
-    end
-end
-
--- ถ้ามีตัวละครแล้ว
-if Client.Character then
-    setupLongStride(Client.Character)
-end
-
--- ตั้งค่าใหม่ทุกครั้งที่เกิดใหม่
-Client.CharacterAdded:Connect(function(character)
-    setupLongStride(character)
-end)
-
--- Toggle สำหรับ Long Stride
-local longStrideToggle = Character:Toggle({
-    Title = "WalkSpeed",
-    Value = false, -- เริ่มต้นปิด
-    Callback = function(state)
-        longStrideEnabled = state
-
-    end
-})
-
-local StrideSlider = Character:Slider({
-    Title = "Stride Length",
-    Value = { Min = 3, Max = 5, Default = 3 },
-    Callback = function(value)
-      strideLength = value
-    end
- })
- 
-local InfinityStamina = Character:Toggle({
-    Title = "Infinity Stamina",
-    Value = false,
-    Callback = function(state)
-        c().EnabledSpeed = state
-        if state then
-            task.spawn(func['EnabledSpeed'])
-        else
-            c().EnabledSpeed = false
-        end
-    end
-})
    
-
-local AutoPickItem = Character:Toggle({
+   local AutoPickItem = Character:Toggle({
     Title = "PickItem",
     Value = false, -- เริ่มต้นปิด
     Callback = function(state)
@@ -1486,35 +1443,15 @@ local AutoPickItem = Character:Toggle({
 })
 
     
-    Character:Space()
-    
-local cilam = Character:Toggle({
-    Title = "Clear Quest",
-    Value = false, -- เริ่มต้นปิด
-    Callback = function(state)
-        if state then
-            local QuestAll = PlayerGui.Quests.QuestsHolder.QuestsScrollingFrame
-            for _, v in pairs(QuestAll:GetChildren()) do
-                if v.Name ~= "UIListLayout" then
-                    ServerFunc:Action("claim_quest", v.Name)
-                end
-            end
-        end
-    end
-})
 
     
 end
 
-
--- */  Input Tab  /* --
 do
     local Esp = Window:Tab({
         Title = "ESP",
         Icon = "text-cursor-input",
     })
-    
-    
     local espbox1 = Esp:Toggle({
     Title = "Esp 3DBox",
     Value = false, -- เริ่มต้นปิด
@@ -1548,403 +1485,24 @@ do
          ESPSettings.HealthEnabled = state
     end
      })
-     
-    local espbox4 = Esp:Toggle({
-    Title = "Esp InventoryViewer",
-    Value = false, -- เริ่มต้นปิด
-    Callback = function(state)
-         c().EnabledInventoryViewer = state
-    end
-     })
-     
-    local espbox3 = Esp:Toggle({
+    
+    local espbox9 = Esp:Toggle({
     Title = "Esp Viewer Items 3D Box",
     Value = false, -- เริ่มต้นปิด
     Callback = function(state)
          ESPSettings.EspViewitems = state
     end
      })
-
-end
-
-
-
-do
-
-local Players = game:GetService("Players")
-
-local UserInputService = game:GetService("UserInputService")
-
-local player = Players.LocalPlayer
-
-local character = player.Character or player.CharacterAdded:Wait()
-
-local ANIMATION_ID = "100203839720961"
-
-local screenGui = Instance.new("ScreenGui")
-
-screenGui.Name = "AnimationGUI"
-
-screenGui.ResetOnSpawn = false  
-
-screenGui.Parent = player.PlayerGui
-
-local mainFrame = Instance.new("Frame")
-
-mainFrame.Size = UDim2.new(0, 200, 0, 100)
-
-mainFrame.Position = UDim2.new(0, 10, 0, 10)
-
-mainFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-
-mainFrame.BorderSizePixel = 0
-
-mainFrame.Parent = screenGui
-
-local corner = Instance.new("UICorner")
-
-corner.CornerRadius = UDim.new(0, 8)
-
-corner.Parent = mainFrame
-
-local title = Instance.new("Frame")
-
-title.Size = UDim2.new(1, 0, 0, 30)
-
-title.Position = UDim2.new(0, 0, 0, 0)
-
-title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-
-title.Parent = mainFrame
-
-local titleCorner = Instance.new("UICorner")
-
-titleCorner.CornerRadius = UDim.new(0, 8)
-
-titleCorner.Parent = title
-
-local titleText = Instance.new("TextLabel")
-
-titleText.Size = UDim2.new(0.8, 0, 1, 0)
-
-titleText.Position = UDim2.new(0, 5, 0, 0)
-
-titleText.BackgroundTransparency = 1
-
-titleText.Text = "Invisible | DZHUB"
-
-titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-titleText.Font = Enum.Font.GothamBold
-
-titleText.TextSize = 14
-
-titleText.TextXAlignment = Enum.TextXAlignment.Left
-
-titleText.Parent = title
-
-local closeButton = Instance.new("TextButton")
-
-closeButton.Size = UDim2.new(0, 25, 0, 25)
-
-closeButton.Position = UDim2.new(1, -30, 0.5, -12)
-
-closeButton.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
-
-closeButton.Text = "X"
-
-closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-closeButton.Font = Enum.Font.GothamBold
-
-closeButton.TextSize = 14
-
-closeButton.Parent = title
-
-local closeCorner = Instance.new("UICorner")
-
-closeCorner.CornerRadius = UDim.new(0, 4)
-
-closeCorner.Parent = closeButton
-
-local toggleButton = Instance.new("TextButton")
-
-toggleButton.Size = UDim2.new(0, 120, 0, 40)
-
-toggleButton.Position = UDim2.new(0.5, -60, 0.5, -20)
-
-toggleButton.BackgroundColor3 = Color3.fromRGB(220, 60, 60)
-
-toggleButton.Text = "OFF"
-
-toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-
-toggleButton.Font = Enum.Font.GothamBold
-
-toggleButton.TextSize = 16
-
-toggleButton.Parent = mainFrame
-
-local buttonCorner = Instance.new("UICorner")
-
-buttonCorner.CornerRadius = UDim.new(0, 6)
-
-buttonCorner.Parent = toggleButton
-
-local animationTrack
-
-local isPlaying = false
-
-local humanoid
-
-local originalTransparency = {}
-
-local function makeTransparent()
-
-    if not character then return end
-
+     
+    local EspInventoryViewer = Esp:Toggle({
+    Title = "Esp InventoryViewer",
+    Value = false,
+    Callback = function(state)
+        settings.EnabledInventoryViewer = state
+    end
+    })
     
-
-    for _, part in pairs(character:GetChildren()) do
-
-        if part:IsA("BasePart") then
-
-            originalTransparency[part] = part.Transparency
-
-            part.Transparency = 1
-
-        end
-
-    end
-
-end
-
-local function makeVisible()
-
-    if not character then return end
-
     
-
-    for part, transparency in pairs(originalTransparency) do
-
-        if part and part.Parent then
-
-            part.Transparency = transparency
-
-        end
-
-    end
-
-    originalTransparency = {}
-
-end
-
-local function loadAnimation()
-
-    if not character then return end
-
     
-
-    humanoid = character:FindFirstChildOfClass("Humanoid")
-
-    if not humanoid then return end
-
     
-
-    local animation = Instance.new("Animation")
-
-    animation.AnimationId = "rbxassetid://" .. ANIMATION_ID
-
-    
-
-    animationTrack = humanoid:LoadAnimation(animation)
-
 end
-
-local function stopAnimation()
-
-    if animationTrack then
-
-        animationTrack:Stop()
-
-    end
-
-    makeVisible()
-
-    isPlaying = false
-
-    toggleButton.BackgroundColor3 = Color3.fromRGB(220, 60, 60)
-
-    toggleButton.Text = "OFF"
-
-end
-
-player.CharacterAdded:Connect(function(newChar)
-
-    character = newChar
-
-    wait(1)
-
-    loadAnimation()
-
-    stopAnimation()
-
-end)
-
-player.CharacterRemoving:Connect(function()
-
-    stopAnimation()
-
-end)
-
-loadAnimation()
-
-local function toggleAnimation()
-
-    if not animationTrack then
-
-        loadAnimation()
-
-        if not animationTrack then return end
-
-    end
-
-    
-
-    if isPlaying then
-
-        animationTrack:Stop()
-
-        makeVisible()
-
-        toggleButton.BackgroundColor3 = Color3.fromRGB(220, 60, 60)
-
-        toggleButton.Text = "OFF"
-
-        isPlaying = false
-
-    else
-
-        animationTrack:Play()
-
-        animationTrack:AdjustSpeed(0.5) 
-
-        makeTransparent()
-
-        toggleButton.BackgroundColor3 = Color3.fromRGB(60, 220, 60)
-
-        toggleButton.Text = "ON"
-
-        isPlaying = true
-
-    end
-
-end
-
-toggleButton.MouseButton1Click:Connect(toggleAnimation)
-
-closeButton.MouseButton1Click:Connect(function()
-
-    screenGui:Destroy()
-
-end)
-
-local dragging = false
-
-local dragInput, dragStart, startPos
-
-local function update(input)
-
-    local delta = input.Position - dragStart
-
-    mainFrame.Position = UDim2.new(
-
-        startPos.X.Scale, 
-
-        startPos.X.Offset + delta.X, 
-
-        startPos.Y.Scale, 
-
-        startPos.Y.Offset + delta.Y
-
-    )
-
-end
-
-local function onInputBegan(input)
-
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or 
-
-       input.UserInputType == Enum.UserInputType.Touch then
-
-        dragging = true
-
-        dragStart = input.Position
-
-        startPos = mainFrame.Position
-
-        
-
-        title.BackgroundColor3 = Color3.fromRGB(50, 50, 100)
-
-        
-
-        input.Changed:Connect(function()
-
-            if input.UserInputState == Enum.UserInputState.End then
-
-                dragging = false
-
-                title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-
-            end
-
-        end)
-
-    end
-
-end
-
-local function onInputChanged(input)
-
-    if input.UserInputType == Enum.UserInputType.MouseMovement or 
-
-       input.UserInputType == Enum.UserInputType.Touch then
-
-        dragInput = input
-
-    end
-
-end
-
-title.InputBegan:Connect(onInputBegan)
-
-title.InputChanged:Connect(onInputChanged)
-
-mainFrame.InputBegan:Connect(onInputBegan)
-
-mainFrame.InputChanged:Connect(onInputChanged)
-
-UserInputService.InputChanged:Connect(function(input)
-
-    if input == dragInput and dragging then
-
-        update(input)
-
-    end
-
-end)
-
-
-
-end
-
-
-
-
-
-
-
-print("heeee")
-
-
