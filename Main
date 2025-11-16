@@ -1440,7 +1440,7 @@ local jumpToggle = Character:Toggle({
     Title = "PickItem",
     Value = false, -- เริ่มต้นปิด
     Callback = function(state)
-    c().AutoPickItem = state
+   -- c().AutoPickItem = state
     pickUpZoneEnabled = state
         resizeAll() -- ปรับขนาดทันที
     end
