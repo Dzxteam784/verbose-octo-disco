@@ -400,6 +400,8 @@ local SendRemote = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Send"
 local Camera = workspace.CurrentCamera
 
 
+c().MegicBullet = false
+
 local function getPredictedPosition(target)
     local root = target.Parent:FindFirstChild("HumanoidRootPart")
     if not root then return target.Position end
@@ -421,7 +423,14 @@ oldSendFire = hookfunction(SendRemote.FireServer, function(self, ...)
         if targetHead and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
             local predictedPos = getPredictedPosition(targetHead)
             
+            if c().MegicBullet then
             args[4] = CFrame.new(math.huge,math.huge,math.huge)
+            print("ยิงทะลุ")
+            else
+            args[4] = CFrame.new(LocalPlayer.Character.Head.Position, predictedPos)
+            print("ยิงปกติ")
+            end
+            
             args[5] = {
                 {
                     {
@@ -430,7 +439,7 @@ oldSendFire = hookfunction(SendRemote.FireServer, function(self, ...)
                         Normal = (predictedPos - LocalPlayer.Character.Head.Position).Unit,
                         Material = Enum.Material.Plastic,
                         Distance = (predictedPos - LocalPlayer.Character.Head.Position).Magnitude
-                    },
+                   }
                
                 }
             }
@@ -568,7 +577,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
         if hrp then
             local currentVelocity = hrp.Velocity
             
-            hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(0.0010), 0)
+            hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(0.0060), 0)
         
             hrp.AssemblyLinearVelocity = Vector3.new(math.random(-50, 50), math.random(0, 50), math.random(-50, 50))   game:GetService("RunService").RenderStepped:Wait() 
             hrp.Velocity = currentVelocity 
@@ -1204,7 +1213,7 @@ func['EnabledSnap'] = function()
 end
 
 func['AutoPickItem'] = function()
-    while waits() do 
+    while task.wait() do 
         if c().AutoPickItem then 
             for i,v in get(droppedItems:GetChildren()) do 
                 if not v:GetAttribute('Locked') then
@@ -1218,31 +1227,6 @@ func['AutoPickItem'] = function()
     end
 end
 
-local droppedItems = workspace:WaitForChild("DroppedItems")
-local pickUpZoneEnabled = false -- สถานะ toggle
-
--- ฟังก์ชันปรับขนาด PickUpZone
-local function resizePickUpZone(model)
-    if model:IsA("Model") then
-        for _, child in ipairs(model:GetChildren()) do
-            if child:IsA("Part") and child.Name == "PickUpZone" then
-                child.Size = pickUpZoneEnabled and Vector3.new(15, 15, 15) or Vector3.new(5,3,3)
-            end
-        end
-    end
-end
-
--- ปรับขนาด PickUpZone ของโมเดลที่มีอยู่แล้ว
-local function resizeAll()
-    for _, model in ipairs(droppedItems:GetChildren()) do
-        resizePickUpZone(model)
-    end
-end
-
--- ฟังเหตุการณ์ถ้ามีโมเดลใหม่ถูกเพิ่ม
-droppedItems.ChildAdded:Connect(function(newModel)
-    resizePickUpZone(newModel)
-end)
 
 
 
@@ -1265,6 +1249,16 @@ local Main = Window:Tab({
         SilentAim = state
       end
     })
+    
+    local Megic = Main:Toggle({
+      Title = "MegicBullet",
+      Value = false,
+      Callback = function(state)    
+         c().MegicBullet = state
+      end
+    })
+    
+    
     
     local FovEn = Main:Toggle({
       Title = "Fov Enabled",
@@ -1444,8 +1438,6 @@ local jumpToggle = Character:Toggle({
     Value = false, -- เริ่มต้นปิด
     Callback = function(state)
     c().AutoPickItem = state
-    pickUpZoneEnabled = state
-        resizeAll() -- ปรับขนาดทันที
     end
 })
 
@@ -1493,13 +1485,13 @@ do
     end
      })
     
-    local espbox9 = Esp:Toggle({
-    Title = "Esp Viewer Items 3D Box",
-    Value = false, -- เริ่มต้นปิด
-    Callback = function(state)
-         ESPSettings.EspViewitems = state
-    end
-     })
+   -- local espbox9 = Esp:Toggle({
+   -- Title = "Esp Viewer Items 3D Box",
+  --  Value = false, -- เริ่มต้นปิด
+  --  Callback = function(state)
+        -- ESPSettings.EspViewitems = state
+   -- end
+    -- })
      
     local EspInventoryViewer = Esp:Toggle({
     Title = "Esp InventoryViewer",
