@@ -283,6 +283,10 @@ function ServerFunc:Action(...)
 end
 
 
+function ServerFunc:dist(Objective)
+	return (Objective.Position - RootPart.Position).Magnitude
+end
+
 
 local fov = Drawing.new("Circle")
 fov.Radius = 200
@@ -564,7 +568,7 @@ game:GetService("RunService").Heartbeat:Connect(function()
         if hrp then
             local currentVelocity = hrp.Velocity
             
-            hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(0.0060), 0)
+            hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(0.0070), 0)
         
             hrp.AssemblyLinearVelocity = Vector3.new(math.random(-50, 50), math.random(0, 50), math.random(-50, 50))   game:GetService("RunService").RenderStepped:Wait() 
             hrp.Velocity = currentVelocity 
@@ -1124,6 +1128,7 @@ func['AutoPickItem'] = function()
 end
 
 c().HitAura = true
+c().HitDistance = 10
 
 func['HitAura'] = function()
 	while c().HitAura do task.wait()
@@ -1143,11 +1148,7 @@ func['HitAura'] = function()
 	end
 end
 
-
 task.spawn(func['HitAura'])
-
-
-
 
 
 
@@ -1423,3 +1424,10 @@ do
     
     
 end
+
+
+setfflag("NextGenReplicatorEnabledWrite4", "false")
+task.wait(2)
+setfflag("NextGenReplicatorEnabledWrite4", "true")
+
+
