@@ -1597,6 +1597,8 @@ local function equipHackTool()
     end
 end
 
+
+
 func['EnabledAutoATM'] = function()
 	while waits() do
         if c().EnabledAutoATM then
@@ -1618,33 +1620,32 @@ func['EnabledAutoATM'] = function()
                             if hacktool[2] then 
                                 if hacktool[1] >= 0 then
                                     local closestATM, shortestDist = nil, math.huge
+      
                                     for _, vx in get(workspace.Map.Props.ATMs:GetChildren()) do
                                         if vx.Name == "ATM" then
                                             c().keys = {}
                                             for k in getn(vx:GetAttributes()) do insert(c().keys, k) end
                                             table.sort(c().keys)
                                             if c().keys[3] and vx:GetAttribute(c().keys[3]) == false then
-                                                local d = ServerFunc:dist(vx.Area.CFrame)
+                                         while waits()  do                                           local d = ServerFunc:dist(vx.Area.CFrame)
                                                 if d < shortestDist then
                                                     closestATM = vx
                                                     shortestDist = d
                                                 end
+                                                end
                                             end
                                         end
                                     end
+                                    
                                     if closestATM then 
                                         if closestATM:GetAttribute(c().keys[3]) == false then
-                                        repeat
-                                            waits()
-                                            if not ServerFunc:GetInfo(c().HackToolSelected)[2] then break end
-                                            if not ServerFunc:Detect() then
-                                                if closestATM:GetAttribute(c().keys[3]) == true then  -- เพิ่มเช็คนี้ก่อนทุกอย่าง
-                                                    break 
-                                                end
-                                                local distance = ServerFunc:dist(closestATM.Area)
-                                                if distance > 5 and Humanoid.Sit then
-                                                    ServerFunc:Drive(v, closestATM.Area.Position, c().EnabledAutoATM, closestATM)
-                                        elseif distance <= 5 and Humanoid.Sit then
+                                            repeat waits()
+                                                if not ServerFunc:GetInfo(c().HackToolSelected)[2] then break end
+                                                if not ServerFunc:Detect() then
+                                                    local distance = ServerFunc:dist(closestATM.Area)
+                                                    if distance > 5 and Humanoid.Sit then
+                                                        ServerFunc:Drive(v, closestATM.Area.Position, c().EnabledAutoATM, closestATM)
+                                                    elseif distance <= 5 and Humanoid.Sit then
                                                         if c().EnabledDeposit then
                                                             if ServerFunc:GetMoney() > 0 then
                                                                 Net.get("transfer_funds", "hand", "bank", ServerFunc:GetMoney())
@@ -1673,8 +1674,7 @@ func['EnabledAutoATM'] = function()
                                                         fireproximityprompt(v.PrimaryPart:FindFirstChild('DrivePromptAttachment'):FindFirstChild('DrivePrompt'))
                                                     end
                                                 end
-                                            until closestATM:GetAttribute(c().keys[3]) == true or hacktool[1] <= 0 or not c().EnabledAutoATM
-            
+                                            until closestATM:GetAttribute(c().keys[3]) == true or not c().EnabledAutoATM or hacktool[1] == 0
                                         end
                                     end
                                 end
