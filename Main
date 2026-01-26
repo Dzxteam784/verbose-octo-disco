@@ -42,24 +42,6 @@ do
     end
 end
 
-
-if game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild('SplashScreenGui') then
-    task.spawn(function()
-        repeat task.wait()
-            local player = game:GetService("Players").LocalPlayer
-            local gui = player:WaitForChild("PlayerGui")
-            if player:GetAttribute("IsConnected") then 
-                if gui:FindFirstChild("SplashScreenGui") and player:GetAttribute('InSplashScreen') then 
-                    firesignal(gui:FindFirstChild("SplashScreenGui"):FindFirstChild('Frame'):FindFirstChild("PlayButton").MouseButton1Click)    
-                end 
-                if gui:FindFirstChild("CharacterCreator") and player:GetAttribute('InMenuCharacterCreator') and not player:GetAttribute("InSplashScreen") then 
-                    firesignal(gui:FindFirstChild("CharacterCreator").MenuFrame:FindFirstChild("AvatarMenuSkipButton").MouseButton1Click)
-                end
-            end
-        until not player:GetAttribute('InSplashScreen') and not player:GetAttribute('InCharacterCreater') and player:GetAttribute('InMenuCharacterCreator') and not gui:FindFirstChild("CharacterCreator").Enabled
-    end)
-end
-
 local replicated = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
 local PathfindingService = game:GetService("PathfindingService")
