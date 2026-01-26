@@ -1984,11 +1984,6 @@ func['StartJob'] = function()
     end
 end
 
-func['Farming'] = function()
-
-
-end
-
 
 func['EnabledSnap'] = function()
     local baseY = RootPart.Position.Y
@@ -2008,6 +2003,34 @@ func['EnabledSnap'] = function()
     end
 end
 
+
+func['EnabledAnonymous'] = function()
+    while waits(0.1) do 
+        if c().EnabledAnonymous then 
+            if Character then 
+                local CharacterBilboard = RootPart:FindFirstChild('CharacterBillboardGui') 
+                if CharacterBilboard then 
+                    local PlayerName = CharacterBilboard:FindFirstChild('PlayerName')
+                    if PlayerName then 
+                        PlayerName.Text = ServerFunc:Generate()
+                        PlayerName.LevelImage.LevelText.Text = tostring(math.random(1,100))
+                    end
+                end
+            end 
+        else 
+            if Character then 
+                local CharacterBilboard = RootPart:FindFirstChild('CharacterBillboardGui') 
+                if CharacterBilboard then 
+                    local PlayerName = CharacterBilboard:FindFirstChild('PlayerName')
+                    if PlayerName then 
+                        PlayerName.Text = Client.Name
+                        PlayerName.LevelImage.LevelText.Text = ServerFunc:GetLevel()
+                    end
+                end
+            end 
+        end 
+    end
+end
 
 local EverDown = false
 func['AntiDied'] = function()
@@ -2189,6 +2212,8 @@ Window:load()
 
 local Tabs = {
 	AutoFarm = Window:create_tab("General",'library');
+	Combat = Window:create_tab('Combat','sword');
+	Visual = Window:create_tab('Visual','eye');
 	Players = Window:create_tab('Players','user');
 	Miscellaneous = Window:create_tab('Miscellaneous','album');
 }
@@ -2220,7 +2245,7 @@ local function Toggle(section,titles,flags,key)
                     tasks = task.spawn(func[key])
                 end
             end
-			--saveConfig()
+			saveConfig()
         end
 	})
     return Toggle
@@ -2237,7 +2262,7 @@ local function Dropdown(sections,list,multi,flags,titles,key)
         callback = function(value)
             Settings[key] = value
 			c()[key] = value
-			--saveConfig()
+			saveConfig()
         end,
     })
     return dropdown
@@ -2261,7 +2286,7 @@ local function Slider(sections,titles,flags,min,max,values,key,CallbackF)
         callback = function(value)
             Settings[key] = value 
             c()[key] = value 
-           -- saveConfig()
+            saveConfig()
             if CallbackF then CallbackF(value) end
         end
 
@@ -2297,6 +2322,7 @@ do
     local Character_Tabs = Section(Tabs.AutoFarm, false, "right", "Character", 'About Your Character')
     Toggle(Character_Tabs,"Snap","DownTp","EnabledSnap")
     Slider(Character_Tabs,"Y Offset", "Yoffset",1,100,30,"YOffset")
+    Toggle(Character_Tabs,"Anonymous Name (Client)","Anonymous","EnabledAnonymous")
     Toggle(Character_Tabs,"Anti Died","AntiDied","AntiDied")
     -- Toggle(Character_Tabs,"Anti Aim","AntiAim","AntiAim")
     Toggle(Character_Tabs,"Auto Respawn","Automatic","EnabledAutoRespawn")
@@ -2313,6 +2339,79 @@ do
                 ServerFunc:Action("claim_quest",v.Name)
             end 
         end
+    end)
+    local Aimbot_Combat = Section(Tabs.Combat, false, "left", "Aimbots", 'just aimbot kub pom.')
+    Toggle(Aimbot_Combat,"Enabled Slient Aim","SlientAim","EnabledSlientAim")
+    Toggle(Aimbot_Combat,"Enabled Wall Shot","WallShoot","EnabledWallShoot")
+    Toggle(Aimbot_Combat,"Enabled Ingore Friend","Ingorefriend","EnabledIngoreFriend")
+    Toggle(Aimbot_Combat,"Enabled Pov","Pov","EnabledPov")
+    Toggle(Aimbot_Combat,"Enabled Rgb","Rgb","EnabledRainbow")
+    Slider(Aimbot_Combat,"Radius Pov", "Rd",1,800,200,"Radius")
+    Dropdown(Aimbot_Combat,{"Cursor","Middle"},false,"Pov Position Type","Select Position type","PositionType")
+    local Combats_Miscellneous = Section(Tabs.Combat, false, "right", "Miscellneous", 'nothing bro just look here.')
+    Toggle(Combats_Miscellneous,"Hit Aura","HitAura","HitAura")
+    Slider(Combats_Miscellneous,"Distance", "Ds",1,10,1,"HitDistance")
+    Toggle(Combats_Miscellneous,"Throw Aura","Thro","EnabledThrowAura")
+    local Esp_Visual = Section(Tabs.Visual, false, "left", "Esp", 'just esp you know.')
+    Toggle(Esp_Visual,"Box","Boxs","EnabledBox")
+    Toggle(Esp_Visual,"Tracer","Tracer","EnabledTracer")
+    Toggle(Esp_Visual,"Skeleton","Skeleton","EnabledSkeleton")
+    Toggle(Esp_Visual,"Health bar","hpbar","EnabledHpBar")
+    Toggle(Esp_Visual,"Name","Name","EnabledNameTag")
+    Toggle(Esp_Visual,"Distance","dist","EnabledDistTag")
+    Toggle(Esp_Visual,"Inventory Viewer","InventoryViewer","EnabledInventoryViewer")
+    Toggle(Esp_Visual,"Item dropped","EnabledItemDrop","EnabledItemDrop")
+    local Esp_Settings = Section(Tabs.Visual, false, "right", "Esp Settings", 'just settings esp you know.')
+    Toggle(Esp_Settings,"Enabled Friend Check","EnabledFriend","EnabledFriendCheck")
+    Toggle(Esp_Settings,"Enabled RGB","EnabledRgb","EnabledRGBEsp")
+    local Status = Section(Tabs.Players, false, "left", "Status", 'About ur infomation.')
+    LevelSkill = Status:create_text({
+        text = "🌟 Level : nil"
+    })
+    JanitorLevel = Status:create_text({
+        text = "🧹 Janior : nil"
+    })
+    ShelfLevel = Status:create_text({
+        text = "📦 Shelf Stocker : nil"
+    })
+    ChefLevel = Status:create_text({
+        text = "🥩 Cook : nil"
+    })
+    FishingLevel = Status:create_text({
+        text = "🐟 Fishing : nil"
+    })
+    Stamina = Status:create_text({
+        text = "🍾 Stamina : nil"
+    })
+    FarmingLevel = Status:create_text({
+        text = "🧑‍🌾 Farming : nil"
+    })
+    Swiper = Status:create_text({
+        text = "👩‍💻 Swiper : nil"
+    })
+    local Players_Modifies = Section(Tabs.Players, false, "left", "Modifies", 'Modifies Humanoid.')
+    Toggle(Players_Modifies,"Enabled Speed","SpeedsMod", "EnabledSpeed")
+    Slider(Players_Modifies,"Speed Multiple", "SpeedValue",1,35,30,"SpeedAmount")
+    Toggle(Players_Modifies,"Enabled Jump","JumpMod", "EnabledJump")
+    Slider(Players_Modifies,"Jump Multiple", "JumpValue",1,40,20,"JumpAmount")
+    local PickItem = Section(Tabs.Players, false, "left", "Pick item", "Automatic to pick item")
+    Toggle(PickItem,"Auto Pick Item","EnabledPickItem","AutoPickItem")
+    Slider(PickItem,"Distance","DistancePickitem",1,20,15,"Stud_PickItem")
+    local Crates = Section(Tabs.Players, false, "right", "Crate (near)", 'Instant Open Crate.')
+    Dropdown(Crates,{"Pistol","Rifle","Shotgun","Special"},false,"GunAmmo","Select Ammo Crate","AmmoCrate")
+    Button(Crates,"Open",function()
+        local crate = workspace:WaitForChild("Map"):WaitForChild("Tiles"):WaitForChild("GunShopTile"):WaitForChild("PatriotWeapons"):WaitForChild("Interior"):WaitForChild("Crates"):WaitForChild("Ammo Crate"):WaitForChild("CrateOptions"):WaitForChild(c()['AmmoCrate'])
+        ServerFunc:Action("open_crate", crate, "money")
+    end)
+    Dropdown(Crates,{"Basic","Advanced","Superior","Elite","Legendary","Omega"},false,"Gun","Select Gun Crate","GunCrate")
+    Button(Crates,"Open",function()
+        local crate = workspace:WaitForChild("Map"):WaitForChild("Tiles"):WaitForChild("GunShopTile"):WaitForChild("PatriotWeapons"):WaitForChild("Interior"):WaitForChild("Crates"):WaitForChild("Weapon Crate"):WaitForChild("CrateOptions"):WaitForChild(c()['GunCrate'])
+        ServerFunc:Action("open_crate", crate, "money")
+    end)
+    Dropdown(Crates,{"Basic","Rare","Elite"},false,"Car","Select Car Crate","CaseCrate")
+    Button(Crates,"Open",function()
+        local crate = workspace:WaitForChild("Map"):WaitForChild("Tiles"):WaitForChild("PrestigeDealerAndHousing"):WaitForChild("PrestigeCarDealer"):WaitForChild("Interior"):WaitForChild("Crates"):WaitForChild("Car Crate"):WaitForChild("CrateOptions"):WaitForChild(c()['CaseCrate'])
+        ServerFunc:Action("open_crate", crate, "money")
     end)
     local Miscellaneous_Player = Section(Tabs.Players, false, "right", "Miscellneous", 'na.')
     Toggle(Miscellaneous_Player,"Auto Finish","AutoFinish","AutoFinish")
