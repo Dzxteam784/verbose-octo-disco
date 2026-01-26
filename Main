@@ -2,195 +2,6 @@ if not game:IsLoaded() then repeat task.wait() until game:IsLoaded() end
 
 if not (game.PlaceId == 104715542330896 or game.PlaceId == 97556409405464) then return end
 
-
-local WindUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/Dzxteam784/DZHUB/refs/heads/main/dist/main.lua"))()
-
-
-local SOUND_ID = "rbxassetid://232127604"
-
-local sound = Instance.new("Sound")
-sound.Name = "LocalSound"
-sound.SoundId = SOUND_ID
-sound.Volume = 1
-sound.PlaybackSpeed = 0.8
-sound.Looped = false
-
--- ใส่เข้า SoundService ทำให้เสียงเป็น “Local Only”
-sound.Parent = game:GetService("SoundService")
-
-
-local Window = WindUI:CreateWindow({
-    Title = "DZHUB'Dev | v-1.0 PvP - Test",
-    Author = "by danzaza",
-    
-    BackgroundImageTransparency = 0.25,
-    HideSearchBar = false,
-    Folder = "Dzhub",
-  
-    SideBarWidth = 200,
-    
-    --[[KeySystem = {
-        Note = "Key System Dzhub.",
-        SaveKey = false,
-        Key = { "1234", "test" },
-        URL = "https://github.com/Footagesus/WindUI",
-        Thumbnail = {
-            Image = "rbxassetid://134656917989517",
-        },
-    },--]]
-    
-    
-    OpenButton = {
-        Title = "DZHUB | v-1.0",
-        Enabled = true,
-        Draggable = true,
-        OnlyMobile = false,
-
-        OnlyIcon = true,     -- ใช้เฉพาะโลโก้
-        Icon = "rbxassetid://134656917989517",
-
-        StrokeThickness = 0, -- ไม่มีขอบ
-    }
-})
-
-sound:Play()
-
--- */ Other Functions /* --
-local function parseJSON(luau_table, indent, level, visited)
-    indent = indent or 2
-    level = level or 0
-    visited = visited or {}
-    
-    local currentIndent = string.rep(" ", level * indent)
-    local nextIndent = string.rep(" ", (level + 1) * indent)
-    
-    if luau_table == nil then
-        return "null"
-    end
-    
-    local dataType = type(luau_table)
-    
-    if dataType == "table" then
-        if visited[luau_table] then
-            return "\"[Circular Reference]\""
-        end
-        
-        visited[luau_table] = true
-        
-        local isArray = true
-        local maxIndex = 0
-        
-        for k, _ in pairs(luau_table) do
-            if type(k) == "number" and k > maxIndex then
-                maxIndex = k
-            end
-            if type(k) ~= "number" or k <= 0 or math.floor(k) ~= k then
-                isArray = false
-                break
-            end
-        end
-        
-        local count = 0
-        for _ in pairs(luau_table) do
-            count = count + 1
-        end
-        if count ~= maxIndex and isArray then
-            isArray = false
-        end
-        
-        if count == 0 then
-            return "{}"
-        end
-        
-        if isArray then
-            if count == 0 then
-                return "[]"
-            end
-            
-            local result = "[\n"
-            
-            for i = 1, maxIndex do
-                result = result .. nextIndent .. parseJSON(luau_table[i], indent, level + 1, visited)
-                if i < maxIndex then
-                    result = result .. ","
-                end
-                result = result .. "\n"
-            end
-            
-            result = result .. currentIndent .. "]"
-            return result
-        else
-            local result = "{\n"
-            local first = true
-            
-            local keys = {}
-            for k in pairs(luau_table) do
-                table.insert(keys, k)
-            end
-            table.sort(keys, function(a, b)
-                if type(a) == type(b) then
-                    return tostring(a) < tostring(b)
-                else
-                    return type(a) < type(b)
-                end
-            end)
-            
-            for _, k in ipairs(keys) do
-                local v = luau_table[k]
-                if not first then
-                    result = result .. ",\n"
-                else
-                    first = false
-                end
-                
-                if type(k) == "string" then
-                    result = result .. nextIndent .. "\"" .. k .. "\": "
-                else
-                    result = result .. nextIndent .. "\"" .. tostring(k) .. "\": "
-                end
-                
-                result = result .. parseJSON(v, indent, level + 1, visited)
-            end
-            
-            result = result .. "\n" .. currentIndent .. "}"
-            return result
-        end
-    elseif dataType == "string" then
-        local escaped = luau_table:gsub("\\", "\\\\")
-        escaped = escaped:gsub("\"", "\\\"")
-        escaped = escaped:gsub("\n", "\\n")
-        escaped = escaped:gsub("\r", "\\r")
-        escaped = escaped:gsub("\t", "\\t")
-        
-        return "\"" .. escaped .. "\""
-    elseif dataType == "number" then
-        return tostring(luau_table)
-    elseif dataType == "boolean" then
-        return luau_table and "true" or "false"
-    elseif dataType == "function" then
-        return "\"function\""
-    else
-        return "\"" .. dataType .. "\""
-    end
-end
-
-local function tableToClipboard(luau_table, indent)
-    indent = indent or 4
-    local jsonString = parseJSON(luau_table, indent)
-    setclipboard(jsonString)
-    return jsonString
-end
-
-Window:SetBackgroundTransparency(0.1)
-Window:SetBackgroundImageTransparency(0.1)
-
-Window:Tag({
-    Title = "v1.0.1",
-    Color = Color3.fromHex("#FF0000")
-})
-
-
-
 local require = require or getfenv().require
 local cloneref = cloneref or function(f) return f end
 local Net = require(cloneref(game:GetService('ReplicatedStorage').Modules.Core.Net))
@@ -232,6 +43,22 @@ do
 end
 
 
+if game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"):WaitForChild('SplashScreenGui') then
+    task.spawn(function()
+        repeat task.wait()
+            local player = game:GetService("Players").LocalPlayer
+            local gui = player:WaitForChild("PlayerGui")
+            if player:GetAttribute("IsConnected") then 
+                if gui:FindFirstChild("SplashScreenGui") and player:GetAttribute('InSplashScreen') then 
+                    firesignal(gui:FindFirstChild("SplashScreenGui"):FindFirstChild('Frame'):FindFirstChild("PlayButton").MouseButton1Click)    
+                end 
+                if gui:FindFirstChild("CharacterCreator") and player:GetAttribute('InMenuCharacterCreator') and not player:GetAttribute("InSplashScreen") then 
+                    firesignal(gui:FindFirstChild("CharacterCreator").MenuFrame:FindFirstChild("AvatarMenuSkipButton").MouseButton1Click)
+                end
+            end
+        until not player:GetAttribute('InSplashScreen') and not player:GetAttribute('InCharacterCreater') and player:GetAttribute('InMenuCharacterCreator') and not gui:FindFirstChild("CharacterCreator").Enabled
+    end)
+end
 
 local replicated = game:GetService("ReplicatedStorage")
 local TweenService = game:GetService("TweenService")
@@ -974,9 +801,9 @@ do
     if not c().Created then 
     local BlockNodeData = {
         {20.000, 20.000, 6.000, -194.000, 258.000, 505.000},
-        --{20.000, 20.000, 6.000, 943.680, 255.180, -569.610},
+        {20.000, 20.000, 6.000, 943.680, 255.180, -569.610},
         {6.000, 20.000, 6.000, 936.770, 255.180, -646.740},
-        {6.000, 20.000, 6.000, 1220.780, 255.180, -630.580},
+        {6.000, 20.000, 6.000, 1220.780, 255.180, -635.580},
         {6.000, 20.000, 6.000, 1220.560, 255.080, -546.220},
         {6.000, 20.000, 6.000, -96.210, 255.190, 106.680},
         {6.000, 20.000, 6.000, -152.220, 255.190, 105.820},
@@ -994,7 +821,7 @@ do
         {6.000, 20.000, 6.000, -291.880, 255.350, 285.250},
         {6.000, 20.000, 6.000, -290.800, 255.350, 309.950},
         {6.000, 20.000, 6.000, -296.050, 255.350, 310.870},
-        {6.000, 20.000, 6.000, -135.750, 255.350, 315.280},
+        {6.000, 20.000, 6.000, -128.750, 255.350, 315.280},
         {6.000, 20.000, 6.000, -276.600, 255.150, 63.490},
         {6.000, 20.000, 6.000, -289.950, 255.350, 203.010},
     }
@@ -1020,40 +847,20 @@ do
     end 
 end
 
--- ฟังก์ชันปิด CanCollide และเพิ่ม PathfindingModifier
-local function disableDoorSystemCollisions(model)
-    for _, part in ipairs(model:GetDescendants()) do
-        if part:IsA("BasePart") then
-            part.CanCollide = false
-            
-            -- เพิ่ม PathfindingModifier ให้เดินทะลุ
-            local modifier = part:FindFirstChildOfClass("PathfindingModifier")
-            if not modifier then
-                modifier = Instance.new("PathfindingModifier")
-                modifier.PassThrough = true
-                modifier.Parent = part
-            end
-        end
+do
+    for _, v in getn(workspace:GetDescendants()) do
+        if v.Name == "DoorSystem" then  v:Destroy() end if v.Name == "BasementDoor" then  v:Destroy() end if v.Name == "VehicleBlockers" then v:Destroy() end
     end
 end
 
--- 1. ปิด DoorSystem ที่มีอยู่แล้วทั้งหมดใน Workspace
-for _, descendant in ipairs(workspace:GetDescendants()) do
-    if descendant.Name == "DoorSystem" then
-        disableDoorSystemCollisions(descendant)
-    end
+do
+	local GC = getconnections or get_signal_cons
+	if GC then
+		for _, conn in get(GC(game:GetService("Players").LocalPlayer.Idled)) do
+			if conn.Disable then conn:Disable() elseif conn.Disconnect then conn:Disconnect() end
+		end
+	end
 end
-
--- 2. เฝ้าดู ถ้ามี DoorSystem ใหม่ถูกสร้างขึ้น จะปิด CanCollide + ใส่ PathfindingModifier อัตโนมัติ
-workspace.DescendantAdded:Connect(function(descendant)
-    if descendant.Name == "DoorSystem" then
-        disableDoorSystemCollisions(descendant)
-    end
-end)
-
-for _, v in getn(workspace:GetDescendants()) do
-        if v.Name == "VehicleBlockers" then v:Destroy() end
-    end
 
 local mainFolder = "Dece"
 local path = mainFolder.."/BlockSpin"
@@ -1439,8 +1246,8 @@ end
 function ServerFunc:Drive(model, destination, value, t)
     c()["StopWalking"] = false
     local path = PathfindingService:CreatePath({
-        AgentRadius = c().VechineType == "car" and 8 or 2.2,
-        AgentHeight = 4.8,
+        AgentRadius = c().VechineType == "car" and 5 or 2.7,
+        AgentHeight = 5.5,
         AgentCanJump = true,
         AgentMaxSlope = 45,
         Costs = {
@@ -1535,70 +1342,6 @@ function ServerFunc:Get_Vehicles(types, callback)
     end 
 end
 
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
-local TOOL_NAME = "Fists"   -- ใส่ชื่อ Tool ที่ต้องการให้ถืออัตโนมัติ
-
-local function equipIfExists()
-    local backpack = player:FindFirstChild("Backpack")
-    local character = player.Character
-
-    if not backpack or not character then
-        return
-    end
-
-    local tool = backpack:FindFirstChild(TOOL_NAME)
-    if tool and tool:IsA("Tool") then
-        tool.Parent = character
-    end
-end
-
-local function startAutoEquip()
-    -- ถือครั้งแรกตอนเริ่มเกม
-    equipIfExists()
-
-    -- เมื่อ Backpack ได้ Tool ใหม่
-    player.Backpack.ChildAdded:Connect(function(child)
-        if child:IsA("Tool") and child.Name == TOOL_NAME then
-            child.Parent = player.Character
-        end
-    end)
-
-    -- เมื่อ Respawn ให้ถือใหม่
-    player.CharacterAdded:Connect(function()
-        task.wait(0.2)
-        equipIfExists()
-    end)
-
-    -- ถ้าเผลอปล่อย/Unequip มันจะหยิบกลับให้เอง
-    player.Character.ChildRemoved:Connect(function(child)
-        if child:IsA("Tool") and child.Name == TOOL_NAME then
-            task.wait()
-            equipIfExists()
-        end
-    end)
-end
-
--- เริ่มระบบ
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local TOOL_NAME = "Fists"  -- เปลี่ยนชื่อได้ตามต้องการ
-
-local function equipHackTool()
-    local char = player.Character
-    local backpack = player:FindFirstChild("Backpack")
-
-    if not char or not backpack then return end
-
-    local tool = backpack:FindFirstChild(TOOL_NAME)
-    if tool and tool:IsA("Tool") then
-        tool.Parent = char
-    end
-end
-
-
-
 func['EnabledAutoATM'] = function()
 	while waits() do
         if c().EnabledAutoATM then
@@ -1620,23 +1363,20 @@ func['EnabledAutoATM'] = function()
                             if hacktool[2] then 
                                 if hacktool[1] >= 0 then
                                     local closestATM, shortestDist = nil, math.huge
-      
                                     for _, vx in get(workspace.Map.Props.ATMs:GetChildren()) do
                                         if vx.Name == "ATM" then
                                             c().keys = {}
                                             for k in getn(vx:GetAttributes()) do insert(c().keys, k) end
                                             table.sort(c().keys)
                                             if c().keys[3] and vx:GetAttribute(c().keys[3]) == false then
-                                         while waits()  do                                           local d = ServerFunc:dist(vx.Area.CFrame)
+                                                local d = ServerFunc:dist(vx.Area.CFrame)
                                                 if d < shortestDist then
                                                     closestATM = vx
                                                     shortestDist = d
                                                 end
-                                                end
                                             end
                                         end
                                     end
-                                    
                                     if closestATM then 
                                         if closestATM:GetAttribute(c().keys[3]) == false then
                                             repeat waits()
@@ -1649,23 +1389,15 @@ func['EnabledAutoATM'] = function()
                                                         if c().EnabledDeposit then
                                                             if ServerFunc:GetMoney() > 0 then
                                                                 Net.get("transfer_funds", "hand", "bank", ServerFunc:GetMoney())
-                                                                task.wait()
                                                             end
                                                         end
-                                                       Net.get('exit_seat')
-                                                     task.wait()
-                                                     
+                                                        Net.get('exit_seat')
                                                     elseif distance <= 5 and not Humanoid.Sit then
-                                              
                                                         if not ServerFunc:CheckingIsMinigame() then
-                                                            equipHackTool()
                                                             ServerFunc:Action("request_begin_hacking_3", closestATM, c().HackToolSelected)
-                                                            
                                                         else 
-                                                            waits(0.69) --แก้
+                                                            waits(1.25)
                                                             ServerFunc:Action("atm_win_3", closestATM) 
-                                                            
-                 
                                                         end
                                                     elseif distance >= 5 and distance <= 50 and not Humanoid.Sit then
                                                         ServerFunc:Teleport(closestATM.Area.Position,c().EnabledAutoATM)
@@ -1682,7 +1414,6 @@ func['EnabledAutoATM'] = function()
                                 if ServerFunc:GetMoney() < ServerFunc:GetChipPrice(c().HackToolSelected)*c().Amount then
                                     if ServerFunc:ATMMoney() >= ServerFunc:GetChipPrice(c().HackToolSelected)*c().Amount then
                                         local closestATMs, shortestDistd = nil, math.huge
-                                        
                                         for _, vs in get(workspace.Map.Props.ATMs:GetChildren()) do
                                             if vs.Name == "ATM" then
                                                 c().keys = {}
@@ -1696,7 +1427,6 @@ func['EnabledAutoATM'] = function()
                                                     end
                                                 end
                                             end
-                                            
                                         end
                                         if closestATMs then 
                                             if closestATMs:GetAttribute(c().keys[3]) == false then
@@ -1709,7 +1439,7 @@ func['EnabledAutoATM'] = function()
                                                         if not ServerFunc:CheckingIsMinigame() then
                                                             if ServerFunc:dist(closestATMs.Area.CFrame) > 5 and Humanoid.Sit then 
                                                                 ServerFunc:Drive(v, closestATMs.Area.Position, c().EnabledAutoATM, closestATMs)
-                                                            elseif ServerFunc:dist(closestATMs.Area.CFrame) > 5 and ServerFunc:dist(closestATMs.Area.CFrame) < 40 and not Humanoid.Sit then 
+                                                            elseif ServerFunc:dist(closestATMs.Area.CFrame) > 5 and ServerFunc:dist(closestATMs.Area.CFrame) < 50 and not Humanoid.Sit then 
                                                                 ServerFunc:Teleport(closestATM.Area.Position,c().EnabledAutoATM)
                                                             elseif ServerFunc:dist(closestATMs.Area.CFrame) > 50 and not Humanoid.Sit then 
                                                                 v:PivotTo(RootPart.CFrame * CFrame_new(0, 5, 0))
@@ -1749,7 +1479,7 @@ func['EnabledAutoATM'] = function()
                                             local needToBuy = c().Amount - currentHave
                                             
                                             if needToBuy > 0 then
-                                                for i = 2, needToBuy do
+                                                for i = 1, needToBuy do
                                                     if ServerFunc:GetMoney() >= ServerFunc:GetChipPrice(c().HackToolSelected) then
                                                         Net.get("purchase_consumable", workspace:FindFirstChild("ShopZone_Illegal"), c().HackToolSelected)
                                                         local nowHave = ServerFunc:GetInfo(c().HackToolSelected)[1]
@@ -1805,7 +1535,7 @@ func['EnabledAutoATM'] = function()
                                                 if not ServerFunc:CheckingIsMinigame() then
                                                     ServerFunc:Action("request_begin_hacking_3", closestATM, c().HackToolSelected)
                                                 else 
-                                                    waits(1.24)
+                                                    waits(1.25)
                                                     ServerFunc:Action("atm_win_3", closestATM) 
                                                 end
                                             end
@@ -1881,7 +1611,7 @@ func['EnabledAutoATM'] = function()
                                         for i = 1, needToBuy do
                                             if ServerFunc:GetMoney() >= ServerFunc:GetChipPrice(c().HackToolSelected) then
                                                 Net.get("purchase_consumable", workspace:FindFirstChild("ShopZone_Illegal"), c().HackToolSelected)
-                                                waits()
+                                                waits(0.5)
                                                 local nowHave = ServerFunc:GetInfo(c().HackToolSelected)[1]
                                                 if nowHave >= c().Amount then
                                                     break
@@ -1992,7 +1722,7 @@ func['StartJob'] = function()
                 elseif Quick11 then
                     if Client:GetAttribute("Job") == "shelf_stocker" then 
                         print(ServerFunc:GetMoney())
-                        if ServerFunc:GetMoney() < 1000 then 
+                        if ServerFunc:GetMoney() < 500 then 
                             if not Backpack:FindFirstChild("BoxTool") and not Character:FindFirstChild("BoxTool") then
                                 if workspace.Map:FindFirstChild('Tiles'):FindFirstChild('GasStationTile'):FindFirstChild('Quick11'):FindFirstChild('Interior'):FindFirstChild('ShelfStockingJob'):FindFirstChild('GoldenBox').BillboardGui.Frame.StockLeft.Text == "Stock: 0/5 (x25)" then
                                     if ServerFunc:dist(CFrame_new(133.074203, 255.315063, 208.376404, 0.99999994, 7.32260652e-09, 0.000278151216, -7.28950011e-09, 1, -1.19023902e-07, -0.000278151216, 1.1902187e-07, 0.99999994)) < 5 then
@@ -2254,6 +1984,11 @@ func['StartJob'] = function()
     end
 end
 
+func['Farming'] = function()
+
+
+end
+
 
 func['EnabledSnap'] = function()
     local baseY = RootPart.Position.Y
@@ -2273,34 +2008,6 @@ func['EnabledSnap'] = function()
     end
 end
 
-
-func['EnabledAnonymous'] = function()
-    while waits(0.1) do 
-        if c().EnabledAnonymous then 
-            if Character then 
-                local CharacterBilboard = RootPart:FindFirstChild('CharacterBillboardGui') 
-                if CharacterBilboard then 
-                    local PlayerName = CharacterBilboard:FindFirstChild('PlayerName')
-                    if PlayerName then 
-                        PlayerName.Text = ServerFunc:Generate()
-                        PlayerName.LevelImage.LevelText.Text = tostring(math.random(1,100))
-                    end
-                end
-            end 
-        else 
-            if Character then 
-                local CharacterBilboard = RootPart:FindFirstChild('CharacterBillboardGui') 
-                if CharacterBilboard then 
-                    local PlayerName = CharacterBilboard:FindFirstChild('PlayerName')
-                    if PlayerName then 
-                        PlayerName.Text = Client.Name
-                        PlayerName.LevelImage.LevelText.Text = ServerFunc:GetLevel()
-                    end
-                end
-            end 
-        end 
-    end
-end
 
 local EverDown = false
 func['AntiDied'] = function()
@@ -2366,7 +2073,7 @@ func['HitAura'] = function()
 					if ServerFunc:dist(vx.Character:FindFirstChild('HumanoidRootPart')) < tonumber(c().HitDistance) then
 						for i,v in get(Character:GetChildren()) do 
 							if v:IsA("Tool") then 
-								ServerFunc:Action("melee_attack",v,{vx},vx.Character:FindFirstChild('HumanoidRootPart').CFrame,0.001)
+								ServerFunc:Action("melee_attack",v,{vx},vx.Character:FindFirstChild('HumanoidRootPart').CFrame,0.1)
 							end
 						end
 					end
@@ -2474,226 +2181,341 @@ func['WhiteScreen'] = function()
     end 
 end
 
-local isInCombat = Client:GetAttribute("IsInCombat")
-local plr = game:GetService("Players").LocalPlayer
-local DROP_Y = -45
-local HEALTH_MIN = 21
-local HEALTH_RECOVER = 30
-local isDropping = false 
-local antiKillEnabled = false
-local camera = workspace.CurrentCamera
-local cameraLockConn
+local LoaderLibrary = loadstring(game:HttpGet("https://pastefy.app/pMqPrqHN/raw"))();
 
-local function lockCamera()
-    local lockedPosition = camera.CFrame.Position
-    if cameraLockConn then
-        cameraLockConn:Disconnect()
-        cameraLockConn = nil
-    end
+local Window = LoaderLibrary.new();
 
-    cameraLockConn = RunService.RenderStepped:Connect(function()
-        local lookVector = camera.CFrame.LookVector
-        camera.CFrame = CFrame.new(lockedPosition, lockedPosition + lookVector)
-    end)
+Window:load() 
+
+local Tabs = {
+	AutoFarm = Window:create_tab("General",'library');
+	Players = Window:create_tab('Players','user');
+	Miscellaneous = Window:create_tab('Miscellaneous','album');
+}
+
+local function Section(tabs, richs, sections, titles, descriptions)
+	local Section = tabs:create_section({
+		rich = richs,
+		section = sections,
+		title = titles,
+		description = descriptions,
+		flag = "Heee",
+	});
+    return Section
 end
 
-local function unlockCamera()
-    if cameraLockConn then
-        cameraLockConn:Disconnect()
-        cameraLockConn = nil
-    end
-end
+local function Toggle(section,titles,flags,key)
+    local tasks
+    local Toggle = section:create_toggle({
+		title = titles,
+		flag = flags,
+        default = Settings[key] or false,
+        callback = function(state)
+			c()[key] = state
+			Settings[key] = state
+            if not state then if tasks then stop(tasks) tasks = nil end end 
 
--- ฟังก์ชันตั้งค่า character
-local function setupCharacter(char)
-    local humanoid = char:WaitForChild("Humanoid")
-    local rootPart = char:WaitForChild("HumanoidRootPart")
-
-    local function startDrop()
-        if not antiKillEnabled then return end
-        if isDropping then return end
-        isDropping = true
-        lockCamera()
-        
-
-        local fixedPos = rootPart.Position  
-        fixedPos = Vector3.new(fixedPos.X, fixedPos.Y + DROP_Y, fixedPos.Z)  
-
-        local t = 0
-        while isDropping do  
-            if humanoid.Health >= HEALTH_RECOVER or humanoid.Health <= 0 then
-                isDropping = false
-                unlockCamera()
-
-                if  isInCombat then
-                    print("hee")
-                else
-                    task.wait(0.6)
-                    Net.send('request_respawn')
+            if state then 
+                if func[key] then 
+                    tasks = task.spawn(func[key])
                 end
-                break
-            end  
-
-            t = t+50
-            local swingX = math.sin(t * 3000) * 6
-            local swingZ = math.cos(t * 3000) * 8
-            local newPos = fixedPos + Vector3.new(swingX, math.sin(t * 2) * 2, swingZ)
-
-            rootPart.CFrame = CFrame.new(newPos)
-            task.wait() 
+            end
+			--saveConfig()
         end
-    end
-
-    humanoid.HealthChanged:Connect(function(hp)
-        if hp < HEALTH_MIN and hp > 0 then
-            startDrop()
-        end
-    end)
+	})
+    return Toggle
 end
 
-
-if plr.Character then
-    setupCharacter(plr.Character)
+local function Dropdown(sections,list,multi,flags,titles,key)
+    local dropdown = sections:create_dropdown({
+        options = list,
+        default = Settings[key] or list[1],
+        multi_dropdown = multi,
+        maximum_options = 3,
+        flag = flags,
+        title = titles,
+        callback = function(value)
+            Settings[key] = value
+			c()[key] = value
+			--saveConfig()
+        end,
+    })
+    return dropdown
 end
-plr.CharacterAdded:Connect(setupCharacter)
 
+local function Slider(sections,titles,flags,min,max,values,key,CallbackF) 
+    local Slide = sections:create_slider({
 
-getgenv().DesyncEnabled = true
+        title = titles,
 
+        flag = flags,
 
-local function clearUnwantedScripts(character)
-    for _, v in pairs(character:GetChildren()) do
-        if v:IsA("Script") and v.Name ~= "Health" and v.Name ~= "Sound" and v:FindFirstChild("LocalScript") then
-            v:Destroy()
+        minimum_value = min,
+
+        maximum_value = max,
+
+        value = Settings[key] or values or 1,
+
+        round_number = true,
+
+        callback = function(value)
+            Settings[key] = value 
+            c()[key] = value 
+           -- saveConfig()
+            if CallbackF then CallbackF(value) end
         end
-    end
+
+    })
+    return Slide
 end
 
-
-game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
-    repeat task.wait() until char 
-    clearUnwantedScripts(char)
-    
-    char.ChildAdded:Connect(function(child)
-        if child:IsA("Script") and child:FindFirstChild("LocalScript") then
-            task.wait(0.25) 
-            child.LocalScript:FireServer() 
-        end
-    end)
-end)
-
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if getgenv().DesyncEnabled then
-        local hrp = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character.HumanoidRootPart
-        if hrp then
-            local currentVelocity = hrp.Velocity
-            
-            hrp.CFrame = hrp.CFrame * CFrame.Angles(0, math.rad(0.0070), 0)
-        
-            hrp.AssemblyLinearVelocity = Vector3.new(math.random(-50, 50), math.random(0, 50), math.random(-50, 50))   game:GetService("RunService").RenderStepped:Wait() 
-            hrp.Velocity = currentVelocity 
-        end
-    end
-end)
-
-local UserInputService = game:GetService("UserInputService")
-local toggleKey = Enum.KeyCode.E -- Change this to any key
-
-UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
-    if not gameProcessedEvent and input.KeyCode == toggleKey then
-        getgenv().DesyncEnabled = not getgenv().DesyncEnabled
-        print("Desync " .. (getgenv().DesyncEnabled and "Enabled" or "Disabled"))
-    end
-end)
-
-
-
---[[
-Toggle ByDanzaza
-Credit #danzaza
-v1.0.0
-
-]]--
+local function Button(Sections,titles,callbacks)
+    local Buttons = Sections:create_button({
+        title = titles,
+        callback = callbacks,
+    })
+    return Buttons
+end
 
 do
-local Main = Window:Tab({
-        Title = "Main",
-        Icon = "arrow-left-right"
+    local Infomation = Section(Tabs.AutoFarm, false, "left", "Infomation", 'Infomation about you',"info")
+    BankMoney = Infomation:create_text({
+        text = "🏦 Bank Balance : nil"
     })
-
-    
-    
-    local Aim = Main:Toggle({
-      Title = "SilentAim",
-      Value = false,
-      Callback = function(state)
-        c().EnabledBox = state
-      end
+    HandMoney = Infomation:create_text({
+        text = "💳 Money Balance : nil"
     })
-    
-    
-
-    Main:Dropdown({
-    Title = "Select Job type",
-    Values = {"Janitor", "Steak", "Quick-11"},
-    Callback = function(selected)
-        print("Selected job:", selected)
-        _G.JobSelected = selected
-    end
+    local ATMFARM = Section(Tabs.AutoFarm, false, "left", "ATM Farming", 'Automatic to farm atm')
+    Dropdown(ATMFARM,{"HackToolBasic","HackToolPro","HackToolUltimate","HackToolQuantum","Smart Select"},false,"HackToolClass","Select Swipper","HackToolClass")
+    Slider(ATMFARM,"Swipper Limit", "ITAM",1,10,3,"Amount")
+    Toggle(ATMFARM,"Start Hacking ATM","ATMFAR","EnabledAutoATM")
+	Toggle(ATMFARM,"Enabled Bike","Bike", "EnabledBike") 
+	Toggle(ATMFARM,"Enabled Deposit","Des", "EnabledDeposit") 
+    local Job = Section(Tabs.AutoFarm, false, "left", "Job Farming", 'Automatic to do job')
+    Dropdown(Job,{"Janitor","Steak","Quick-11"},false,"JobSelect","Select Job type","JobSelected")
+    Toggle(Job,"Start Job","JobsDo","StartJob")
+    local Character_Tabs = Section(Tabs.AutoFarm, false, "right", "Character", 'About Your Character')
+    Toggle(Character_Tabs,"Snap","DownTp","EnabledSnap")
+    Slider(Character_Tabs,"Y Offset", "Yoffset",1,100,30,"YOffset")
+    Toggle(Character_Tabs,"Anti Died","AntiDied","AntiDied")
+    -- Toggle(Character_Tabs,"Anti Aim","AntiAim","AntiAim")
+    Toggle(Character_Tabs,"Auto Respawn","Automatic","EnabledAutoRespawn")
+    local SettingsFarming = Section(Tabs.AutoFarm, false, "right", "Settings Normal Farming", 'Just Settings bro')
+    Dropdown(SettingsFarming,{"Bike","Car"},false,"VechineType","Select Vechine Type","VechineType")
+    Slider(SettingsFarming,"Instant Teleport Speed", "InstantTeleportSpeed",1,35,34,"InstantWalkingSpeed")
+    Slider(SettingsFarming,"Instant Vechine Speed", "InstantVechineSpeed",1,150,55,"Vechine")
+    local Miscellneous_General = Section(Tabs.AutoFarm, false, "right", "Misellneous", 'Just Misc bro')
+    Toggle(Miscellneous_General,"Skip Spin Animation","S","EnabledSkip")
+    Button(Miscellneous_General,"Claim All Quest",function()
+        local QuestAll = PlayerGui.Quests.QuestsHolder.QuestsScrollingFrame
+        for i,v in getn(QuestAll:GetChildren()) do
+            if v.Name ~= "UIListLayout" then
+                ServerFunc:Action("claim_quest",v.Name)
+            end 
+        end
+    end)
+    local Miscellaneous_Player = Section(Tabs.Players, false, "right", "Miscellneous", 'na.')
+    Toggle(Miscellaneous_Player,"Auto Finish","AutoFinish","AutoFinish")
+    local JobId = Section(Tabs.Miscellaneous, false, "left", "JobId", 'JobId.')
+    local JobIdInsert = JobId:create_textbox({
+        title = "Jobid",
+        placeholder = "xxx-xxx-xxx-xxx",
+        flag = "job",
+        callback = function(v)
+            c().JobId = v 
+        end,
     })
+    Button(JobId,"Join JobId",function()
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, c().JobId, Client)
+    end)
+    Button(JobId,"Copy JobId",function()
+        setclipboard(tostring(game.JobId))
+    end)
+    local Server = Section(Tabs.Miscellaneous, false, "left", "Servers", 'About Server.')
+    Button(Server,"Rejoin",function()
+        game:GetService('TeleportService'):Teleport(game.PlaceId, Client)
+    end)
+    Button(Server,"Server Hop",function()
+        ServerFunc:Hop()
+    end)
+    Button(Server,"Join Private Server",function()
+        ServerFunc:JoinPrivateServer()
+    end)
+    local Graphics = Section(Tabs.Miscellaneous, false, "right", "Graphic", 'About your graphic.')
+    Toggle(Graphics,"Whitescreen (Reduce Cpu)","whitescreen","WhiteScreen")
+    Toggle(Graphics,"Set Fps Limit","whitescreen","EnabledFpsLimit")
+    Slider(Graphics,"Fps Limit", "FpsLimites",10,240,240,"FpsLimit",function(v)
+        if c().EnabledFpsLimit then 
+            setfpscap(v)
+        else 
+            setfpscap(150)
+        end
+    end)
+end
 
-    Main:Toggle({
-    Title = "Start Job",
-    Default = false,
-    Callback = function(state)
-        if state then
-            print("Job Started:", _G.JobSelected)
-        else
-            print("Job Stopped")
+task.spawn(function()
+    while waits(1) do 
+        pcall(function()
+            local level = ServerFunc:GetLevel() or 1
+            LevelSkill:Set({ text = "🌟 Level : " .. level })
+            local jobs = {
+                ["Janitor"] = {textObj = JanitorLevel, text = "🧹 Janitor"},
+                ["Shelf"] = {textObj = ShelfLevel, text = "📦 Shelf Stocker"},
+                ["Chef"] = {textObj = ChefLevel, text = "🥩 Cook"},
+                ["Fishing"] = {textObj = FishingLevel, text = "🐟 Fishing"},
+                ["Farming"] = {textObj = FarmingLevel, text = "🧑‍🌾 Farming"},
+                ["Swiper"] = {textObj = Swiper, text = "👩‍💻 Swiper"},
+                ["Stamina"] = {textObj = Stamina, text = "🍾 Stamina"}
+            }
+
+            for i, v in getn(jobs) do
+                local skillLevel = ServerFunc:GetSkill(i) or 1
+                v.textObj:Set({ text = v.text .. " : " .. skillLevel })
+            end
+        end)
+        pcall(function()
+            BankMoney:Set({ text = "🏦 Bank Balance : $" .. ServerFunc:ATMMoney()})
+            HandMoney:Set({ text = "💳 Money Balance : $" .. ServerFunc:GetMoney()})
+        end)
+
+        if c().StartJob or c().EnabledAutoATM then 
+            pcall(function()
+                ServerFunc:Action("set_sprinting_1", true)
+            end)
+        end
+        
+        if ServerFunc:GetLevel() >= 10 then
+            if c().HackToolClass == "Smart Select" then 
+                local SwipperSkill = ServerFunc:GetSkill("Swiper")
+                for i,v in getn(HackToolList) do 
+                    if SwipperSkill >= i then 
+                        c().HackToolSelected = v
+                    end
+                end
+            else 
+                c().HackToolSelected = c().HackToolClass
+            end
+            
+            if c().VechineType == "Bike" then 
+                local ScrollingFrame = PlayerGui.Items.ItemsHolder.ItemsScrollingFrame
+                c().VechineSelected = nil
+                for i,v in get(ScrollingFrame:GetChildren()) do 
+                    if v:GetAttribute("ItemType") == "bike" then
+                        if v.ItemName.Text == "BMX" then
+                            c().VechineSelected = "BMX"
+                            break
+                        else
+                            c().VechineSelected = v.ItemName.Text
+                            break
+                        end
+                    end 
+                end
+            else 
+                local ScrollingFrame = PlayerGui.Items.ItemsHolder.ItemsScrollingFrame
+                c().VechineSelected = nil
+                for i,v in get(ScrollingFrame:GetChildren()) do 
+                    if v:GetAttribute('ItemType') == "car" and not c().VechineSelected then 
+                        c()['VechineSelected'] = v.ItemName.Text
+                        break
+                    end
+                end
+            end
+            -- for i,v in pairs (game:GetService("CoreGui"):GetChildren())do
+            --     if v.Name == "DevConsoleMaster" then
+            --         v.Enabled = false
+            --         v:Destroy()
+            --         game.Players.LocalPlayer:Kick("Anti Skid Detect Niggers")
+            --         waits(.5)
+            --         while true do end
+            --     end
+            -- end
         end
     end
-    })
-    
- end
- 
- do
-    local Character = Window:Tab({
-        Title = "Character",
-        Icon = "mouse-pointer-click",
-    })
-    
+end)
 
-local antiRagdoll = Character:Toggle({
-    Title = "Anti Ragdoll",
-    Value = false, -- เริ่มต้นปิด
-    Callback = function(state)
-        AntiRagdoll = state
-        
-   if  AntiRagdoll then
-    task.spawn(function()
-	while true do
+task.spawn(function()
+	while waits(1) do 
 		pcall(function()
-			Net.send('end_ragdoll_early')
+			for _, player in get(Players:GetPlayers()) do
+				if player ~= Client and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+					local head = player.Character.HumanoidRootPart
+
+					local gui = head:FindFirstChild("ItemBillboard")
+					if not gui then
+						gui = Instance.new("BillboardGui")
+						gui.Name = "ItemBillboard"
+						gui.AlwaysOnTop = true
+						gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+						gui.Size = UDim2.new(0, 200, 0, 50)
+						gui.StudsOffset = Vector3.new(0, -5, 0)
+						gui.Parent = head
+						gui.ExtentsOffset = Vector3.new(0, 1, 0)
+						gui.LightInfluence = 1
+
+						local bg = Instance.new("Frame")
+						bg.Name = "BG"
+						bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+						bg.BackgroundTransparency = 1
+						bg.Size = UDim2.new(1, 0, 1, 0) 
+						bg.AnchorPoint = Vector2.new(0.5, 0.5)
+						bg.Position = UDim2.new(0.5, 0, 0.5, 0) 
+						bg.Parent = gui
+
+						local layout = Instance.new("UIListLayout")
+						layout.FillDirection = Enum.FillDirection.Horizontal
+						layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+						layout.VerticalAlignment = Enum.VerticalAlignment.Center
+						layout.Padding = UDim.new(0, 5)
+						layout.Parent = bg
+					end
+
+					local bg = gui:FindFirstChild("BG")
+					for _, v in get(bg:GetChildren()) do
+						if v:IsA("ImageLabel") then
+							v:Destroy()
+						end
+					end
+
+					local hasItem = false
+
+					for _, container in get({player.Backpack, player.Character}) do
+						for _, v in get(container:GetChildren()) do
+							if v:IsA("Tool") and not v:GetAttribute("JobTool") then
+								if not v:GetAttribute('Locked') then 
+									local itemList = nil
+									if v:GetAttribute("AmmoType") then
+										itemList = replicated.Items.gun:GetChildren()
+									else
+										itemList = replicated.Items.melee:GetChildren()
+									end
+
+									for _, z in get(itemList) do
+										if v:GetAttribute("RarityName") == z:GetAttribute("RarityName") and 
+										   v:GetAttribute("RarityPrice") == z:GetAttribute("RarityPrice") then
+											local imageId = z:GetAttribute("ImageId")
+											if imageId then
+												local icon = Instance.new("ImageLabel")
+												icon.Name = z.Name
+												icon.Image = imageId
+												icon.BackgroundTransparency = 1
+												icon.Size = UDim2.new(0, 30, 0, 30)
+												icon.Parent = bg
+												hasItem = true
+											end
+										end
+									end
+								end
+							end
+						end
+					end
+
+					if not hasItem then
+						gui:Destroy()
+					else
+						gui.Enabled = c().EnabledInventoryViewer
+					end
+				end
+			end
 		end)
-		task.wait(0.25) -- หน่วงเวลา 0.1 วินาที (ปรับได้)
-	  end
-   end)
-     print("ทำงาน")
-   else
-     print("ไม่ทำงาน")
-end
-    end
-})
-
-    local antikilll = Character:Toggle({
-    Title = "Anti Kill",
-    Value = false,
-    Callback = function(state)
-        antiKillEnabled = state
-    end
-})
-
-end
-
-
+	end
+end)
